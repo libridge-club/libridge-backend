@@ -1,7 +1,7 @@
 package club.libridge.libridgebackend.networking.server.notifications;
 
-import club.libridge.libridgebackend.core.Card;
-import club.libridge.libridgebackend.core.Direction;
+import scalabridge.Card;
+import scalabridge.Direction;
 import lombok.Getter;
 
 public class CardPlayNotification {

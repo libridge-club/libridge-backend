@@ -9,8 +9,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import club.libridge.libridgebackend.core.Board;
-import club.libridge.libridgebackend.core.Card;
-import club.libridge.libridgebackend.core.Direction;
+import scalabridge.Card;
+import scalabridge.Direction;
 
 public class MinibridgeBoardDealerTest {
 

@@ -12,14 +12,15 @@ import club.libridge.libridgebackend.core.exceptions.AuctionAlreadyFinishedExcep
 import club.libridge.libridgebackend.core.exceptions.CallInAnotherPlayersTurnException;
 import club.libridge.libridgebackend.core.exceptions.InsufficientBidException;
 import club.libridge.libridgebackend.core.exceptions.InvalidCallException;
+import scalabridge.Call;
+import scalabridge.Direction;
+import scalabridge.PassingCall;
 
 /**
- * The rules for a Bridge Auction are very well established and pretty simple.
- * This test will take this into consideration and ignore many complex cases
- * created by composition of simpler ones.
+ * The rules for a Bridge Auction are very well established and pretty simple. This test will take this into consideration and ignore many complex
+ * cases created by composition of simpler ones.
  *
- * With that said: beware of changing the Auction class. This new code should
- * probably go somewhere else unless the Laws of Bridge have changed.
+ * With that said: beware of changing the Auction class. This new code should probably go somewhere else unless the Laws of Bridge have changed.
  */
 
 class AuctionTest {
@@ -37,7 +38,7 @@ class AuctionTest {
         Auction subject = new Auction(Direction.EAST);
         List<Call> bids = subject.getBids();
         assertThrows(UnsupportedOperationException.class, () -> {
-            bids.add(new PassingCall());
+            bids.add(PassingCall.instance());
         });
     }
 

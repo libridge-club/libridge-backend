@@ -1,7 +1,7 @@
 package club.libridge.libridgebackend.dds;
 
-import club.libridge.libridgebackend.core.Direction;
-import club.libridge.libridgebackend.core.Strain;
+import scalabridge.Direction;
+import scalabridge.Strain;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;

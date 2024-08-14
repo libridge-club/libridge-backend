@@ -2,9 +2,9 @@ package club.libridge.libridgebackend.networking.server.gameserver;
 
 import static club.libridge.libridgebackend.logging.LibridgeLogger.LOGGER;
 
-import club.libridge.libridgebackend.core.Card;
+import scalabridge.Card;
 import club.libridge.libridgebackend.core.Deal;
-import club.libridge.libridgebackend.core.Direction;
+import scalabridge.Direction;
 import club.libridge.libridgebackend.core.Player;
 import club.libridge.libridgebackend.core.exceptions.PlayedCardInAnotherPlayersTurnException;
 import club.libridge.libridgebackend.core.game.TrickGame;

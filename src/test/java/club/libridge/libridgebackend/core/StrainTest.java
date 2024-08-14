@@ -6,8 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import club.libridge.libridgebackend.core.rulesets.concrete.PositiveNoTrumpsRuleset;
-import club.libridge.libridgebackend.core.rulesets.concrete.PositiveWithTrumpsRuleset;
+import scalabridge.Strain;
 
 public class StrainTest {
 
@@ -56,15 +55,6 @@ public class StrainTest {
         assertEquals("H", hearts.getSymbol());
         assertEquals("S", spades.getSymbol());
         assertEquals("N", noTrumps.getSymbol());
-    }
-
-    @Test
-    public void shouldGetPositiveRuleset() {
-        assertEquals(new PositiveWithTrumpsRuleset(Suit.DIAMONDS), diamonds.getPositiveRuleset());
-        assertEquals(new PositiveWithTrumpsRuleset(Suit.CLUBS), clubs.getPositiveRuleset());
-        assertEquals(new PositiveWithTrumpsRuleset(Suit.HEARTS), hearts.getPositiveRuleset());
-        assertEquals(new PositiveWithTrumpsRuleset(Suit.SPADES), spades.getPositiveRuleset());
-        assertEquals(new PositiveNoTrumpsRuleset(), noTrumps.getPositiveRuleset());
     }
 
 }

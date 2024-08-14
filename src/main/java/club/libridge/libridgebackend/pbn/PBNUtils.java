@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Map;
 
 import club.libridge.libridgebackend.core.Board;
-import club.libridge.libridgebackend.core.Direction;
 import club.libridge.libridgebackend.core.Hand;
 import club.libridge.libridgebackend.core.HandBuilder;
-import club.libridge.libridgebackend.core.Suit;
 import club.libridge.libridgebackend.core.exceptions.MalformedLinMDValueException;
+import scalabridge.Direction;
+import scalabridge.Suit;
 
 public final class PBNUtils {
 
@@ -42,8 +42,7 @@ public final class PBNUtils {
 
     /**
      *
-     * Implemented from PBN Standard 2.1
-     * - Defined at section 3.4.11  The Deal tag
+     * Implemented from PBN Standard 2.1 - Defined at section 3.4.11 The Deal tag
      */
     public static String dealTagStringFromBoard(Board board) {
         return dealTagStringFromBoardAndDirection(board, Direction.NORTH);
@@ -51,8 +50,7 @@ public final class PBNUtils {
 
     /**
      *
-     * Implemented from PBN Standard 2.1
-     * - Defined at section 3.4.11  The Deal tag
+     * Implemented from PBN Standard 2.1 - Defined at section 3.4.11 The Deal tag
      */
     public static String dealTagStringFromBoardAndDirection(Board board, Direction firstDirection) {
         StringBuilder returnValue = new StringBuilder(MAX_CHARS_IN_DEAL_TAG);
@@ -72,8 +70,7 @@ public final class PBNUtils {
 
     /**
      *
-     * Implemented from PBN Standard 2.1
-     * - Defined at section 3.4.11  The Deal tag
+     * Implemented from PBN Standard 2.1 - Defined at section 3.4.11 The Deal tag
      */
     private static String dealTagPartialStringFromHand(Hand hand) {
         return hand.toString();
@@ -99,14 +96,11 @@ public final class PBNUtils {
      *
      * Format: <first_hand_indicator><hand1>,<hand2>,<hand3>,<hand4>
      *
-     * first_hand_indicator is a number from 1 to 4 (inclusive) and represents the position of the first hand.
-     * 1 for the dealer as first hand
-     * 2 for the player before the dealer as first hand
-     * etc.
+     * first_hand_indicator is a number from 1 to 4 (inclusive) and represents the position of the first hand. 1 for the dealer as first hand 2 for
+     * the player before the dealer as first hand etc.
      *
-     * each of the hands have the format:
-     * <suit_holding_1><suit_holding_2><suit_holding_3><suit_holding_4> (in any order, but usually in the order SHDC)
-     * where each suit holding is represented by its suit abbreviation [SHDC] and then the abbreviations of the ranks
+     * each of the hands have the format: <suit_holding_1><suit_holding_2><suit_holding_3><suit_holding_4> (in any order, but usually in the order
+     * SHDC) where each suit holding is represented by its suit abbreviation [SHDC] and then the abbreviations of the ranks
      *
      * The last hand is optional on BBO, but will be obligatory here.
      */

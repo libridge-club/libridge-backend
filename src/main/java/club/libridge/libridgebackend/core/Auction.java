@@ -10,6 +10,11 @@ import club.libridge.libridgebackend.core.exceptions.InsufficientBidException;
 import club.libridge.libridgebackend.core.exceptions.InvalidCallException;
 import lombok.Getter;
 import lombok.NonNull;
+import scalabridge.Bid;
+import scalabridge.Call;
+import scalabridge.Direction;
+import scalabridge.OddTricks;
+import scalabridge.Strain;
 
 /**
  * The rules for Bridge Auction are as follows (paraphrasing/quoting the 2017 Laws of Bridge - LAWS 17-22):

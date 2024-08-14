@@ -5,6 +5,7 @@ import java.util.EnumMap;
 import java.util.Map;
 
 import lombok.NonNull;
+import scalabridge.Strain;
 
 public final class ScoreCalculator {
 
@@ -48,14 +49,14 @@ public final class ScoreCalculator {
         if (Strain.NOTRUMPS.equals(contract.getStrain())) {
             trickScore += NO_TRUMP_FIRST_TRICK_BONUS * penaltyMultiplier;
         }
-        //        System.out.println("Contract: " + contract);
-        //        System.out.println("trickscore: " + trickScore);
+        // System.out.println("Contract: " + contract);
+        // System.out.println("trickscore: " + trickScore);
         boolean isGame = trickScore >= 100;
         int premiumScore = getPremiumScore(contract, isGame);
-        //        System.out.println("premiumScore: " + premiumScore);
+        // System.out.println("premiumScore: " + premiumScore);
         int overtrickBonus = getOvertrickBonus(contract, overtricks);
-        //        System.out.println("overtrickBonus: " + overtrickBonus);
-        //        System.out.println();
+        // System.out.println("overtrickBonus: " + overtrickBonus);
+        // System.out.println();
         return trickScore + premiumScore + overtrickBonus;
     }
 

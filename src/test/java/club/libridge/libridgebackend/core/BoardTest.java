@@ -15,6 +15,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import club.libridge.libridgebackend.core.comparators.CardInsideHandComparator;
+import scalabridge.Card;
+import scalabridge.Direction;
 
 public class BoardTest {
 

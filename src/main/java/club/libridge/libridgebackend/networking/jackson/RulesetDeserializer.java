@@ -12,7 +12,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 
-import club.libridge.libridgebackend.core.Suit;
+import scalabridge.Suit;
 import club.libridge.libridgebackend.core.rulesets.abstractrulesets.Ruleset;
 import club.libridge.libridgebackend.core.rulesets.concrete.PositiveNoTrumpsRuleset;
 import club.libridge.libridgebackend.core.rulesets.concrete.PositiveRuleset;

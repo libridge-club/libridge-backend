@@ -1,6 +1,6 @@
 package club.libridge.libridgebackend.core.rulesets.concrete;
 
-import club.libridge.libridgebackend.core.Suit;
+import scalabridge.Suit;
 import club.libridge.libridgebackend.core.comparators.CardInsideHandWithSuitComparator;
 import club.libridge.libridgebackend.core.rulesets.implementations.DefaultSuitFollowable;
 import club.libridge.libridgebackend.core.rulesets.implementations.TrumpSuitWinnable;

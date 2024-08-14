@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Random;
 
 import lombok.NonNull;
+import scalabridge.Card;
 
 /**
- * This class centralizes the access to Random.
- * This decouples other classes from Random but most importantly
- * increases the quality and efficiency of RNG.
+ * This class centralizes the access to Random. This decouples other classes from Random but most importantly increases the quality and efficiency of
+ * RNG.
  */
 public class RandomUtils {
     private static final SecureRandom RANDOM = new SecureRandom();

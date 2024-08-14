@@ -10,13 +10,14 @@ import club.libridge.libridgebackend.core.comparators.CardInsideHandComparator;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
+import scalabridge.Card;
+import scalabridge.Direction;
 
 @EqualsAndHashCode
 public class Board {
 
     /**
-     * @deprecated Kryo needs a no-arg constructor
-     * FIXME kryo is not used anymore. Does jackson or spring web needs this?
+     * @deprecated Kryo needs a no-arg constructor FIXME kryo is not used anymore. Does jackson or spring web needs this?
      */
     @Deprecated
     @SuppressWarnings("unused")

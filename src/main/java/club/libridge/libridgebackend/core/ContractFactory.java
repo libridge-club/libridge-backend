@@ -4,6 +4,9 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
 
+import scalabridge.OddTricks;
+import scalabridge.Strain;
+
 public final class ContractFactory {
 
     private static final Map<String, Strain> STRING_TO_STRAIN_MAP;

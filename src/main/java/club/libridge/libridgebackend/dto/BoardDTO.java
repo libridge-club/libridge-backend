@@ -8,13 +8,13 @@ import java.util.Map;
 import java.util.UUID;
 
 import club.libridge.libridgebackend.core.Board;
-import club.libridge.libridgebackend.core.Direction;
 import club.libridge.libridgebackend.core.Hand;
 import club.libridge.libridgebackend.core.NumberOfTricks;
-import club.libridge.libridgebackend.core.Strain;
 import club.libridge.libridgebackend.dds.DoubleDummyTable;
 import lombok.Getter;
 import lombok.Setter;
+import scalabridge.Direction;
+import scalabridge.Strain;
 
 public class BoardDTO {
 

@@ -5,6 +5,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import lombok.NonNull;
+import scalabridge.Bid;
+import scalabridge.Call;
+import scalabridge.DoubleCall;
+import scalabridge.OddTricks;
+import scalabridge.PassingCall;
+import scalabridge.RedoubleCall;
+import scalabridge.Strain;
 
 public final class BiddingBox {
 
@@ -20,9 +27,9 @@ public final class BiddingBox {
 
     static {
         HashMap<String, Call> modifiableMap = new HashMap<>();
-        modifiableMap.put(PASS_STRING, new PassingCall());
-        modifiableMap.put(DOUBLE_STRING, new PunitiveCall(DOUBLE_STRING));
-        modifiableMap.put(REDOUBLE_STRING, new PunitiveCall(REDOUBLE_STRING));
+        modifiableMap.put(PASS_STRING, PassingCall.instance());
+        modifiableMap.put(DOUBLE_STRING, DoubleCall.instance());
+        modifiableMap.put(REDOUBLE_STRING, RedoubleCall.instance());
 
         for (OddTricks oddTricks : OddTricks.values()) {
             for (Strain strain : Strain.values()) {

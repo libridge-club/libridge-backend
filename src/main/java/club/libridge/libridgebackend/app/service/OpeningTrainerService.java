@@ -10,8 +10,6 @@ import club.libridge.libridgebackend.ben.BenCandidate;
 import club.libridge.libridgebackend.ben.BenResponse;
 import club.libridge.libridgebackend.ben.BenWebClient;
 import club.libridge.libridgebackend.core.Board;
-import club.libridge.libridgebackend.core.Call;
-import club.libridge.libridgebackend.core.Direction;
 import club.libridge.libridgebackend.core.Hand;
 import club.libridge.libridgebackend.core.exceptions.ImpossibleBoardException;
 import club.libridge.libridgebackend.core.openingtrainer.OpeningSystem;
@@ -19,6 +17,8 @@ import club.libridge.libridgebackend.dto.CallWithProbabilityDTO;
 import club.libridge.libridgebackend.dto.HandWithCandidateBidsDTO;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
+import scalabridge.Call;
+import scalabridge.Direction;
 
 @Service
 @AllArgsConstructor

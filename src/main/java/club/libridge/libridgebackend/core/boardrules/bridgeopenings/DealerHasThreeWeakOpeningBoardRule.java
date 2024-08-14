@@ -3,7 +3,7 @@ package club.libridge.libridgebackend.core.boardrules.bridgeopenings;
 import club.libridge.libridgebackend.core.Board;
 import club.libridge.libridgebackend.core.Hand;
 import club.libridge.libridgebackend.core.HandEvaluations;
-import club.libridge.libridgebackend.core.Suit;
+import scalabridge.Suit;
 import club.libridge.libridgebackend.core.boardrules.BoardRule;
 
 public class DealerHasThreeWeakOpeningBoardRule extends SingletonEqualsAndHashcode implements BoardRule {

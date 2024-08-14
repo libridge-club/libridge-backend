@@ -7,9 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import club.libridge.libridgebackend.core.Direction;
 import club.libridge.libridgebackend.core.NumberOfTricks;
-import club.libridge.libridgebackend.core.Strain;
+import scalabridge.Direction;
+import scalabridge.Strain;
 
 public class DoubleDummyTable {
 

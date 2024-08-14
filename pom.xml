@@ -38,9 +38,6 @@
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 
 		<libridge.junit.version>5.10.3</libridge.junit.version>
-        <libridge.scala3-library_3.version>3.3.3</libridge.scala3-library_3.version>
-        <libridge.scalatest_3.version>3.2.19</libridge.scalatest_3.version>
-        <libridge.scalatest_plusjunit-5-10_3.version>3.2.19.0</libridge.scalatest_plusjunit-5-10_3.version>
 		<libridge.mockito-core.version>5.11.0</libridge.mockito-core.version>
 		<!-- FIXME Most updated version (2.23.0 and 2.23.1 ) breaks at server launch -->
 		<libridge.log4j-core.version>2.20.0</libridge.log4j-core.version>
@@ -54,7 +51,6 @@
         <libridge.plugin.spring-boot-maven-plugin.version>3.3.0</libridge.plugin.spring-boot-maven-plugin.version>
 		<libridge.plugin.maven-enforcer-plugin.version>3.4.1</libridge.plugin.maven-enforcer-plugin.version>
 		<libridge.plugin.maven-checkstyle-plugin.version>3.3.1</libridge.plugin.maven-checkstyle-plugin.version>
-        <libridge.plugin.scala-maven-plugin.version>4.9.1</libridge.plugin.scala-maven-plugin.version>
 		<libridge.plugin.maven-compiler-plugin.version>3.13.0</libridge.plugin.maven-compiler-plugin.version>
 		<libridge.plugin.maven-surefire-plugin.version>3.2.5</libridge.plugin.maven-surefire-plugin.version>
 		<libridge.plugin.jacoco-maven-plugin.version>0.8.12</libridge.plugin.jacoco-maven-plugin.version>
@@ -68,22 +64,17 @@
 	</properties>
 
 	<dependencies>
-        <dependency>
+		<dependency> <!-- FIXME this workaround. -->
+			<groupId>club.libridge</groupId>
+			<artifactId>scalabridge</artifactId>
+			<version>0.1.0-SNAPSHOT</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/scalabridge_3-0.1.0-SNAPSHOT.jar</systemPath>
+		</dependency>
+		<dependency>
             <groupId>org.scala-lang</groupId>
             <artifactId>scala3-library_3</artifactId>
-            <version>${libridge.scala3-library_3.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.scalatest</groupId>
-            <artifactId>scalatest_3</artifactId>
-            <version>${libridge.scalatest_3.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.scalatestplus</groupId>
-            <artifactId>junit-5-10_3</artifactId>
-            <version>${libridge.scalatest_plusjunit-5-10_3.version}</version>
-            <scope>test</scope>
+            <version>3.3.3</version>
         </dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
@@ -234,33 +225,6 @@
 
 			<!-- Phase: initialize - initialize build state, e.g. set properties or create directories. -->
 				<!-- Goal: jacoco-maven-plugin:prepare-agent -->
-            
-            <plugin>
-                <groupId>net.alchim31.maven</groupId>
-                <artifactId>scala-maven-plugin</artifactId>
-                <version>${libridge.plugin.scala-maven-plugin.version}</version>
-                <configuration>
-                    <recompileMode>incremental</recompileMode>
-                </configuration>
-                <executions>
-					<execution>
-                        <id>scala-compile</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>add-source</goal>
-                            <goal>compile</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>scala-test-compile</id>
-                        <phase>process-test-resources</phase>
-                        <goals>
-                            <goal>add-source</goal>
-                            <goal>testCompile</goal>
-                        </goals>
-                    </execution>
-				</executions>
-            </plugin>
             
 			<!-- Phase: process-resources - copy and process the resources into the destination directory, ready for packaging. -->
 				<!-- Goal: maven-resources-plugin:resources -->

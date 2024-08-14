@@ -1,6 +1,6 @@
 package club.libridge.libridgebackend.core.rulesets.interfaces;
 
-import club.libridge.libridgebackend.core.Direction;
+import scalabridge.Direction;
 import club.libridge.libridgebackend.core.Trick;
 import lombok.NonNull;
 

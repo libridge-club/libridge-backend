@@ -3,8 +3,12 @@ package club.libridge.libridgebackend.core;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import scalabridge.Bid;
+import scalabridge.Call;
+import scalabridge.OddTricks;
+import scalabridge.Strain;
 
 class BidTest {
 
@@ -12,19 +16,20 @@ class BidTest {
     static final Strain clubs = Strain.CLUBS;
     static final Bid subject = new Bid(three, clubs);
 
-    @Test
-    @SuppressWarnings("null")
-    void constructor_throwsIllegalArgumentExceptionWithNullParams() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            new Bid(null, clubs);
-        });
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            new Bid(three, null);
-        });
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            new Bid(null, null);
-        });
-    }
+    // FIXME This test should be moved to scalabridge
+    // @Test
+    // @SuppressWarnings("null")
+    // void constructor_throwsIllegalArgumentExceptionWithNullParams() {
+    // Assertions.assertThrows(IllegalArgumentException.class, () -> {
+    // new Bid(null, clubs);
+    // });
+    // Assertions.assertThrows(IllegalArgumentException.class, () -> {
+    // new Bid(three, null);
+    // });
+    // Assertions.assertThrows(IllegalArgumentException.class, () -> {
+    // new Bid(null, null);
+    // });
+    // }
 
     @Test
     void contractBidIsACall() {

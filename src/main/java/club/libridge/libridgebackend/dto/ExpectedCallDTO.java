@@ -2,10 +2,10 @@ package club.libridge.libridgebackend.dto;
 
 import java.util.UUID;
 
-import club.libridge.libridgebackend.core.Call;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import scalabridge.Call;
 
 @AllArgsConstructor
 public class ExpectedCallDTO {

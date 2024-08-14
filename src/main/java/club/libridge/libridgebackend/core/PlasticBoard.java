@@ -1,6 +1,7 @@
 package club.libridge.libridgebackend.core;
 
 import lombok.NonNull;
+import scalabridge.Direction;
 
 public final class PlasticBoard {
 

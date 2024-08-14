@@ -17,7 +17,7 @@ import club.libridge.libridgebackend.app.persistence.BoardEntity;
 import club.libridge.libridgebackend.app.persistence.BoardFactory;
 import club.libridge.libridgebackend.app.persistence.BoardRepository;
 import club.libridge.libridgebackend.app.service.OpeningTrainerService;
-import club.libridge.libridgebackend.core.Direction;
+import scalabridge.Direction;
 import club.libridge.libridgebackend.dto.ExpectedCallDTO;
 import club.libridge.libridgebackend.dto.HandWithCandidateBidsDTO;
 import club.libridge.libridgebackend.networking.server.LibridgeServer;

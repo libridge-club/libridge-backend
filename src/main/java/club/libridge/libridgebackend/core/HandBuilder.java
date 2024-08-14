@@ -6,6 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import scalabridge.Card;
+import scalabridge.Rank;
+import scalabridge.Suit;
+
 public class HandBuilder {
 
     static final Map<String, Rank> SYMBOL_TO_RANK_MAP;
@@ -16,11 +20,7 @@ public class HandBuilder {
     }
 
     /**
-     * Examples:
-     * q5.kt85.qjt8632.
-     * 8.aqj96.ak9.jt93
-     * kt97643.4..ak652
-     * aj2.732.754.q874
+     * Examples: q5.kt85.qjt8632. 8.aqj96.ak9.jt93 kt97643.4..ak652 aj2.732.754.q874
      *
      */
     public Hand buildFromDotSeparatedString(String dotSeparatedString) {

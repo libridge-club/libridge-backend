@@ -1,7 +1,5 @@
 package club.libridge.libridgebackend.core;
 
-import static club.libridge.libridgebackend.core.GameConstants.COMPLETE_TRICK_NUMBER_OF_CARDS;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -15,13 +13,16 @@ import club.libridge.libridgebackend.core.exceptions.TrickAlreadyFullException;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
+import scalabridge.Card;
+import scalabridge.Direction;
+import scalabridge.GameConstants;
+import scalabridge.Suit;
 
 @EqualsAndHashCode
 public class Trick { // FIXME to remove all of the king only features
 
     /**
-     * @deprecated Kryo needs a no-arg constructor
-     * FIXME kryo is not used anymore. Does jackson or spring web needs this?
+     * @deprecated Kryo needs a no-arg constructor FIXME kryo is not used anymore. Does jackson or spring web needs this?
      */
     @Deprecated
     @SuppressWarnings("unused")
@@ -49,7 +50,7 @@ public class Trick { // FIXME to remove all of the king only features
     }
 
     public boolean isComplete() {
-        return this.getNumberOfCards() == COMPLETE_TRICK_NUMBER_OF_CARDS;
+        return this.getNumberOfCards() == GameConstants.instance().COMPLETE_TRICK_NUMBER_OF_CARDS();
     }
 
     public boolean isEmpty() {
@@ -130,7 +131,6 @@ public class Trick { // FIXME to remove all of the king only features
         }
         return false;
     }
-
 
     private int getNumberOfCards() {
         return this.getCards().size();

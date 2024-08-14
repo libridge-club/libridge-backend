@@ -2,7 +2,7 @@ package club.libridge.libridgebackend.core.comparators;
 
 import java.util.Comparator;
 
-import club.libridge.libridgebackend.core.Card;
+import scalabridge.Card;
 
 public class CardInsideHandComparator implements Comparator<Card> {
 

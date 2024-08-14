@@ -1,12 +1,12 @@
 package club.libridge.libridgebackend.core.boarddealer;
 
-import static club.libridge.libridgebackend.core.GameConstants.SIZE_OF_HAND;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
 import club.libridge.libridgebackend.core.Board;
-import club.libridge.libridgebackend.core.Direction;
+import scalabridge.Direction;
+import scalabridge.GameConstants;
 
 public class ShuffledBoardDealerTest {
 
@@ -22,7 +22,7 @@ public class ShuffledBoardDealerTest {
         // was called but Mockito can't do that.
         // Coupling this test with Hand and Board instead :(
         for (Direction direction : Direction.values()) {
-            assertEquals(SIZE_OF_HAND, board.getHandOf(direction).size());
+            assertEquals(GameConstants.instance().SIZE_OF_HAND(), board.getHandOf(direction).size());
         }
         assertEquals(dealer, board.getDealer());
 

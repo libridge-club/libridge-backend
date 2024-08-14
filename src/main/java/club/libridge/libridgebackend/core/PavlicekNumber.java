@@ -10,6 +10,8 @@ import java.util.Map;
 import org.springframework.stereotype.Component;
 
 import club.libridge.libridgebackend.core.boarddealer.Complete52CardDeck;
+import scalabridge.Card;
+import scalabridge.Direction;
 
 /*
  * This is an implementation of http://www.rpbridge.net/7z68.htm

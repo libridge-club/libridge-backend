@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import club.libridge.libridgebackend.core.Suit;
+import scalabridge.Suit;
 import club.libridge.libridgebackend.core.comparators.CardInsideHandWithSuitComparator;
 
 public class PositiveWithTrumpsRulesetTest {

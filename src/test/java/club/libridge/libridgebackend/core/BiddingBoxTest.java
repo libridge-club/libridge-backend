@@ -4,6 +4,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import scalabridge.Bid;
+import scalabridge.Call;
+import scalabridge.DoubleCall;
+import scalabridge.OddTricks;
+import scalabridge.PassingCall;
+import scalabridge.RedoubleCall;
+import scalabridge.Strain;
+
 class BiddingBoxTest {
 
     static final String PASS_STRING = "P";
@@ -13,9 +21,9 @@ class BiddingBoxTest {
     static final OddTricks three = OddTricks.THREE;
     static final Strain noTrumps = Strain.NOTRUMPS;
 
-    static final PassingCall passingBid = new PassingCall();
-    static final PunitiveCall doubleBid = new PunitiveCall(DOUBLE_STRING);
-    static final PunitiveCall redoubleBid = new PunitiveCall(REDOUBLE_STRING);
+    static final Call passingBid = PassingCall.instance();
+    static final Call doubleBid = DoubleCall.instance();
+    static final Call redoubleBid = RedoubleCall.instance();
     static final Bid threeNoTrumps = new Bid(three, noTrumps);
 
     @Test

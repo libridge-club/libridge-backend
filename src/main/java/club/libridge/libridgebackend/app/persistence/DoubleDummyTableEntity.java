@@ -6,8 +6,6 @@ import java.util.UUID;
 
 import org.springframework.validation.annotation.Validated;
 
-import club.libridge.libridgebackend.core.Direction;
-import club.libridge.libridgebackend.core.Strain;
 import club.libridge.libridgebackend.dds.DoubleDummyTable;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -18,14 +16,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotNull;
 import lombok.Setter;
-
+import scalabridge.Direction;
+import scalabridge.Strain;
 
 /**
- * Columns are the cross product of strains and directions
- * NORTH_CLUBS, NORTH_DIAMONDS, ..., NORTH_NOTRUMPS, EAST_CLUBS, etc
+ * Columns are the cross product of strains and directions NORTH_CLUBS, NORTH_DIAMONDS, ..., NORTH_NOTRUMPS, EAST_CLUBS, etc
  *
- * Hopefully this will offer search option in the future
- * like "a hand that makes 6 hearts and 6 spades"
+ * Hopefully this will offer search option in the future like "a hand that makes 6 hearts and 6 spades"
  *
  * -1 symbolizes no information
  */
@@ -58,7 +55,6 @@ public class DoubleDummyTableEntity {
     @NotNull
     private int northNotrumps = -1;
 
-
     @Column(columnDefinition = "smallint")
     @NotNull
     private int eastClubs = -1;
@@ -79,7 +75,6 @@ public class DoubleDummyTableEntity {
     @NotNull
     private int eastNotrumps = -1;
 
-
     @Column(columnDefinition = "smallint")
     @NotNull
     private int southClubs = -1;
@@ -99,7 +94,6 @@ public class DoubleDummyTableEntity {
     @Column(columnDefinition = "smallint")
     @NotNull
     private int southNotrumps = -1;
-
 
     @Column(columnDefinition = "smallint")
     @NotNull
@@ -122,10 +116,8 @@ public class DoubleDummyTableEntity {
     private int westNotrumps = -1;
 
     /**
-     * Make this owner side so that, in the one-to-one relationship,
-     * the double dummy table is optional, but the board is not.
-     * i.e. It *is* possible to create a board without a double dummy table
-     * but it *is not* possible to create a double dummy table without a board.
+     * Make this owner side so that, in the one-to-one relationship, the double dummy table is optional, but the board is not. i.e. It *is* possible
+     * to create a board without a double dummy table but it *is not* possible to create a double dummy table without a board.
      *
      * Also, there is no need for a nullable column in the Board side.
      */
@@ -136,8 +128,7 @@ public class DoubleDummyTableEntity {
     private BoardEntity boardEntity;
 
     /**
-     * These two methods (doubleDummyTable getter and setter)
-     * do the necessary mapping between the model and the database columns.
+     * These two methods (doubleDummyTable getter and setter) do the necessary mapping between the model and the database columns.
      */
 
     public void setDoubleDummyTable(DoubleDummyTable doubleDummyTable) {

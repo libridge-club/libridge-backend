@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import scalabridge.Direction;
+
 public class DirectionTest {
 
     private static final String NORTH_COMPLETE_NAME = "North";
@@ -88,14 +90,6 @@ public class DirectionTest {
         assertTrue(north.next(2) == south);
         assertTrue(north.next(3) == west);
         assertTrue(north.next(4) == north);
-    }
-
-    @Test
-    public void shouldGetStrainChooserWhenDealer() {
-        assertEquals(west, north.getStrainChooserWhenDealer());
-        assertEquals(north, east.getStrainChooserWhenDealer());
-        assertEquals(east, south.getStrainChooserWhenDealer());
-        assertEquals(south, west.getStrainChooserWhenDealer());
     }
 
     @Test

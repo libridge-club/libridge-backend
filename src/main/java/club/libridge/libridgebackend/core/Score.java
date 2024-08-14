@@ -3,6 +3,7 @@ package club.libridge.libridgebackend.core;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
+import scalabridge.Direction;
 
 @Getter
 @EqualsAndHashCode

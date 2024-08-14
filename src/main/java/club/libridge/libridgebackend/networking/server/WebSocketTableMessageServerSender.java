@@ -9,7 +9,7 @@ import static club.libridge.libridgebackend.core.MessageTypes.VALID_RULESET_MESS
 
 import club.libridge.libridgebackend.app.TableWebsocketController;
 import club.libridge.libridgebackend.core.Deal;
-import club.libridge.libridgebackend.core.Direction;
+import scalabridge.Direction;
 import club.libridge.libridgebackend.networking.websockets.TableMessageDTO;
 import club.libridge.libridgebackend.networking.websockets.TableMessageDTO.Builder;
 import lombok.AllArgsConstructor;

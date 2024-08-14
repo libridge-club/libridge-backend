@@ -1,8 +1,8 @@
 package club.libridge.libridgebackend.core.rulesets.implementations;
 
-import club.libridge.libridgebackend.core.Card;
+import scalabridge.Card;
 import club.libridge.libridgebackend.core.Hand;
-import club.libridge.libridgebackend.core.Suit;
+import scalabridge.Suit;
 import club.libridge.libridgebackend.core.Trick;
 import club.libridge.libridgebackend.core.rulesets.interfaces.SuitFollowable;
 import lombok.NonNull;

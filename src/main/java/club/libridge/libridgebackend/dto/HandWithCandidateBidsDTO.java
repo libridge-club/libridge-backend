@@ -2,9 +2,9 @@ package club.libridge.libridgebackend.dto;
 
 import java.util.List;
 
-import club.libridge.libridgebackend.core.Call;
 import club.libridge.libridgebackend.core.Hand;
 import lombok.Value;
+import scalabridge.Call;
 
 @Value
 public class HandWithCandidateBidsDTO {

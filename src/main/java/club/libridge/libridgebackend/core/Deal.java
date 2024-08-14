@@ -14,13 +14,15 @@ import club.libridge.libridgebackend.core.rulesets.abstractrulesets.Ruleset;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import scalabridge.Card;
+import scalabridge.Direction;
+import scalabridge.Suit;
 
 @EqualsAndHashCode
 public class Deal {
 
     /**
-     * @deprecated Kryo needs a no-arg constructor
-     * FIXME kryo is not used anymore. Does jackson or spring web needs this?
+     * @deprecated Kryo needs a no-arg constructor FIXME kryo is not used anymore. Does jackson or spring web needs this?
      */
     @Deprecated
     @SuppressWarnings("unused")
@@ -63,7 +65,8 @@ public class Deal {
         this.startingNumberOfCardsInTheHand = board.getHandOf(leader).size();
         this.tricks = new ArrayList<Trick>();
         this.players = new EnumMap<Direction, Player>(Direction.class);
-        for (Direction direction : Direction.values()) {
+        Direction[] allValues = Direction.values();
+        for (Direction direction : allValues) {
             acceptedClaimMap.put(direction, false);
         }
         this.isPartnershipGame = isPartnershipGame;
@@ -116,8 +119,7 @@ public class Deal {
     }
 
     /**
-     * This method will see if playing the card is a valid move. If it is, it will
-     * play it.
+     * This method will see if playing the card is a valid move. If it is, it will play it.
      *
      * @param card Card to be played on the board.
      */

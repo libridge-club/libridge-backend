@@ -24,6 +24,10 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
 import club.libridge.libridgebackend.core.exceptions.TrickAlreadyFullException;
+import scalabridge.Card;
+import scalabridge.Direction;
+import scalabridge.Rank;
+import scalabridge.Suit;
 
 public class TrickTest {
 

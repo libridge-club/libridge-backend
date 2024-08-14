@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import club.libridge.libridgebackend.core.exceptions.DealingCardFromAnEmptyDeckException;
+import scalabridge.Card;
 
 public class ShuffledDeck {
     private final List<Card> deck; // List is best because we need to shuffle it

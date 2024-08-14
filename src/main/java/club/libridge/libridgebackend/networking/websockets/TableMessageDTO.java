@@ -1,7 +1,7 @@
 package club.libridge.libridgebackend.networking.websockets;
 
 import club.libridge.libridgebackend.core.Deal;
-import club.libridge.libridgebackend.core.Direction;
+import scalabridge.Direction;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

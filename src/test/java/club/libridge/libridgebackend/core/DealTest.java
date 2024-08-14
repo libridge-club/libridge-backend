@@ -1,6 +1,5 @@
 package club.libridge.libridgebackend.core;
 
-import static club.libridge.libridgebackend.core.GameConstants.NUMBER_OF_TRICKS_IN_A_COMPLETE_HAND;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -24,6 +23,10 @@ import club.libridge.libridgebackend.core.comparators.CardInsideHandWithSuitComp
 import club.libridge.libridgebackend.core.exceptions.DoesNotFollowSuitException;
 import club.libridge.libridgebackend.core.exceptions.PlayedCardInAnotherPlayersTurnException;
 import club.libridge.libridgebackend.core.rulesets.abstractrulesets.Ruleset;
+import scalabridge.Card;
+import scalabridge.Direction;
+import scalabridge.GameConstants;
+import scalabridge.Suit;
 
 public class DealTest {
 
@@ -106,7 +109,7 @@ public class DealTest {
     @Test
     public void shouldGetHandOfACertainDirection() {
         dealer = Direction.WEST;
-        Direction currentPlayer = dealer.getLeaderWhenDealer();
+        Direction currentPlayer = Direction.NORTH;
         when(board.getHandOf(currentPlayer)).thenReturn(hand);
         when(board.getDealer()).thenReturn(dealer);
         Deal deal = new Deal(board, ruleset, leader, null);
@@ -538,7 +541,7 @@ public class DealTest {
         Deal deal = this.initDeal(hand, ruleset);
         Direction firstPlayer = deal.getCurrentPlayer();
         when(ruleset.getWinner(any())).thenReturn(firstPlayer);
-        int numberOfCardsGiveBackToHands = COMPLETE_TRICK_NUMBER_OF_CARDS * NUMBER_OF_TRICKS_IN_A_COMPLETE_HAND;
+        int numberOfCardsGiveBackToHands = GameConstants.COMPLETE_TRICK_NUMBER_OF_CARDS() * GameConstants.NUMBER_OF_TRICKS_IN_A_COMPLETE_HAND();
         playNTimesCard(deal, numberOfCardsGiveBackToHands, hand);
 
         deal.giveBackAllCardsToHands();
@@ -572,7 +575,7 @@ public class DealTest {
     public void acceptClaimShouldFinishDealIfAllPlayersAcceptedClaimAndItIsPartnershipGame() {
         Deal deal = this.initDeal(hand, ruleset, true);
         Direction claimer = deal.getCurrentPlayer();
-        int totalPoints = NUMBER_OF_TRICKS_IN_A_COMPLETE_HAND;
+        int totalPoints = GameConstants.NUMBER_OF_TRICKS_IN_A_COMPLETE_HAND();
         ;
 
         deal.claim(claimer);
@@ -586,7 +589,7 @@ public class DealTest {
     public void acceptClaimShouldFinishDealIfAllPlayersAcceptedClaimAndItIsNotPartnershipGame() {
         Deal deal = this.initDeal(hand, ruleset, false);
         Direction claimer = deal.getCurrentPlayer();
-        int totalPoints = NUMBER_OF_TRICKS_IN_A_COMPLETE_HAND;
+        int totalPoints = GameConstants.NUMBER_OF_TRICKS_IN_A_COMPLETE_HAND();
 
         deal.claim(claimer);
         deal.acceptClaim(claimer.next());

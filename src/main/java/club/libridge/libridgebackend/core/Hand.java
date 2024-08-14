@@ -8,6 +8,8 @@ import java.util.HashSet;
 import java.util.List;
 
 import club.libridge.libridgebackend.core.comparators.CardInsideHandComparator;
+import scalabridge.Card;
+import scalabridge.Suit;
 
 public class Hand {
 
@@ -69,8 +71,7 @@ public class Hand {
     }
 
     /**
-     * Implemented from PBN Standard 2.1
-     * - Defined at section 3.4.11  The Deal tag
+     * Implemented from PBN Standard 2.1 - Defined at section 3.4.11 The Deal tag
      */
     @Override
     public String toString() {

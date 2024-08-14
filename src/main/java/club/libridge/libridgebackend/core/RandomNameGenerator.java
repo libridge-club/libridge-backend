@@ -21,7 +21,7 @@ public final class RandomNameGenerator {
     private static final String BASE_PATH = "/randomNames/";
     private static final String ANIMALS_FILE_NAME = "animais.json";
     private static final String ADJECTIVES_FILE_NAME = "adjetivos.json";
-    private static final RandomUtils RANDOM_UTILS = new RandomUtils();;
+    private static final RandomUtils RANDOM_UTILS = new RandomUtils();
     private static List<String> animals;
     private static List<String> adjectives;
 

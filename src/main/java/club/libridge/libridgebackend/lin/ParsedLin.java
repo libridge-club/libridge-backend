@@ -9,23 +9,22 @@ import java.util.Map;
 
 import club.libridge.libridgebackend.core.Auction;
 import club.libridge.libridgebackend.core.BoardNumber;
-import club.libridge.libridgebackend.core.Call;
-import club.libridge.libridgebackend.core.Direction;
-import club.libridge.libridgebackend.core.OpenDeal;
 import club.libridge.libridgebackend.core.PlasticBoard;
-import club.libridge.libridgebackend.core.events.CallEvent;
-import club.libridge.libridgebackend.core.events.PlayCardEvent;
-import club.libridge.libridgebackend.core.nonpure.DuplicateBoardValidatedBuilder;
 import club.libridge.libridgebackend.pbn.PBNUtils;
+import scalabridge.Call;
+import scalabridge.Direction;
+import scalabridge.OpenDeal;
+import scalabridge.events.CallEvent;
+import scalabridge.events.PlayCardEvent;
+import scalabridge.nonpure.DuplicateBoardValidatedBuilder;
 
 /**
- * You can use https://www.bridgebase.com/tools/handviewer.html?lin=<lin>
- * to see what bridge base expects from a LIN.
+ * You can use https://www.bridgebase.com/tools/handviewer.html?lin=<lin> to see what bridge base expects from a LIN.
  */
 
 public class ParsedLin {
 
-    private final Map<LinKey, List<Integer>> symbolToListOfIndexes; //FIXME this should be static
+    private final Map<LinKey, List<Integer>> symbolToListOfIndexes; // FIXME this should be static
     private final ArrayList<LinKeyValuePair> list;
     private List<Auction> auctions;
 

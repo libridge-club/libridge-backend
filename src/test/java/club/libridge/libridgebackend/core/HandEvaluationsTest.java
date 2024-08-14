@@ -16,6 +16,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
 import club.libridge.libridgebackend.TestWithMocks;
+import scalabridge.Card;
+import scalabridge.EffectiveDuplicateBoardNumber;
+import scalabridge.Rank;
+import scalabridge.Suit;
 
 public class HandEvaluationsTest extends TestWithMocks {
 

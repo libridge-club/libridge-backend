@@ -4,8 +4,8 @@ import java.util.Comparator;
 import java.util.EnumMap;
 import java.util.Map;
 
-import club.libridge.libridgebackend.core.Card;
-import club.libridge.libridgebackend.core.Suit;
+import scalabridge.Card;
+import scalabridge.Suit;
 import lombok.NonNull;
 
 public class CardInsideHandWithSuitComparator implements Comparator<Card> {

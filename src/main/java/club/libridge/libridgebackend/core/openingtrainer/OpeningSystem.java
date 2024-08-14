@@ -9,10 +9,6 @@ import org.springframework.stereotype.Component;
 
 import club.libridge.libridgebackend.core.BiddingBox;
 import club.libridge.libridgebackend.core.Board;
-import club.libridge.libridgebackend.core.Call;
-import club.libridge.libridgebackend.core.OddTricks;
-import club.libridge.libridgebackend.core.Strain;
-import club.libridge.libridgebackend.core.Suit;
 import club.libridge.libridgebackend.core.boardrules.BoardRule;
 import club.libridge.libridgebackend.core.boardrules.bridgeopenings.AlwaysValidBoardRule;
 import club.libridge.libridgebackend.core.boardrules.bridgeopenings.DealerHasFourWeakOpeningBoardRule;
@@ -23,6 +19,10 @@ import club.libridge.libridgebackend.core.boardrules.bridgeopenings.DealerHasThr
 import club.libridge.libridgebackend.core.boardrules.bridgeopenings.DealerHasTwoClubsOpeningBoardRule;
 import club.libridge.libridgebackend.core.boardrules.bridgeopenings.DealerHasTwoNoTrumpOpeningBoardRule;
 import club.libridge.libridgebackend.core.boardrules.bridgeopenings.DealerHasTwoWeakOpeningBoardRule;
+import scalabridge.Call;
+import scalabridge.OddTricks;
+import scalabridge.Strain;
+import scalabridge.Suit;
 
 @Component
 public class OpeningSystem {
@@ -109,23 +109,23 @@ public class OpeningSystem {
     private List<BoardRule> rulePriority = new ArrayList<>();
 
     public OpeningSystem() {
-        //22+
+        // 22+
         rulePriority.add(new DealerHasTwoClubsOpeningBoardRule());
 
-        //12-21
+        // 12-21
         rulePriority.add(new DealerHasOneMajorOpeningBoardRule());
         rulePriority.add(new DealerHasOneNoTrumpOpeningBoardRule());
         rulePriority.add(new DealerHasTwoNoTrumpOpeningBoardRule());
         rulePriority.add(new DealerHasOneMinorOpeningBoardRule());
 
-        //6-10
+        // 6-10
         rulePriority.add(new DealerHasFourWeakOpeningBoardRule());
         rulePriority.add(new DealerHasThreeWeakOpeningBoardRule());
         rulePriority.add(new DealerHasTwoWeakOpeningBoardRule());
 
-        //11 What to do with 11 HCP?
+        // 11 What to do with 11 HCP?
 
-        //default
+        // default
         rulePriority.add(new AlwaysValidBoardRule());
 
     }

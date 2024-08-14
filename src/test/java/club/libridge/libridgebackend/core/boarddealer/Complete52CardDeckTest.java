@@ -8,7 +8,7 @@ import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import club.libridge.libridgebackend.core.Card;
+import scalabridge.Card;
 
 public class Complete52CardDeckTest {
 

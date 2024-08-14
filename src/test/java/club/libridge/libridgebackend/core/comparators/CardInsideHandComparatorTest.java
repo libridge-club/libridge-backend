@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import club.libridge.libridgebackend.core.Card;
-import club.libridge.libridgebackend.core.Rank;
-import club.libridge.libridgebackend.core.Suit;
+import scalabridge.Card;
+import scalabridge.Rank;
+import scalabridge.Suit;
 
 public class CardInsideHandComparatorTest {
 

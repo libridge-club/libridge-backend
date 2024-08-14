@@ -4,17 +4,18 @@ import static club.libridge.libridgebackend.logging.LibridgeLogger.LOGGER;
 
 import java.util.Deque;
 
-import club.libridge.libridgebackend.core.Card;
-import club.libridge.libridgebackend.core.Direction;
-import club.libridge.libridgebackend.core.Strain;
 import club.libridge.libridgebackend.core.boarddealer.Complete52CardDeck;
 import club.libridge.libridgebackend.core.exceptions.PlayedCardInAnotherPlayersTurnException;
 import club.libridge.libridgebackend.core.exceptions.SelectedStrainInAnotherPlayersTurnException;
 import club.libridge.libridgebackend.core.game.MinibridgeGame;
+import club.libridge.libridgebackend.core.rulesets.RulesetFromStrainString;
 import club.libridge.libridgebackend.core.rulesets.concrete.PositiveRuleset;
 import club.libridge.libridgebackend.core.rulesets.concrete.PositiveWithTrumpsRuleset;
 import club.libridge.libridgebackend.networking.server.notifications.CardPlayNotification;
 import club.libridge.libridgebackend.networking.server.notifications.StrainNotification;
+import scalabridge.Card;
+import scalabridge.Direction;
+import scalabridge.Strain;
 
 public class MinibridgeGameServer extends GameServer {
 
@@ -74,9 +75,9 @@ public class MinibridgeGameServer extends GameServer {
             }
 
             LOGGER.info("Everything selected! Game commencing!");
-            this.minibridgeGame.setRuleset(currentStrain.getPositiveRuleset());
+            this.minibridgeGame.setRuleset(RulesetFromStrainString.identify(currentStrain.getName()));
 
-            PositiveRuleset currentRuleset = currentStrain.getPositiveRuleset();
+            PositiveRuleset currentRuleset = RulesetFromStrainString.identify(currentStrain.getName());
             if (currentRuleset instanceof PositiveWithTrumpsRuleset positiveWithTrumpsRuleset) {
                 this.game.getCurrentDeal().sortAllHandsByTrumpSuit(positiveWithTrumpsRuleset.getTrumpSuit());
             }

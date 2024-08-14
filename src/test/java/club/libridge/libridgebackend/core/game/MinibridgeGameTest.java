@@ -7,8 +7,8 @@ import java.util.Deque;
 
 import org.junit.jupiter.api.Test;
 
-import club.libridge.libridgebackend.core.Card;
-import club.libridge.libridgebackend.core.Direction;
+import scalabridge.Card;
+import scalabridge.Direction;
 
 public class MinibridgeGameTest {
 

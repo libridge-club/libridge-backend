@@ -6,26 +6,17 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import club.libridge.libridgebackend.core.Direction;
-import club.libridge.libridgebackend.core.Strain;
+import scalabridge.Direction;
+import scalabridge.Strain;
 
 /**
-     * From DDS documentation:
-     * Encodes the solution of a deal for combinations of denomination and declarer.
-     * First index is denomination. Suit encoding.
-     * Second index is declarer.  Hand encoding.
-     * Each entry is a number of tricks.
-     *
-     * DDS returns this: [9, 3, 9, 3, 4, 7, 4, 7, 6, 6, 5, 7, 5, 8, 5, 7, 4 7 3 8]
-     * Which represents this Double Dummy Table:
-     *           N E S W
-     * SPADES    9 3 9 3
-     * HEARTS    4 7 4 7
-     * DIAMONDS  6 6 5 7
-     * CLUBS     5 8 5 7
-     * NOTRUMPS  4 7 3 8
-     *
-     */
+ * From DDS documentation: Encodes the solution of a deal for combinations of denomination and declarer. First index is denomination. Suit encoding.
+ * Second index is declarer. Hand encoding. Each entry is a number of tricks.
+ *
+ * DDS returns this: [9, 3, 9, 3, 4, 7, 4, 7, 6, 6, 5, 7, 5, 8, 5, 7, 4 7 3 8] Which represents this Double Dummy Table: N E S W SPADES 9 3 9 3 HEARTS
+ * 4 7 4 7 DIAMONDS 6 6 5 7 CLUBS 5 8 5 7 NOTRUMPS 4 7 3 8
+ *
+ */
 public class DoubleDummyTableTest {
 
     private List<Integer> usbcHandDDSResponse = List.of(9, 3, 9, 3, 4, 7, 4, 7, 6, 6, 5, 7, 5, 8, 5, 7, 4, 7, 3, 8);

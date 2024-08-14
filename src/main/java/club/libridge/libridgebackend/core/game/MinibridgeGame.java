@@ -2,9 +2,9 @@ package club.libridge.libridgebackend.core.game;
 
 import java.util.Deque;
 
-import club.libridge.libridgebackend.core.Card;
+import scalabridge.Card;
 import club.libridge.libridgebackend.core.Deal;
-import club.libridge.libridgebackend.core.Direction;
+import scalabridge.Direction;
 import club.libridge.libridgebackend.core.boarddealer.BoardDealer;
 import club.libridge.libridgebackend.core.boarddealer.MinibridgeBoardDealer;
 import club.libridge.libridgebackend.core.rulesets.concrete.PositiveRuleset;

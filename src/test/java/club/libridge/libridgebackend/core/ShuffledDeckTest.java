@@ -14,6 +14,9 @@ import org.junit.jupiter.api.Test;
 import club.libridge.libridgebackend.core.boarddealer.CardDeck;
 import club.libridge.libridgebackend.core.boarddealer.Complete52CardDeck;
 import club.libridge.libridgebackend.core.exceptions.DealingCardFromAnEmptyDeckException;
+import scalabridge.Card;
+import scalabridge.Rank;
+import scalabridge.Suit;
 
 public class ShuffledDeckTest {
 

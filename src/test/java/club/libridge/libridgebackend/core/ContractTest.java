@@ -7,6 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import scalabridge.OddTricks;
+import scalabridge.Strain;
+
 public class ContractTest {
 
     private static int anyLevel = 3;

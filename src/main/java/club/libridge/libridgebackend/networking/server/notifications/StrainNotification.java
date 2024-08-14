@@ -1,7 +1,7 @@
 package club.libridge.libridgebackend.networking.server.notifications;
 
-import club.libridge.libridgebackend.core.Strain;
 import lombok.Getter;
+import scalabridge.Strain;
 
 public class StrainNotification {
 

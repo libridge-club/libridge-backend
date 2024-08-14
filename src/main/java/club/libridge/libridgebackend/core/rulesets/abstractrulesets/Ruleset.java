@@ -2,8 +2,8 @@ package club.libridge.libridgebackend.core.rulesets.abstractrulesets;
 
 import java.util.Comparator;
 
-import club.libridge.libridgebackend.core.Card;
-import club.libridge.libridgebackend.core.Direction;
+import scalabridge.Card;
+import scalabridge.Direction;
 import club.libridge.libridgebackend.core.Hand;
 import club.libridge.libridgebackend.core.Trick;
 import club.libridge.libridgebackend.core.comparators.CardInsideHandComparator;

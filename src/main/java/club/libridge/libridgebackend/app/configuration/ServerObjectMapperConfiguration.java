@@ -9,10 +9,10 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
-import club.libridge.libridgebackend.core.Call;
 import club.libridge.libridgebackend.core.rulesets.abstractrulesets.Ruleset;
 import club.libridge.libridgebackend.networking.jackson.CallSerializer;
 import club.libridge.libridgebackend.networking.jackson.RulesetSerializer;
+import scalabridge.Call;
 
 @Configuration
 public class ServerObjectMapperConfiguration {

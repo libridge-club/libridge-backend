@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
 import club.libridge.libridgebackend.TestWithMocks;
-import club.libridge.libridgebackend.core.Direction;
+import scalabridge.Direction;
 import club.libridge.libridgebackend.core.Player;
 import club.libridge.libridgebackend.networking.server.Table;
 

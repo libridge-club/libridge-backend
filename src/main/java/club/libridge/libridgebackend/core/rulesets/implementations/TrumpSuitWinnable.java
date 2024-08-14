@@ -1,7 +1,7 @@
 package club.libridge.libridgebackend.core.rulesets.implementations;
 
-import club.libridge.libridgebackend.core.Direction;
-import club.libridge.libridgebackend.core.Suit;
+import scalabridge.Direction;
+import scalabridge.Suit;
 import club.libridge.libridgebackend.core.Trick;
 import club.libridge.libridgebackend.core.rulesets.interfaces.Winnable;
 import lombok.NonNull;

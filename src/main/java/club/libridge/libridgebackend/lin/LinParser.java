@@ -4,30 +4,24 @@ import java.util.LinkedList;
 import java.util.List;
 
 import club.libridge.libridgebackend.core.BiddingBox;
-import club.libridge.libridgebackend.core.Call;
-import club.libridge.libridgebackend.core.Card;
-import club.libridge.libridgebackend.core.Rank;
-import club.libridge.libridgebackend.core.Suit;
+import scalabridge.Call;
+import scalabridge.Card;
+import scalabridge.Rank;
+import scalabridge.Suit;
 
 /**
- * LIN files are text files and usually smaller than 1MB.
- * Because of this, the parser will receive String
- * and the file reading should be dealt with elsewhere.
+ * LIN files are text files and usually smaller than 1MB. Because of this, the parser will receive String and the file reading should be dealt with
+ * elsewhere.
  */
 
 public class LinParser {
 
     /**
-     * LIN files apparently (there is no official documentation) are formed by
-     * an ordered list of key-value pairs, in the following format:
-     * key|value|
+     * LIN files apparently (there is no official documentation) are formed by an ordered list of key-value pairs, in the following format: key|value|
      *
-     * Where:
-     *  key is a 2-letter string, enumerated at LinKey
-     *  value is any string (including an empty string)
-     *  and | is the "|" character
+     * Where: key is a 2-letter string, enumerated at LinKey value is any string (including an empty string) and | is the "|" character
      *
-     *  \n characters seem to only be used for readability and will be ignored by this parser
+     * \n characters seem to only be used for readability and will be ignored by this parser
      */
 
     public static ParsedLin fromString(String wholeLinFile) {

@@ -11,6 +11,9 @@ import java.util.stream.Collectors;
 
 import lombok.Getter;
 import lombok.NonNull;
+import scalabridge.Card;
+import scalabridge.Rank;
+import scalabridge.Suit;
 
 public final class HandEvaluations {
 

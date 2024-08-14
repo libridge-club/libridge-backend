@@ -22,14 +22,10 @@ import club.libridge.libridgebackend.app.persistence.BoardFactory;
 import club.libridge.libridgebackend.app.persistence.BoardRepository;
 import club.libridge.libridgebackend.app.persistence.DoubleDummyTableEntity;
 import club.libridge.libridgebackend.core.Board;
-import club.libridge.libridgebackend.core.Call;
-import club.libridge.libridgebackend.core.Card;
 import club.libridge.libridgebackend.core.Deal;
-import club.libridge.libridgebackend.core.Direction;
 import club.libridge.libridgebackend.core.Player;
 import club.libridge.libridgebackend.core.RandomNameGenerator;
 import club.libridge.libridgebackend.core.RandomUtils;
-import club.libridge.libridgebackend.core.Strain;
 import club.libridge.libridgebackend.core.openingtrainer.OpeningSystem;
 import club.libridge.libridgebackend.dds.DoubleDummyTable;
 import club.libridge.libridgebackend.dto.BoardDTO;
@@ -42,12 +38,14 @@ import club.libridge.libridgebackend.networking.websockets.PlayerListDTO;
 import club.libridge.libridgebackend.pbn.PBNUtils;
 import club.libridge.libridgebackend.utils.FileUtils;
 import jakarta.annotation.PostConstruct;
+import scalabridge.Call;
+import scalabridge.Card;
+import scalabridge.Direction;
+import scalabridge.Strain;
 
 /**
- * This class has two responsibilities: 1: receiving method calls from the
- * GameServer and sending to client(s) over the network layer
- * (Controllers). 2: receiving method calls from the network layer and
- * act on the GameServer (via Table).
+ * This class has two responsibilities: 1: receiving method calls from the GameServer and sending to client(s) over the network layer (Controllers).
+ * 2: receiving method calls from the network layer and act on the GameServer (via Table).
  */
 // FIXME refactor this class so it uses components autowired and there is no "new" for dependencies
 @Component

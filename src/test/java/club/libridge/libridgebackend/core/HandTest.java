@@ -9,6 +9,10 @@ import static org.mockito.Mockito.when;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import scalabridge.Card;
+import scalabridge.Rank;
+import scalabridge.Suit;
+
 public class HandTest {
 
     @Test

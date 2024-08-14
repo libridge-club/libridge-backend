@@ -7,7 +7,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
-import club.libridge.libridgebackend.core.Call;
+import scalabridge.Call;
 
 public class CallSerializer extends StdSerializer<Call> {
 

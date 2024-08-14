@@ -2,7 +2,7 @@ package club.libridge.libridgebackend.core.boarddealer;
 
 import java.util.Deque;
 
-import club.libridge.libridgebackend.core.Card;
+import scalabridge.Card;
 
 public interface CardDeck {
 

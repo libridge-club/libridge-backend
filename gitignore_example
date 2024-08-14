@@ -8,8 +8,7 @@ tmp
 .settings/
 target/
 TODO
-*.jar
-lib/
+/*.jar
 
 # Log4j
 .factorypath

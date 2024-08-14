@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import club.libridge.libridgebackend.core.Direction;
+import scalabridge.Direction;
 import club.libridge.libridgebackend.core.Player;
 import club.libridge.libridgebackend.networking.messages.GameNameFromGameServerIdentifier;
 import club.libridge.libridgebackend.networking.server.gameserver.GameServer;

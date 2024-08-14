@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
 import club.libridge.libridgebackend.core.Board;
-import club.libridge.libridgebackend.core.Card;
-import club.libridge.libridgebackend.core.Direction;
+import scalabridge.Card;
+import scalabridge.Direction;
 import club.libridge.libridgebackend.core.Hand;
 import club.libridge.libridgebackend.core.PavlicekNumber;
 import club.libridge.libridgebackend.core.boarddealer.BoardDealer;

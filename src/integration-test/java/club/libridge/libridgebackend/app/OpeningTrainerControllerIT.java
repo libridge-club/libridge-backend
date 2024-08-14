@@ -17,10 +17,10 @@ import club.libridge.libridgebackend.app.persistence.BoardFactory;
 import club.libridge.libridgebackend.app.persistence.BoardRepository;
 import club.libridge.libridgebackend.core.BiddingBox;
 import club.libridge.libridgebackend.core.Board;
-import club.libridge.libridgebackend.core.Call;
-import club.libridge.libridgebackend.core.OddTricks;
-import club.libridge.libridgebackend.core.Strain;
 import club.libridge.libridgebackend.dto.ExpectedCallDTO;
+import scalabridge.Call;
+import scalabridge.OddTricks;
+import scalabridge.Strain;
 
 @SpringBootTest()
 @ActiveProfiles("development")

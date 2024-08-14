@@ -3,6 +3,8 @@ package club.libridge.libridgebackend.core;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
+import scalabridge.OddTricks;
+import scalabridge.Strain;
 
 @AllArgsConstructor
 public final class Contract {
