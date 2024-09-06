@@ -35,7 +35,7 @@ public class TrickTest {
 
     @Test
     public void shouldBePossibleToAddCardsUpToAMaximum() {
-        Trick trick = new Trick(Direction.NORTH);
+        Trick trick = new Trick(Direction.getNorth());
         Card card = mock(Card.class);
         for (int i = 0; i < COMPLETE_TRICK_NUMBER_OF_CARDS; i++) {
             trick.addCard(card);
@@ -46,7 +46,7 @@ public class TrickTest {
 
     @Test
     public void shouldThrowExceptionWhenAddingMoreCardsThanTheMaximum() {
-        Trick trick = new Trick(Direction.NORTH);
+        Trick trick = new Trick(Direction.getNorth());
         Card card = mock(Card.class);
         for (int i = 0; i < COMPLETE_TRICK_NUMBER_OF_CARDS; i++) {
             trick.addCard(card);
@@ -59,13 +59,13 @@ public class TrickTest {
 
     @Test
     public void shouldReturnIfItIsEmpty() {
-        Trick trick = new Trick(Direction.NORTH);
+        Trick trick = new Trick(Direction.getNorth());
         assertTrue(trick.isEmpty());
     }
 
     @Test
     public void shouldReturnIfItIsComplete() {
-        Trick trick = new Trick(Direction.NORTH);
+        Trick trick = new Trick(Direction.getNorth());
         Card card = mock(Card.class);
         for (int i = 0; i < COMPLETE_TRICK_NUMBER_OF_CARDS; i++) {
             trick.addCard(card);
@@ -76,15 +76,15 @@ public class TrickTest {
 
     @Test
     public void shouldGetLeaderFromConstruction() {
-        Direction direction = Direction.SOUTH;
+        Direction direction = Direction.getSouth();
         Trick newTrick = new Trick(direction);
         assertEquals(direction, newTrick.getLeader());
     }
 
     @Test
     public void shouldGetLeadSuitFromFirstCardAdded() {
-        Trick trick = new Trick(Direction.NORTH);
-        Suit clubs = Suit.CLUBS;
+        Trick trick = new Trick(Direction.getNorth());
+        Suit clubs = Suit.getCLUBS();
         Card cardOfClubs = mock(Card.class);
         when(cardOfClubs.getSuit()).thenReturn(clubs);
         Card anyOtherCard = mock(Card.class);
@@ -96,24 +96,24 @@ public class TrickTest {
 
     @Test
     public void shouldGetWinnerWithoutTrumpSuit() {
-        Direction leader = Direction.SOUTH;
+        Direction leader = Direction.getSouth();
         Trick trick = new Trick(leader);
 
         Card jackOfClubs = mock(Card.class);
-        when(jackOfClubs.getRank()).thenReturn(Rank.JACK);
-        when(jackOfClubs.getSuit()).thenReturn(Suit.CLUBS);
+        when(jackOfClubs.getRank()).thenReturn(Rank.getJACK());
+        when(jackOfClubs.getSuit()).thenReturn(Suit.getCLUBS());
 
         Card queenOfHearts = mock(Card.class);
-        when(queenOfHearts.getRank()).thenReturn(Rank.QUEEN);
-        when(queenOfHearts.getSuit()).thenReturn(Suit.HEARTS);
+        when(queenOfHearts.getRank()).thenReturn(Rank.getQUEEN());
+        when(queenOfHearts.getSuit()).thenReturn(Suit.getHEARTS());
 
         Card aceOfSpades = mock(Card.class);
-        when(aceOfSpades.getRank()).thenReturn(Rank.ACE);
-        when(aceOfSpades.getSuit()).thenReturn(Suit.SPADES);
+        when(aceOfSpades.getRank()).thenReturn(Rank.getACE());
+        when(aceOfSpades.getSuit()).thenReturn(Suit.getSPADES());
 
         Card kingOfClubs = mock(Card.class);
-        when(kingOfClubs.getRank()).thenReturn(Rank.KING);
-        when(kingOfClubs.getSuit()).thenReturn(Suit.CLUBS);
+        when(kingOfClubs.getRank()).thenReturn(Rank.getKING());
+        when(kingOfClubs.getSuit()).thenReturn(Suit.getCLUBS());
 
         when(jackOfClubs.compareRank(kingOfClubs)).thenReturn(-1);
         when(kingOfClubs.compareRank(jackOfClubs)).thenReturn(1);
@@ -123,7 +123,7 @@ public class TrickTest {
         trick.addCard(aceOfSpades);
         trick.addCard(kingOfClubs);
 
-        Direction winner = Direction.EAST;
+        Direction winner = Direction.getEast();
         assertEquals(winner, trick.getWinnerWithoutTrumpSuit());
 
         verify(jackOfClubs, atLeastOnce()).getSuit();
@@ -152,24 +152,24 @@ public class TrickTest {
 
     @Test
     public void shouldGetWinnerWithTrumpSuit() {
-        Direction leader = Direction.SOUTH;
+        Direction leader = Direction.getSouth();
         Trick trick = new Trick(leader);
 
         Card jackOfClubs = mock(Card.class);
-        when(jackOfClubs.getRank()).thenReturn(Rank.JACK);
-        when(jackOfClubs.getSuit()).thenReturn(Suit.CLUBS);
+        when(jackOfClubs.getRank()).thenReturn(Rank.getJACK());
+        when(jackOfClubs.getSuit()).thenReturn(Suit.getCLUBS());
 
         Card queenOfHearts = mock(Card.class);
-        when(queenOfHearts.getRank()).thenReturn(Rank.QUEEN);
-        when(queenOfHearts.getSuit()).thenReturn(Suit.HEARTS);
+        when(queenOfHearts.getRank()).thenReturn(Rank.getQUEEN());
+        when(queenOfHearts.getSuit()).thenReturn(Suit.getHEARTS());
 
         Card aceOfSpades = mock(Card.class);
-        when(aceOfSpades.getRank()).thenReturn(Rank.ACE);
-        when(aceOfSpades.getSuit()).thenReturn(Suit.SPADES);
+        when(aceOfSpades.getRank()).thenReturn(Rank.getACE());
+        when(aceOfSpades.getSuit()).thenReturn(Suit.getSPADES());
 
         Card kingOfClubs = mock(Card.class);
-        when(kingOfClubs.getRank()).thenReturn(Rank.KING);
-        when(kingOfClubs.getSuit()).thenReturn(Suit.CLUBS);
+        when(kingOfClubs.getRank()).thenReturn(Rank.getKING());
+        when(kingOfClubs.getSuit()).thenReturn(Suit.getCLUBS());
 
         when(jackOfClubs.compareRank(kingOfClubs)).thenReturn(-1);
         when(kingOfClubs.compareRank(jackOfClubs)).thenReturn(1);
@@ -179,14 +179,14 @@ public class TrickTest {
         trick.addCard(aceOfSpades);
         trick.addCard(kingOfClubs);
 
-        Direction winnerWithDiamondsAsTrump = Direction.EAST;
-        Direction winnerWithClubsAsTrump = Direction.EAST;
-        Direction winnerWithHeartsAsTrump = Direction.WEST;
-        Direction winnerWithSpadesAsTrump = Direction.NORTH;
-        assertEquals(winnerWithDiamondsAsTrump, trick.getWinnerWithTrumpSuit(Suit.DIAMONDS));
-        assertEquals(winnerWithClubsAsTrump, trick.getWinnerWithTrumpSuit(Suit.CLUBS));
-        assertEquals(winnerWithHeartsAsTrump, trick.getWinnerWithTrumpSuit(Suit.HEARTS));
-        assertEquals(winnerWithSpadesAsTrump, trick.getWinnerWithTrumpSuit(Suit.SPADES));
+        Direction winnerWithDiamondsAsTrump = Direction.getEast();
+        Direction winnerWithClubsAsTrump = Direction.getEast();
+        Direction winnerWithHeartsAsTrump = Direction.getWest();
+        Direction winnerWithSpadesAsTrump = Direction.getNorth();
+        assertEquals(winnerWithDiamondsAsTrump, trick.getWinnerWithTrumpSuit(Suit.getDIAMONDS()));
+        assertEquals(winnerWithClubsAsTrump, trick.getWinnerWithTrumpSuit(Suit.getCLUBS()));
+        assertEquals(winnerWithHeartsAsTrump, trick.getWinnerWithTrumpSuit(Suit.getHEARTS()));
+        assertEquals(winnerWithSpadesAsTrump, trick.getWinnerWithTrumpSuit(Suit.getSPADES()));
 
         verify(jackOfClubs, atLeastOnce()).getSuit();
         verify(queenOfHearts, atLeastOnce()).getSuit();
@@ -220,22 +220,22 @@ public class TrickTest {
 
     @Test
     public void getListOfCardsShouldReturnTheCorrectList() {
-        Trick trick = new Trick(Direction.NORTH);
+        Trick trick = new Trick(Direction.getNorth());
         Card jackOfClubs = mock(Card.class);
-        when(jackOfClubs.getRank()).thenReturn(Rank.JACK);
-        when(jackOfClubs.getSuit()).thenReturn(Suit.CLUBS);
+        when(jackOfClubs.getRank()).thenReturn(Rank.getJACK());
+        when(jackOfClubs.getSuit()).thenReturn(Suit.getCLUBS());
 
         Card queenOfHearts = mock(Card.class);
-        when(queenOfHearts.getRank()).thenReturn(Rank.QUEEN);
-        when(queenOfHearts.getSuit()).thenReturn(Suit.HEARTS);
+        when(queenOfHearts.getRank()).thenReturn(Rank.getQUEEN());
+        when(queenOfHearts.getSuit()).thenReturn(Suit.getHEARTS());
 
         Card aceOfSpades = mock(Card.class);
-        when(aceOfSpades.getRank()).thenReturn(Rank.ACE);
-        when(aceOfSpades.getSuit()).thenReturn(Suit.SPADES);
+        when(aceOfSpades.getRank()).thenReturn(Rank.getACE());
+        when(aceOfSpades.getSuit()).thenReturn(Suit.getSPADES());
 
         Card kingOfClubs = mock(Card.class);
-        when(kingOfClubs.getRank()).thenReturn(Rank.KING);
-        when(kingOfClubs.getSuit()).thenReturn(Suit.CLUBS);
+        when(kingOfClubs.getRank()).thenReturn(Rank.getKING());
+        when(kingOfClubs.getSuit()).thenReturn(Suit.getCLUBS());
 
         trick.addCard(jackOfClubs);
         trick.addCard(queenOfHearts);
@@ -262,10 +262,10 @@ public class TrickTest {
 
     @Test
     public void getListOfCardsShouldReturnAnUnmodifiableList() {
-        Trick trick = new Trick(Direction.NORTH);
+        Trick trick = new Trick(Direction.getNorth());
         Card jackOfClubs = mock(Card.class);
-        when(jackOfClubs.getRank()).thenReturn(Rank.JACK);
-        when(jackOfClubs.getSuit()).thenReturn(Suit.CLUBS);
+        when(jackOfClubs.getRank()).thenReturn(Rank.getJACK());
+        when(jackOfClubs.getSuit()).thenReturn(Suit.getCLUBS());
         for (int i = 0; i < COMPLETE_TRICK_NUMBER_OF_CARDS; i++) {
             trick.addCard(jackOfClubs);
         }
@@ -279,7 +279,7 @@ public class TrickTest {
 
     @Test
     public void getCardDirectionMapShouldReturnAMapContainingTheDirectionOfEachCard() {
-        Direction leader = Direction.SOUTH;
+        Direction leader = Direction.getSouth();
         Trick trick = new Trick(leader);
         int numberOfCards = 4;
 
@@ -300,24 +300,24 @@ public class TrickTest {
     @Test
     public void hasCardOfShouldReturnTrueWhenDirectionHasAlreadyPlayed() {
         Trick trick = this.trickWithTwoCardsAndNorthAsLeader();
-        assertTrue(trick.hasCardOf(Direction.EAST));
+        assertTrue(trick.hasCardOf(Direction.getEast()));
     }
 
     @Test
     public void hasCardOfShouldReturnFalseWhenDirectionHasNotPlayedYet() {
         Trick trick = this.trickWithTwoCardsAndNorthAsLeader();
-        assertFalse(trick.hasCardOf(Direction.SOUTH));
+        assertFalse(trick.hasCardOf(Direction.getSouth()));
     }
 
     @Test
     public void hasCardOfShouldReturnFalseWhenTheLeaderHasNotPlayedYet() {
-        Direction leader = Direction.NORTH;
+        Direction leader = Direction.getNorth();
         Trick trickWithNoCards = new Trick(leader);
         assertFalse(trickWithNoCards.hasCardOf(leader));
     }
 
     private Trick trickWithTwoCardsAndNorthAsLeader() {
-        Direction leader = Direction.NORTH;
+        Direction leader = Direction.getNorth();
         Trick trick = new Trick(leader);
 
         Card firstCard = mock(Card.class);
@@ -333,29 +333,29 @@ public class TrickTest {
     public void removeCardsUpToDirectionShouldEliminateAllAndOnlyTheCardsUpToThatDirection() {
         Trick trick = this.trickWithTwoCardsAndNorthAsLeader();
         trick.addCard(mock(Card.class));
-        trick.removeCardsFromLastUpTo(Direction.EAST);
-        assertFalse(trick.hasCardOf(Direction.EAST));
-        assertFalse(trick.hasCardOf(Direction.SOUTH));
-        assertTrue(trick.hasCardOf(Direction.NORTH));
+        trick.removeCardsFromLastUpTo(Direction.getEast());
+        assertFalse(trick.hasCardOf(Direction.getEast()));
+        assertFalse(trick.hasCardOf(Direction.getSouth()));
+        assertTrue(trick.hasCardOf(Direction.getNorth()));
         assertEquals(1, trick.getCards().size());
     }
 
     @Test
     public void removeCardsUpToDirectionShouldNotFailWhenTrickHasNoCards() {
-        Trick trick = new Trick(Direction.NORTH);
-        trick.removeCardsFromLastUpTo(Direction.EAST);
+        Trick trick = new Trick(Direction.getNorth());
+        trick.removeCardsFromLastUpTo(Direction.getEast());
     }
 
     @Test
     public void removeCardsUpToLeaderShouldEliminateAllCardsFromTrick() {
         Trick trick = this.trickWithTwoCardsAndNorthAsLeader();
-        trick.removeCardsFromLastUpTo(Direction.NORTH);
+        trick.removeCardsFromLastUpTo(Direction.getNorth());
         assertTrue(trick.isEmpty());
     }
 
     @Test
     public void getCardsFromLastUpToLast() {
-        Direction leader = Direction.NORTH;
+        Direction leader = Direction.getNorth();
         Trick trick = new Trick(leader);
         Direction next = leader.next();
         Card firstCard = mock(Card.class);
@@ -373,7 +373,7 @@ public class TrickTest {
 
     @Test
     public void getCardsFromLastUpToDirectionThatDidNotPlayed() {
-        Direction leader = Direction.NORTH;
+        Direction leader = Direction.getNorth();
         Trick trick = new Trick(leader);
         Card firstCard = mock(Card.class);
         trick.addCard(firstCard);
@@ -383,7 +383,7 @@ public class TrickTest {
 
     @Test
     public void getCardsFromLastUpToLeader() {
-        Direction leader = Direction.NORTH;
+        Direction leader = Direction.getNorth();
         Trick trick = new Trick(leader);
         Card firstCard = mock(Card.class);
         Card secondCard = mock(Card.class);
@@ -398,8 +398,8 @@ public class TrickTest {
 
     @Test
     public void getLastPlayer() {
-        Direction leader = Direction.WEST;
-        Direction expectedLastPlayer = Direction.SOUTH;
+        Direction leader = Direction.getWest();
+        Direction expectedLastPlayer = Direction.getSouth();
         Trick trick = new Trick(leader);
         Direction lastPlayer = trick.getLastPlayer();
 

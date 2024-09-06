@@ -3,6 +3,7 @@ package club.libridge.libridgebackend.dto;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -41,7 +42,7 @@ public class BoardDTO {
     }
 
     public void setDoubleDummyTable(DoubleDummyTable doubleDummyTable) {
-        this.doubleDummyTable = new EnumMap<Direction, Map<Strain, Integer>>(Direction.class);
+        this.doubleDummyTable = new HashMap<Direction, Map<Strain, Integer>>();
         for (Direction direction : Direction.values()) {
             EnumMap<Strain, Integer> strainMap = new EnumMap<Strain, Integer>(Strain.class);
             for (Strain strain : Strain.values()) {

@@ -62,10 +62,10 @@ public class HandTest {
 
     @Test
     public void shouldReturnIfItHasASuit() {
-        Suit spades = Suit.SPADES;
-        Suit hearts = Suit.HEARTS;
-        Suit clubs = Suit.CLUBS;
-        Suit diamonds = Suit.DIAMONDS;
+        Suit spades = Suit.getSPADES();
+        Suit hearts = Suit.getHEARTS();
+        Suit clubs = Suit.getCLUBS();
+        Suit diamonds = Suit.getDIAMONDS();
 
         Card aceOfSpades = mock(Card.class);
         Card kingOfHearts = mock(Card.class);
@@ -85,8 +85,8 @@ public class HandTest {
 
     @Test
     public void shouldTransformToStringUsingPBNImplementation() {
-        Card aceOfSpades = new Card(Suit.SPADES, Rank.ACE);
-        Card kingOfHearts = new Card(Suit.HEARTS, Rank.KING);
+        Card aceOfSpades = new Card(Suit.getSPADES(), Rank.getACE());
+        Card kingOfHearts = new Card(Suit.getHEARTS(), Rank.getKING());
         Hand hand = new Hand();
         hand.addCard(aceOfSpades);
         hand.addCard(kingOfHearts);
@@ -97,7 +97,7 @@ public class HandTest {
 
     @Test
     public void shouldBeEqualToAnotherHandWithSameCards() {
-        Card aceOfSpades = new Card(Suit.SPADES, Rank.ACE);
+        Card aceOfSpades = new Card(Suit.getSPADES(), Rank.getACE());
         Hand hand1 = new Hand();
         Hand hand2 = new Hand();
         hand1.addCard(aceOfSpades);

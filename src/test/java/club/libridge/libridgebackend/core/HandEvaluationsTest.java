@@ -48,32 +48,32 @@ public class HandEvaluationsTest extends TestWithMocks {
 
     @BeforeEach
     public void setup() {
-        when(aceOfSpades.getRank()).thenReturn(Rank.ACE);
-        when(aceOfSpades.getSuit()).thenReturn(Suit.SPADES);
+        when(aceOfSpades.getRank()).thenReturn(Rank.getACE());
+        when(aceOfSpades.getSuit()).thenReturn(Suit.getSPADES());
 
-        when(kingOfSpades.getRank()).thenReturn(Rank.KING);
-        when(kingOfSpades.getSuit()).thenReturn(Suit.SPADES);
+        when(kingOfSpades.getRank()).thenReturn(Rank.getKING());
+        when(kingOfSpades.getSuit()).thenReturn(Suit.getSPADES());
 
-        when(queenOfSpades.getRank()).thenReturn(Rank.QUEEN);
-        when(queenOfSpades.getSuit()).thenReturn(Suit.SPADES);
+        when(queenOfSpades.getRank()).thenReturn(Rank.getQUEEN());
+        when(queenOfSpades.getSuit()).thenReturn(Suit.getSPADES());
 
-        when(jackOfSpades.getRank()).thenReturn(Rank.JACK);
-        when(jackOfSpades.getSuit()).thenReturn(Suit.SPADES);
+        when(jackOfSpades.getRank()).thenReturn(Rank.getJACK());
+        when(jackOfSpades.getSuit()).thenReturn(Suit.getSPADES());
 
-        when(tenOfSpades.getRank()).thenReturn(Rank.TEN);
-        when(tenOfSpades.getSuit()).thenReturn(Suit.SPADES);
+        when(tenOfSpades.getRank()).thenReturn(Rank.getTEN());
+        when(tenOfSpades.getSuit()).thenReturn(Suit.getSPADES());
 
-        when(nineOfSpades.getRank()).thenReturn(Rank.NINE);
-        when(nineOfSpades.getSuit()).thenReturn(Suit.SPADES);
+        when(nineOfSpades.getRank()).thenReturn(Rank.getNINE());
+        when(nineOfSpades.getSuit()).thenReturn(Suit.getSPADES());
 
-        when(kingOfHearts.getRank()).thenReturn(Rank.KING);
-        when(kingOfHearts.getSuit()).thenReturn(Suit.HEARTS);
+        when(kingOfHearts.getRank()).thenReturn(Rank.getKING());
+        when(kingOfHearts.getSuit()).thenReturn(Suit.getHEARTS());
 
-        when(threeOfClubs.getRank()).thenReturn(Rank.THREE);
-        when(threeOfClubs.getSuit()).thenReturn(Suit.CLUBS);
+        when(threeOfClubs.getRank()).thenReturn(Rank.getTHREE());
+        when(threeOfClubs.getSuit()).thenReturn(Suit.getCLUBS());
 
-        when(sevenOfDiamonds.getRank()).thenReturn(Rank.SEVEN);
-        when(sevenOfDiamonds.getSuit()).thenReturn(Suit.DIAMONDS);
+        when(sevenOfDiamonds.getRank()).thenReturn(Rank.getSEVEN());
+        when(sevenOfDiamonds.getSuit()).thenReturn(Suit.getDIAMONDS());
 
         when(emptyHand.getCards()).thenReturn(new ArrayList<Card>());
         emptyHandEvaluations = new HandEvaluations(emptyHand);
@@ -252,12 +252,12 @@ public class HandEvaluationsTest extends TestWithMocks {
         HandEvaluations hasAceAndJackInSpadesHandEvaluations = new HandEvaluations(handWithAceAndJackInSpadesSuit);
         HandEvaluations hasAceAndKingAndQueenHandEvaluations = new HandEvaluations(handWithThreeHigherCards);
 
-        assertFalse(emptyHandEvaluations.hasTwoOutOfThreeHigherCards(Suit.SPADES));
-        assertTrue(hasAceAndKingInSpadesHandEvaluations.hasTwoOutOfThreeHigherCards(Suit.SPADES));
-        assertTrue(hasKingAndQueenInSpadesHandEvaluations.hasTwoOutOfThreeHigherCards(Suit.SPADES));
-        assertTrue(hasAceAndQueenInSpadesHandEvaluations.hasTwoOutOfThreeHigherCards(Suit.SPADES));
-        assertFalse(hasAceAndJackInSpadesHandEvaluations.hasTwoOutOfThreeHigherCards(Suit.SPADES));
-        assertTrue(hasAceAndKingAndQueenHandEvaluations.hasTwoOutOfThreeHigherCards(Suit.SPADES));
+        assertFalse(emptyHandEvaluations.hasTwoOutOfThreeHigherCards(Suit.getSPADES()));
+        assertTrue(hasAceAndKingInSpadesHandEvaluations.hasTwoOutOfThreeHigherCards(Suit.getSPADES()));
+        assertTrue(hasKingAndQueenInSpadesHandEvaluations.hasTwoOutOfThreeHigherCards(Suit.getSPADES()));
+        assertTrue(hasAceAndQueenInSpadesHandEvaluations.hasTwoOutOfThreeHigherCards(Suit.getSPADES()));
+        assertFalse(hasAceAndJackInSpadesHandEvaluations.hasTwoOutOfThreeHigherCards(Suit.getSPADES()));
+        assertTrue(hasAceAndKingAndQueenHandEvaluations.hasTwoOutOfThreeHigherCards(Suit.getSPADES()));
     }
 
     @Test
@@ -270,10 +270,10 @@ public class HandEvaluationsTest extends TestWithMocks {
         HandEvaluations hasQueenAndJackAndTenInSpadesHandEvaluations = new HandEvaluations(handWithQueenAndJackAndTenInSpadesSuit);
         HandEvaluations hasAceAndQueenAndNineInSpadesHandEvaluations = new HandEvaluations(handWithAceAndQueenAndNineInSpadesSuit);
 
-        assertFalse(emptyHandEvaluations.hasThreeOutOfFiveHigherCards(Suit.SPADES));
-        assertTrue(hasAceAndKingAndQueenInSpadesHandEvaluations.hasThreeOutOfFiveHigherCards(Suit.SPADES));
-        assertTrue(hasQueenAndJackAndTenInSpadesHandEvaluations.hasThreeOutOfFiveHigherCards(Suit.SPADES));
-        assertFalse(hasAceAndQueenAndNineInSpadesHandEvaluations.hasThreeOutOfFiveHigherCards(Suit.SPADES));
+        assertFalse(emptyHandEvaluations.hasThreeOutOfFiveHigherCards(Suit.getSPADES()));
+        assertTrue(hasAceAndKingAndQueenInSpadesHandEvaluations.hasThreeOutOfFiveHigherCards(Suit.getSPADES()));
+        assertTrue(hasQueenAndJackAndTenInSpadesHandEvaluations.hasThreeOutOfFiveHigherCards(Suit.getSPADES()));
+        assertFalse(hasAceAndQueenAndNineInSpadesHandEvaluations.hasThreeOutOfFiveHigherCards(Suit.getSPADES()));
     }
 
     @Test
@@ -318,10 +318,10 @@ public class HandEvaluationsTest extends TestWithMocks {
         Hand hand = mock(Hand.class);
         List<Card> mockedCards = new ArrayList<Card>();
         Map<Suit, Card> mockedCardOfSuit = new EnumMap<Suit, Card>(Suit.class);
-        mockedCardOfSuit.put(Suit.SPADES, aceOfSpades);
-        mockedCardOfSuit.put(Suit.HEARTS, kingOfHearts);
-        mockedCardOfSuit.put(Suit.DIAMONDS, sevenOfDiamonds);
-        mockedCardOfSuit.put(Suit.CLUBS, threeOfClubs);
+        mockedCardOfSuit.put(Suit.getSPADES(), aceOfSpades);
+        mockedCardOfSuit.put(Suit.getHEARTS(), kingOfHearts);
+        mockedCardOfSuit.put(Suit.getDIAMONDS(), sevenOfDiamonds);
+        mockedCardOfSuit.put(Suit.getCLUBS(), threeOfClubs);
 
         for (Suit suit : Suit.values()) {
             Integer numberOfCards = suitDistribution.get(suit);
@@ -339,10 +339,10 @@ public class HandEvaluationsTest extends TestWithMocks {
 
     private Map<Suit, Integer> createSuitDistribution(int spades, int hearts, int diamonds, int clubs) {
         Map<Suit, Integer> suitDistribution = new EnumMap<Suit, Integer>(Suit.class);
-        suitDistribution.put(Suit.SPADES, spades);
-        suitDistribution.put(Suit.HEARTS, hearts);
-        suitDistribution.put(Suit.DIAMONDS, diamonds);
-        suitDistribution.put(Suit.CLUBS, clubs);
+        suitDistribution.put(Suit.getSPADES(), spades);
+        suitDistribution.put(Suit.getHEARTS(), hearts);
+        suitDistribution.put(Suit.getDIAMONDS(), diamonds);
+        suitDistribution.put(Suit.getCLUBS(), clubs);
         return suitDistribution;
     }
 

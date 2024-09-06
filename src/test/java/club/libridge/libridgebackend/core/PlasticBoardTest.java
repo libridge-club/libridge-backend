@@ -12,34 +12,34 @@ class PlasticBoardTest {
     void getDealerFromBoardNumber_oneShouldReturnNorth() {
         BoardNumber boardNumberOne = new BoardNumber(1);
 
-        assertEquals(Direction.NORTH, PlasticBoard.getDealerFromBoardNumber(boardNumberOne));
+        assertEquals(Direction.getNorth(), PlasticBoard.getDealerFromBoardNumber(boardNumberOne));
     }
 
     @Test
     void getDealerFromBoardNumber_twoShouldReturnEast() {
         BoardNumber boardNumberTwo = new BoardNumber(2);
 
-        assertEquals(Direction.EAST, PlasticBoard.getDealerFromBoardNumber(boardNumberTwo));
+        assertEquals(Direction.getEast(), PlasticBoard.getDealerFromBoardNumber(boardNumberTwo));
     }
 
     @Test
     void getDealerFromBoardNumber_threeShouldReturnSouth() {
         BoardNumber boardNumberThree = new BoardNumber(3);
 
-        assertEquals(Direction.SOUTH, PlasticBoard.getDealerFromBoardNumber(boardNumberThree));
+        assertEquals(Direction.getSouth(), PlasticBoard.getDealerFromBoardNumber(boardNumberThree));
     }
 
     @Test
     void getDealerFromBoardNumber_fourShouldReturnWest() {
         BoardNumber boardNumberFour = new BoardNumber(4);
 
-        assertEquals(Direction.WEST, PlasticBoard.getDealerFromBoardNumber(boardNumberFour));
+        assertEquals(Direction.getWest(), PlasticBoard.getDealerFromBoardNumber(boardNumberFour));
     }
 
     @Test
     void getDealerFromBoardNumber_shouldReturnClockwiseForIncreasingNumbers() {
         int currentNumber = 0;
-        Direction currentDirection = Direction.WEST;
+        Direction currentDirection = Direction.getWest();
 
         for (int i = 1; i <= 64; i++) {
             currentNumber++;

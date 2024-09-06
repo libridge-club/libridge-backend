@@ -1,15 +1,15 @@
 package club.libridge.libridgebackend.core.boarddealer;
 
 import java.util.Deque;
-import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.Map;
 
 import club.libridge.libridgebackend.core.Board;
-import scalabridge.Card;
-import scalabridge.Direction;
 import club.libridge.libridgebackend.core.Hand;
 import club.libridge.libridgebackend.core.HandEvaluations;
 import club.libridge.libridgebackend.core.exceptions.ImpossibleBoardException;
+import scalabridge.Card;
+import scalabridge.Direction;
 
 public class MinibridgeBoardDealer implements BoardDealer {
 
@@ -21,9 +21,8 @@ public class MinibridgeBoardDealer implements BoardDealer {
     }
 
     /**
-     * Deals a Board where the partnership of the dealer has strictly more points
-     * than the other partnership and the dealer has more or equal HCP than its
-     * partner.
+     * Deals a Board where the partnership of the dealer has strictly more points than the other partnership and the dealer has more or equal HCP than
+     * its partner.
      */
     @Override
     public Board dealBoard(Direction dealer, Deque<Card> deck) {
@@ -66,7 +65,7 @@ public class MinibridgeBoardDealer implements BoardDealer {
     }
 
     private Board rotateHands(Board board, int i) {
-        Map<Direction, Hand> hands = new EnumMap<Direction, Hand>(Direction.class);
+        Map<Direction, Hand> hands = new HashMap<Direction, Hand>();
         for (Direction direction : Direction.values()) {
             hands.put(direction.next(i), board.getHandOf(direction));
         }

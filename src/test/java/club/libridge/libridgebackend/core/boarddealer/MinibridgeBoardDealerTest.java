@@ -21,7 +21,7 @@ public class MinibridgeBoardDealerTest {
     @BeforeAll
     public static void setup() {
         subject = new MinibridgeBoardDealer();
-        anyDirection = Direction.SOUTH;
+        anyDirection = Direction.getSouth();
         completeDeck = new Complete52CardDeck().getDeck();
     }
 

@@ -1,7 +1,6 @@
 package club.libridge.libridgebackend.dds;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
@@ -18,8 +17,8 @@ public class DoubleDummyTable {
     private final Map<StrainAndDirectionCombination, NumberOfTricks> tricksAvailable;
 
     static {
-        STRAIN_ORDER_FROM_DDS = Collections.unmodifiableList(List.of(Strain.SPADES, Strain.HEARTS, Strain.DIAMONDS, Strain.CLUBS, Strain.NOTRUMPS));
-        DIRECTION_ORDER_FROM_DDS = Collections.unmodifiableList(List.of(Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST));
+        STRAIN_ORDER_FROM_DDS = List.of(Strain.getSPADES(), Strain.getHEARTS(), Strain.getDIAMONDS(), Strain.getCLUBS(), Strain.getNOTRUMPS());
+        DIRECTION_ORDER_FROM_DDS = List.of(Direction.getNorth(), Direction.getEast(), Direction.getSouth(), Direction.getWest());
     }
 
     public DoubleDummyTable(List<Integer> list) { // This is the format received from DDS
@@ -51,7 +50,7 @@ public class DoubleDummyTable {
     }
 
     public Map<Direction, Map<Strain, Integer>> getMapFormatted() {
-        Map<Direction, Map<Strain, Integer>> returnValue = new EnumMap<Direction, Map<Strain, Integer>>(Direction.class);
+        Map<Direction, Map<Strain, Integer>> returnValue = new HashMap<Direction, Map<Strain, Integer>>();
         for (Direction direction : DIRECTION_ORDER_FROM_DDS) {
             Map<Strain, Integer> allStrainsInADirection = new EnumMap<Strain, Integer>(Strain.class);
             for (Strain strain : STRAIN_ORDER_FROM_DDS) {

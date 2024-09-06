@@ -64,12 +64,10 @@
 	</properties>
 
 	<dependencies>
-		<dependency> <!-- FIXME this workaround. -->
+		<dependency>
 			<groupId>club.libridge</groupId>
 			<artifactId>scalabridge</artifactId>
 			<version>0.1.0-SNAPSHOT</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/scalabridge_3-0.1.0-SNAPSHOT.jar</systemPath>
 		</dependency>
 		<dependency>
             <groupId>org.scala-lang</groupId>
@@ -219,6 +217,31 @@
 						<goals>
 							<goal>check</goal>
 						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<!-- Goal: install:install-file -->
+				<!-- We bind it to: validate -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-install-plugin</artifactId>
+				<version>3.1.3</version>
+				<configuration>
+					<groupId>club.libridge</groupId>
+					<artifactId>scalabridge</artifactId>
+					<version>0.1.0-SNAPSHOT</version>
+					<packaging>jar</packaging>
+					<file>${project.basedir}/lib/scalabridge_3-0.1.0-SNAPSHOT.jar</file>
+					<generatePom>true</generatePom>
+				</configuration>
+				<executions>
+					<execution>
+						<id>install-jar-lib</id>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<phase>validate</phase>
 					</execution>
 				</executions>
 			</plugin>

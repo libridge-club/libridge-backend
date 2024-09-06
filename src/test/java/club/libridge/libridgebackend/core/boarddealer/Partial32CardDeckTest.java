@@ -31,7 +31,7 @@ public class Partial32CardDeckTest {
 
     @Test
     public void getDeckshouldReturnADeckWithAllRanksGreaterThanSix() {
-        Card sixOfHearts = new Card(Suit.HEARTS, Rank.SIX);
+        Card sixOfHearts = new Card(Suit.getHEARTS(), Rank.getSIX());
         for (Card card : subject.getDeck()) {
             boolean isGreaterThanSix = card.compareRank(sixOfHearts) > 0;
             assertTrue(isGreaterThanSix);

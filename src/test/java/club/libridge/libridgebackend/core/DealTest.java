@@ -31,7 +31,7 @@ import scalabridge.Suit;
 public class DealTest {
 
     private static final int COMPLETE_TRICK_NUMBER_OF_CARDS = 4;
-    private static final Direction leader = Direction.NORTH;
+    private static final Direction leader = Direction.getNorth();
 
     private Board board;
     private Ruleset ruleset;
@@ -44,7 +44,7 @@ public class DealTest {
         this.board = mock(Board.class);
         this.ruleset = mock(Ruleset.class);
         this.hand = mock(Hand.class);
-        this.dealer = Direction.NORTH;
+        this.dealer = Direction.getNorth();
         when(this.board.getHandOf(any(Direction.class))).thenReturn(this.hand);
         when(this.hand.size()).thenReturn(anyNumberOfCards);
     }
@@ -69,7 +69,7 @@ public class DealTest {
     @Test
     public void shouldConstructADealWithNoPoints() {
         int noPoints = 0;
-        when(board.getDealer()).thenReturn(Direction.NORTH);
+        when(board.getDealer()).thenReturn(Direction.getNorth());
         Deal deal = new Deal(board, ruleset, leader, null);
         assertEquals(noPoints, deal.getNorthSouthPoints());
         assertEquals(noPoints, deal.getEastWestPoints());
@@ -87,7 +87,7 @@ public class DealTest {
 
     @Test
     public void shouldConstructADealWithNoCompletedTricks() {
-        when(board.getDealer()).thenReturn(Direction.NORTH);
+        when(board.getDealer()).thenReturn(Direction.getNorth());
 
         Deal deal = new Deal(board, ruleset, leader, null);
 
@@ -96,7 +96,7 @@ public class DealTest {
 
     @Test
     public void shouldConstructADealWithASortedBoard() {
-        when(board.getDealer()).thenReturn(Direction.NORTH);
+        when(board.getDealer()).thenReturn(Direction.getNorth());
         @SuppressWarnings("unchecked")
         Comparator<Card> comparator = mock(Comparator.class);
         when(ruleset.getCardComparator()).thenReturn(comparator);
@@ -108,8 +108,8 @@ public class DealTest {
 
     @Test
     public void shouldGetHandOfACertainDirection() {
-        dealer = Direction.WEST;
-        Direction currentPlayer = Direction.NORTH;
+        dealer = Direction.getWest();
+        Direction currentPlayer = Direction.getNorth();
         when(board.getHandOf(currentPlayer)).thenReturn(hand);
         when(board.getDealer()).thenReturn(dealer);
         Deal deal = new Deal(board, ruleset, leader, null);
@@ -119,7 +119,7 @@ public class DealTest {
 
     @Test
     public void shouldAlwaysGetCurrentTrickEvenWhenEmpty() {
-        when(board.getDealer()).thenReturn(Direction.NORTH);
+        when(board.getDealer()).thenReturn(Direction.getNorth());
         Deal deal = new Deal(board, ruleset, leader, null);
 
         assertNotNull(deal.getCurrentTrick());
@@ -228,7 +228,7 @@ public class DealTest {
 
     @Test
     public void playCardShouldMoveTurnToWinnerIfTrickHasEnded() {
-        Direction winner = Direction.SOUTH;
+        Direction winner = Direction.getSouth();
         Card card = mock(Card.class);
 
         when(board.getDealer()).thenReturn(dealer);
@@ -251,8 +251,8 @@ public class DealTest {
 
     @Test
     public void playCardShouldUpdateTheScoreboardIfTrickHasEnded() {
-        Direction currentPlayer = Direction.NORTH;
-        Direction winner = Direction.SOUTH;
+        Direction currentPlayer = Direction.getNorth();
+        Direction winner = Direction.getSouth();
         Card card = mock(Card.class);
         int trickPoints = 1;
 
@@ -276,8 +276,8 @@ public class DealTest {
 
     @Test
     public void playCardShouldIncrementCompleteTricksIfTrickHasEnded() {
-        Direction currentPlayer = Direction.NORTH;
-        Direction winner = Direction.SOUTH;
+        Direction currentPlayer = Direction.getNorth();
+        Direction winner = Direction.getSouth();
         Card card = mock(Card.class);
         int noCompletedTricks = 0;
         int oneCompletedTricks = noCompletedTricks + 1;
@@ -305,7 +305,7 @@ public class DealTest {
     public void shouldSortAllHandsByTrumpSuit() {
         when(board.getDealer()).thenReturn(dealer);
         Deal deal = new Deal(board, ruleset, leader, null);
-        Suit anySuit = Suit.CLUBS;
+        Suit anySuit = Suit.getCLUBS();
 
         deal.sortAllHandsByTrumpSuit(anySuit);
 
@@ -373,7 +373,7 @@ public class DealTest {
     @Test
     public void undoShouldDoNothingWhenDealHasNoTricks() {
         Deal deal = this.initDeal(hand);
-        Direction directionThatCallsUndo = Direction.NORTH;
+        Direction directionThatCallsUndo = Direction.getNorth();
 
         deal.undo(directionThatCallsUndo);
 
@@ -383,7 +383,7 @@ public class DealTest {
     @Test
     public void undoShouldDoNothingWhenFirstTrickAndCallerHasNotPlayed() {
         Deal deal = this.initDeal(hand, board);
-        Direction directionThatCallsUndo = Direction.EAST;
+        Direction directionThatCallsUndo = Direction.getEast();
         playNTimesCard(deal, 1, hand);
         Direction currentPlayerBeforeEachUndo = deal.getCurrentPlayer();
 
@@ -412,7 +412,7 @@ public class DealTest {
     @Test
     public void undoShouldRemoveCardAndSetCurrentPlayerWhenLastPlayerAskedForUndo() {
         Deal deal = this.initDeal(hand, ruleset);
-        when(ruleset.getWinner(any())).thenReturn(Direction.NORTH);
+        when(ruleset.getWinner(any())).thenReturn(Direction.getNorth());
         playNTimesCard(deal, 3, hand);
         Direction currentPlayer = deal.getCurrentPlayer();
         playNTimesCard(deal, 1, hand);

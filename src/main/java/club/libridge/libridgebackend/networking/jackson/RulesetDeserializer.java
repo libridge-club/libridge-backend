@@ -32,10 +32,10 @@ public class RulesetDeserializer extends StdDeserializer<Ruleset> {
         SIMPLE_NAME_TO_CLASS.put("PositiveWithTrumpsRuleset", PositiveWithTrumpsRuleset.class);
 
         SUIT_NAME_TO_SUIT = new HashMap<>();
-        SUIT_NAME_TO_SUIT.put("Diamonds", Suit.DIAMONDS);
-        SUIT_NAME_TO_SUIT.put("Clubs", Suit.CLUBS);
-        SUIT_NAME_TO_SUIT.put("Hearts", Suit.HEARTS);
-        SUIT_NAME_TO_SUIT.put("Spades", Suit.SPADES);
+        SUIT_NAME_TO_SUIT.put("Diamonds", Suit.getDIAMONDS());
+        SUIT_NAME_TO_SUIT.put("Clubs", Suit.getCLUBS());
+        SUIT_NAME_TO_SUIT.put("Hearts", Suit.getHEARTS());
+        SUIT_NAME_TO_SUIT.put("Spades", Suit.getSPADES());
     }
 
     public RulesetDeserializer() {

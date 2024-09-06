@@ -35,7 +35,7 @@ public class DealerHasTwoWeakOpeningBoardRuleTest extends TestWithMocks {
 
     @BeforeEach
     public void setup() {
-        dealer = Direction.SOUTH;
+        dealer = Direction.getSouth();
         when(board.getDealer()).thenReturn(dealer);
         when(board.getHandOf(dealer)).thenReturn(hand);
         when(hand.getHandEvaluations()).thenReturn(handEvaluations);

@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-import club.libridge.libridgebackend.core.BiddingBox;
 import club.libridge.libridgebackend.core.Board;
 import club.libridge.libridgebackend.core.boardrules.BoardRule;
 import club.libridge.libridgebackend.core.boardrules.bridgeopenings.AlwaysValidBoardRule;
@@ -19,6 +18,8 @@ import club.libridge.libridgebackend.core.boardrules.bridgeopenings.DealerHasThr
 import club.libridge.libridgebackend.core.boardrules.bridgeopenings.DealerHasTwoClubsOpeningBoardRule;
 import club.libridge.libridgebackend.core.boardrules.bridgeopenings.DealerHasTwoNoTrumpOpeningBoardRule;
 import club.libridge.libridgebackend.core.boardrules.bridgeopenings.DealerHasTwoWeakOpeningBoardRule;
+import scala.jdk.javaapi.OptionConverters;
+import scalabridge.BiddingBox;
 import scalabridge.Call;
 import scalabridge.OddTricks;
 import scalabridge.Strain;
@@ -32,12 +33,17 @@ public class OpeningSystem {
     }
 
     private static final Map<BoardRule, BiddableFromBoard> RULE_TO_CALL_MAP;
+
+    private static Call getCallUnsafely(String label) {
+        return OptionConverters.toJava(BiddingBox.getOption(label)).get();
+    }
+
     static {
 
         class TwoClubsBiddable implements BiddableFromBoard {
             @Override
             public Call getCorrectCall(Board board) {
-                return BiddingBox.get("2C");
+                return getCallUnsafely("2C");
             }
         }
 
@@ -45,21 +51,21 @@ public class OpeningSystem {
             @Override
             public Call getCorrectCall(Board board) {
                 Suit longestMajor = board.getHandOf(board.getDealer()).getHandEvaluations().getLongestMajor();
-                return BiddingBox.getBid(OddTricks.ONE, Strain.fromSuit(longestMajor));
+                return BiddingBox.getBid(OddTricks.getONE(), Strain.fromSuit(longestMajor));
             }
         }
 
         class OneNoTrumpBiddable implements BiddableFromBoard {
             @Override
             public Call getCorrectCall(Board board) {
-                return BiddingBox.get("1N");
+                return getCallUnsafely("1N");
             }
         }
 
         class TwoNoTrumpsBiddable implements BiddableFromBoard {
             @Override
             public Call getCorrectCall(Board board) {
-                return BiddingBox.get("2N");
+                return getCallUnsafely("2N");
             }
         }
 
@@ -67,7 +73,7 @@ public class OpeningSystem {
             @Override
             public Call getCorrectCall(Board board) {
                 Suit longestMinor = board.getHandOf(board.getDealer()).getHandEvaluations().getLongestMinor();
-                return BiddingBox.getBid(OddTricks.ONE, Strain.fromSuit(longestMinor));
+                return BiddingBox.getBid(OddTricks.getONE(), Strain.fromSuit(longestMinor));
             }
         }
 
@@ -75,7 +81,7 @@ public class OpeningSystem {
             @Override
             public Call getCorrectCall(Board board) {
                 Suit longestSuit = board.getHandOf(board.getDealer()).getHandEvaluations().getLongestSuit();
-                return BiddingBox.getBid(OddTricks.FOUR, Strain.fromSuit(longestSuit));
+                return BiddingBox.getBid(OddTricks.getFOUR(), Strain.fromSuit(longestSuit));
             }
         }
 
@@ -83,7 +89,7 @@ public class OpeningSystem {
             @Override
             public Call getCorrectCall(Board board) {
                 Suit longestSuit = board.getHandOf(board.getDealer()).getHandEvaluations().getLongestSuit();
-                return BiddingBox.getBid(OddTricks.THREE, Strain.fromSuit(longestSuit));
+                return BiddingBox.getBid(OddTricks.getTHREE(), Strain.fromSuit(longestSuit));
             }
         }
 
@@ -91,7 +97,7 @@ public class OpeningSystem {
             @Override
             public Call getCorrectCall(Board board) {
                 Suit longestSuit = board.getHandOf(board.getDealer()).getHandEvaluations().getLongestSuit();
-                return BiddingBox.getBid(OddTricks.TWO, Strain.fromSuit(longestSuit));
+                return BiddingBox.getBid(OddTricks.getTWO(), Strain.fromSuit(longestSuit));
             }
         }
 
@@ -135,12 +141,12 @@ public class OpeningSystem {
             BoardRule firstValidOpeningRule = this.getFirstValidOpeningRule(board);
             BiddableFromBoard biddableFromBoard = RULE_TO_CALL_MAP.get(firstValidOpeningRule);
             if (biddableFromBoard == null) {
-                return BiddingBox.PASS;
+                return BiddingBox.getPass();
             }
             return biddableFromBoard.getCorrectCall(board);
         } catch (Exception e) {
             e.printStackTrace();
-            return BiddingBox.PASS;
+            return BiddingBox.getPass();
         }
     }
 

@@ -72,12 +72,12 @@ public final class HandEvaluations {
 
     private boolean isMajorSuit(Map.Entry<Suit, Integer> entry) {
         Suit suit = entry.getKey();
-        return Suit.SPADES.equals(suit) || Suit.HEARTS.equals(suit);
+        return Suit.getSPADES().equals(suit) || Suit.getHEARTS().equals(suit);
     }
 
     private boolean isMinorSuit(Map.Entry<Suit, Integer> entry) {
         Suit suit = entry.getKey();
-        return Suit.DIAMONDS.equals(suit) || Suit.CLUBS.equals(suit);
+        return Suit.getDIAMONDS().equals(suit) || Suit.getCLUBS().equals(suit);
     }
 
     public boolean isBalanced() {
@@ -114,12 +114,13 @@ public final class HandEvaluations {
 
     private boolean isThreeHigherCards(Card card) {
         Rank rank = card.getRank();
-        return Rank.ACE.equals(rank) || Rank.KING.equals(rank) || Rank.QUEEN.equals(rank);
+        return Rank.getACE().equals(rank) || Rank.getKING().equals(rank) || Rank.getQUEEN().equals(rank);
     }
 
     private boolean isFiveHigherCards(Card card) {
         Rank rank = card.getRank();
-        return Rank.ACE.equals(rank) || Rank.KING.equals(rank) || Rank.QUEEN.equals(rank) || Rank.JACK.equals(rank) || Rank.TEN.equals(rank);
+        return Rank.getACE().equals(rank) || Rank.getKING().equals(rank) || Rank.getQUEEN().equals(rank) || Rank.getJACK().equals(rank)
+                || Rank.getTEN().equals(rank);
     }
 
     public Suit getLongestSuit() {
@@ -144,14 +145,14 @@ public final class HandEvaluations {
      * @return Return the longest major if they have different lengths. If they have equal lengths, return spades.
      */
     public Suit getLongestMajor() {
-        return this.compareSuitLengthWithPriority(Suit.SPADES, Suit.HEARTS);
+        return this.compareSuitLengthWithPriority(Suit.getSPADES(), Suit.getHEARTS());
     }
 
     /**
      * @return Return the longest minor if they have different lengths. If they have equal lengths, return clubs.
      */
     public Suit getLongestMinor() {
-        return this.compareSuitLengthWithPriority(Suit.CLUBS, Suit.DIAMONDS);
+        return this.compareSuitLengthWithPriority(Suit.getCLUBS(), Suit.getDIAMONDS());
     }
 
     private Suit compareSuitLengthWithPriority(Suit highPrioritySuit, Suit lowPrioritySuit) {

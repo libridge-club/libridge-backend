@@ -21,11 +21,11 @@ public final class RulesetFromStrainString {
     // Static initialization block to avoid doing this calculation every time
     // identify(..) is called.
     static {
-        shortDescriptionOfRulesets.put(Strain.CLUBS.getName(), new PositiveWithTrumpsRuleset(Suit.CLUBS));
-        shortDescriptionOfRulesets.put(Strain.DIAMONDS.getName(), new PositiveWithTrumpsRuleset(Suit.DIAMONDS));
-        shortDescriptionOfRulesets.put(Strain.HEARTS.getName(), new PositiveWithTrumpsRuleset(Suit.HEARTS));
-        shortDescriptionOfRulesets.put(Strain.SPADES.getName(), new PositiveWithTrumpsRuleset(Suit.SPADES));
-        shortDescriptionOfRulesets.put(Strain.NOTRUMPS.getName(), new PositiveNoTrumpsRuleset());
+        shortDescriptionOfRulesets.put(Strain.getCLUBS().getName(), new PositiveWithTrumpsRuleset(Suit.getCLUBS()));
+        shortDescriptionOfRulesets.put(Strain.getDIAMONDS().getName(), new PositiveWithTrumpsRuleset(Suit.getDIAMONDS()));
+        shortDescriptionOfRulesets.put(Strain.getHEARTS().getName(), new PositiveWithTrumpsRuleset(Suit.getHEARTS()));
+        shortDescriptionOfRulesets.put(Strain.getSPADES().getName(), new PositiveWithTrumpsRuleset(Suit.getSPADES()));
+        shortDescriptionOfRulesets.put(Strain.getNOTRUMPS().getName(), new PositiveNoTrumpsRuleset());
     }
 
     public static PositiveRuleset identify(@NonNull String strain) {

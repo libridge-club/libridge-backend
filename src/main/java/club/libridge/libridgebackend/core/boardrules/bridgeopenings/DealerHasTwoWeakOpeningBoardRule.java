@@ -21,7 +21,7 @@ public class DealerHasTwoWeakOpeningBoardRule extends SingletonEqualsAndHashcode
 
     private boolean hasCorrectDistribution(HandEvaluations handEvaluations) {
         Suit suit = handEvaluations.getLongestSuit();
-        if (Suit.CLUBS.equals(suit)) { // There is no weak 2C bid.
+        if (Suit.getCLUBS().equals(suit)) { // There is no weak 2C bid.
             return false;
         }
         return handEvaluations.hasSixCardsInLongestSuit() && !handEvaluations.hasFourOrMoreCardsInMajorSuitExcludingLongestSuit()

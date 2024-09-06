@@ -1,7 +1,6 @@
 package club.libridge.libridgebackend.core;
 
 import java.util.ArrayList;
-import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,7 +37,7 @@ public class Deal {
     private Direction currentPlayer;
     @Getter
     private Score score;
-    private Map<Direction, Player> players = new EnumMap<Direction, Player>(Direction.class);
+    private Map<Direction, Player> players = new HashMap<Direction, Player>();
 
     @Getter
     private Ruleset ruleset;
@@ -53,7 +52,7 @@ public class Deal {
     @Getter
     private Direction claimer;
     @Getter
-    private Map<Direction, Boolean> acceptedClaimMap = new EnumMap<Direction, Boolean>(Direction.class);
+    private Map<Direction, Boolean> acceptedClaimMap = new HashMap<Direction, Boolean>();
     @Getter
     private Boolean isPartnershipGame;
 
@@ -64,9 +63,8 @@ public class Deal {
         this.completedTricks = 0;
         this.startingNumberOfCardsInTheHand = board.getHandOf(leader).size();
         this.tricks = new ArrayList<Trick>();
-        this.players = new EnumMap<Direction, Player>(Direction.class);
-        Direction[] allValues = Direction.values();
-        for (Direction direction : allValues) {
+        this.players = new HashMap<Direction, Player>();
+        for (Direction direction : Direction.values()) {
             acceptedClaimMap.put(direction, false);
         }
         this.isPartnershipGame = isPartnershipGame;

@@ -13,7 +13,7 @@ public class ShuffledBoardDealerTest {
     // FIXME This is an integration test as it needs other classes to work.
     @Test
     public void shouldReceiveABoardWithTheCorrectDealerAndACompleteSetOfCards() {
-        Direction dealer = Direction.NORTH;
+        Direction dealer = Direction.getNorth();
         BoardDealer boardDealer = new ShuffledBoardDealer();
         CardDeck anyCardDeck = new Complete52CardDeck();
         Board board = boardDealer.dealBoard(dealer, anyCardDeck.getDeck());

@@ -12,6 +12,8 @@ import club.libridge.libridgebackend.core.exceptions.AuctionAlreadyFinishedExcep
 import club.libridge.libridgebackend.core.exceptions.CallInAnotherPlayersTurnException;
 import club.libridge.libridgebackend.core.exceptions.InsufficientBidException;
 import club.libridge.libridgebackend.core.exceptions.InvalidCallException;
+import scala.jdk.javaapi.OptionConverters;
+import scalabridge.BiddingBox;
 import scalabridge.Call;
 import scalabridge.Direction;
 import scalabridge.PassingCall;
@@ -27,15 +29,15 @@ class AuctionTest {
 
     @Test
     void shouldGetDealerFromConstructor() {
-        Direction east = Direction.EAST;
-        Direction north = Direction.NORTH;
+        Direction east = Direction.getEast();
+        Direction north = Direction.getNorth();
         assertEquals(east, new Auction(east).getDealer());
         assertEquals(north, new Auction(north).getDealer());
     }
 
     @Test
     void shouldReturnAnUnmodifiableListOfBids() {
-        Auction subject = new Auction(Direction.EAST);
+        Auction subject = new Auction(Direction.getEast());
         List<Call> bids = subject.getBids();
         assertThrows(UnsupportedOperationException.class, () -> {
             bids.add(PassingCall.instance());
@@ -44,14 +46,14 @@ class AuctionTest {
 
     @Test
     void shouldNotBeFinishedJustAfterCreation() {
-        Auction auction = new Auction(Direction.EAST);
+        Auction auction = new Auction(Direction.getEast());
         assertFalse(auction.isFinished());
     }
 
     @Test
     void shouldThrowExceptionWhenAPlayerCallsOutOfTurn() {
-        Auction auction = new Auction(Direction.EAST);
-        Call pass = BiddingBox.PASS;
+        Auction auction = new Auction(Direction.getEast());
+        Call pass = BiddingBox.getPass();
         assertThrows(CallInAnotherPlayersTurnException.class, () -> {
             auction.makeCall(auction.getDealer().next(), pass);
         });
@@ -59,63 +61,63 @@ class AuctionTest {
 
     @Test
     void shouldThrowExceptionWhenAPlayerCallsOnAFinishedAuction() {
-        Direction direction = Direction.NORTH;
+        Direction direction = Direction.getNorth();
         Auction auction = new Auction(direction);
-        Call pass = BiddingBox.PASS;
+        Call pass = BiddingBox.getPass();
         for (int i = 0; i < 4; i++) {
             auction.makeCall(direction, pass);
             direction = direction.next();
         }
         assertThrows(AuctionAlreadyFinishedException.class, () -> {
-            auction.makeCall(Direction.NORTH, pass);
+            auction.makeCall(Direction.getNorth(), pass);
         });
     }
 
     @Test
     void shouldThrowExceptionWhenAPlayerMakesAnInvalidDouble() {
-        Auction auction = new Auction(Direction.NORTH);
-        auction.makeCall(Direction.NORTH, BiddingBox.PASS);
+        Auction auction = new Auction(Direction.getNorth());
+        auction.makeCall(Direction.getNorth(), BiddingBox.getPass());
         assertThrows(InvalidCallException.class, () -> {
-            auction.makeCall(Direction.EAST, BiddingBox.DOUBLE);
+            auction.makeCall(Direction.getEast(), BiddingBox.getDouble());
         });
     }
 
     @Test
     void shouldThrowExceptionWhenAPlayerMakesAnInvalidRedouble() {
-        Auction auction = new Auction(Direction.NORTH);
-        auction.makeCall(Direction.NORTH, BiddingBox.PASS);
+        Auction auction = new Auction(Direction.getNorth());
+        auction.makeCall(Direction.getNorth(), BiddingBox.getPass());
         assertThrows(InvalidCallException.class, () -> {
-            auction.makeCall(Direction.EAST, BiddingBox.REDOUBLE);
+            auction.makeCall(Direction.getEast(), BiddingBox.getRedouble());
         });
     }
 
     @Test
     void shouldThrowExceptionWhenAPlayerMakesAnInsufficientBid() {
-        Auction auction = new Auction(Direction.NORTH);
-        auction.makeCall(Direction.NORTH, BiddingBox.get("2C"));
+        Auction auction = new Auction(Direction.getNorth());
+        auction.makeCall(Direction.getNorth(), OptionConverters.toJava(BiddingBox.getOption("2C")).get());
         assertThrows(InsufficientBidException.class, () -> {
-            auction.makeCall(Direction.EAST, BiddingBox.get("1N"));
+            auction.makeCall(Direction.getEast(), OptionConverters.toJava(BiddingBox.getOption("1N")).get());
         });
     }
 
     @Test
     void shouldThrowExceptionWhenAPlayerDoublesAPartnerBid() {
-        Auction auction = new Auction(Direction.NORTH);
-        auction.makeCall(Direction.NORTH, BiddingBox.get("1C"));
-        auction.makeCall(Direction.EAST, BiddingBox.PASS);
+        Auction auction = new Auction(Direction.getNorth());
+        auction.makeCall(Direction.getNorth(), OptionConverters.toJava(BiddingBox.getOption("1C")).get());
+        auction.makeCall(Direction.getEast(), BiddingBox.getPass());
         assertThrows(InvalidCallException.class, () -> {
-            auction.makeCall(Direction.SOUTH, BiddingBox.DOUBLE);
+            auction.makeCall(Direction.getSouth(), BiddingBox.getDouble());
         });
     }
 
     @Test
     void shouldThrowExceptionWhenAPlayerRedoublesAPartnerDouble() {
-        Auction auction = new Auction(Direction.NORTH);
-        auction.makeCall(Direction.NORTH, BiddingBox.get("1C"));
-        auction.makeCall(Direction.EAST, BiddingBox.DOUBLE);
-        auction.makeCall(Direction.SOUTH, BiddingBox.PASS);
+        Auction auction = new Auction(Direction.getNorth());
+        auction.makeCall(Direction.getNorth(), OptionConverters.toJava(BiddingBox.getOption("1C")).get());
+        auction.makeCall(Direction.getEast(), BiddingBox.getDouble());
+        auction.makeCall(Direction.getSouth(), BiddingBox.getPass());
         assertThrows(InvalidCallException.class, () -> {
-            auction.makeCall(Direction.WEST, BiddingBox.REDOUBLE);
+            auction.makeCall(Direction.getWest(), BiddingBox.getRedouble());
         });
     }
 

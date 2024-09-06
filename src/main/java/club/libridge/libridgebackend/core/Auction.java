@@ -12,9 +12,12 @@ import lombok.Getter;
 import lombok.NonNull;
 import scalabridge.Bid;
 import scalabridge.Call;
+import scalabridge.Contract;
 import scalabridge.Direction;
 import scalabridge.OddTricks;
+import scalabridge.PenaltyStatus;
 import scalabridge.Strain;
+import scalabridge.VulnerabilityStatus;
 
 /**
  * The rules for Bridge Auction are as follows (paraphrasing/quoting the 2017 Laws of Bridge - LAWS 17-22):
@@ -120,19 +123,14 @@ public final class Auction {
     }
 
     private void addCall(@NonNull Call call) {
-        Call unmodifiableCopy = getCallFromBiddingBox(call);
-        this.bids.add(unmodifiableCopy);
+        this.bids.add(call);
         this.currentTurn = this.currentTurn.next();
-        if (!unmodifiableCopy.isPass()) {
+        if (!call.isPass()) {
             this.lastNonPassCallIndex = this.bids.size() - 1;
         }
-        if (unmodifiableCopy.isBid()) {
+        if (call.isBid()) {
             this.lastBidIndex = this.bids.size() - 1;
         }
-    }
-
-    private Call getCallFromBiddingBox(@NonNull Call call) {
-        return BiddingBox.get(call);
     }
 
     private void checkAndUpdateForFinishedAuction() {
@@ -188,10 +186,9 @@ public final class Auction {
             } else if (redoubled) {
                 penaltyStatus = PenaltyStatus.REDOUBLED;
             }
-            boolean nonVul = false;
             OddTricks oddTricks = lastBid.getOddTricks();
             Strain strain = lastBid.getStrain();
-            this.finalContract = new Contract(oddTricks, strain, penaltyStatus, nonVul);
+            this.finalContract = new Contract(oddTricks, strain, penaltyStatus, VulnerabilityStatus.NONVULNERABLE);
             return this.finalContract;
         }
     }

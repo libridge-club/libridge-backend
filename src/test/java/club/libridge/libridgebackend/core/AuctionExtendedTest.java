@@ -13,6 +13,9 @@ import org.junit.jupiter.api.Test;
 import club.libridge.libridgebackend.lin.LinParser;
 import club.libridge.libridgebackend.lin.ParsedLin;
 import club.libridge.libridgebackend.utils.FileUtils;
+import scala.jdk.javaapi.OptionConverters;
+import scalabridge.BiddingBox;
+import scalabridge.Contract;
 import scalabridge.Direction;
 
 class AuctionExtendedTest {
@@ -22,11 +25,11 @@ class AuctionExtendedTest {
         String data = FileUtils.readFromFilename("/auctions-valid.txt", false);
         String validAuctions[] = data.split("\n");
         for (String validAuction : validAuctions) {
-            Direction current = Direction.EAST;
+            Direction current = Direction.getEast();
             Auction auction = new Auction(current);
             for (String call : validAuction.split(" ")) {
                 assertFalse(auction.isFinished());
-                auction.makeCall(current, BiddingBox.get(call));
+                auction.makeCall(current, OptionConverters.toJava(BiddingBox.getOption(call)).get());
                 current = current.next();
             }
             assertTrue(auction.isFinished());

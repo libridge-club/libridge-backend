@@ -2,14 +2,13 @@ package club.libridge.libridgebackend.app.persistence;
 
 import java.math.BigInteger;
 import java.util.Deque;
-import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
 import club.libridge.libridgebackend.core.Board;
-import scalabridge.Card;
-import scalabridge.Direction;
 import club.libridge.libridgebackend.core.Hand;
 import club.libridge.libridgebackend.core.PavlicekNumber;
 import club.libridge.libridgebackend.core.boarddealer.BoardDealer;
@@ -20,6 +19,8 @@ import club.libridge.libridgebackend.core.exceptions.ImpossibleBoardException;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
+import scalabridge.Card;
+import scalabridge.Direction;
 
 @Validated
 @Component
@@ -40,7 +41,7 @@ public class BoardFactory {
     public Board getRandom() {
         BoardDealer boardDealer = new ShuffledBoardDealer();
         CardDeck anyCardDeck = new Complete52CardDeck();
-        return boardDealer.dealBoard(Direction.NORTH, anyCardDeck.getDeck());
+        return boardDealer.dealBoard(Direction.getNorth(), anyCardDeck.getDeck());
     }
 
     public Board fromPavlicekNumber(String pavlicekNumber) {
@@ -50,8 +51,7 @@ public class BoardFactory {
     /**
      * @param hand Provided hand. Must be a complete hand with 13 cards.
      * @param direction Direction of the provided hand. It will also be made dealer.
-     * @return A board with the provided hand as dealer, in the direction provided,
-     * with no restriction to the position of the other cards.
+     * @return A board with the provided hand as dealer, in the direction provided, with no restriction to the position of the other cards.
      */
     public Board fromHandAndDirection(Hand hand, Direction direction) {
         if (hand.getCards().size() != CARDS_IN_A_FULL_HAND) {
@@ -61,7 +61,7 @@ public class BoardFactory {
         deque.removeAll(hand.getCards());
         assert (deque.size() == (CARDS_IN_A_FULL_DECK - CARDS_IN_A_FULL_HAND));
 
-        EnumMap<Direction, Hand> hands = new EnumMap<Direction, Hand>(Direction.class);
+        Map<Direction, Hand> hands = new HashMap<Direction, Hand>();
         hands.put(direction, hand);
         Direction currentDirection = direction.next();
         while (!deque.isEmpty()) {

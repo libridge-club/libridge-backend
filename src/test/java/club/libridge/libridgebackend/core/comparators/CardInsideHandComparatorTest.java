@@ -11,15 +11,15 @@ import scalabridge.Suit;
 
 public class CardInsideHandComparatorTest {
 
-    private Card aceOfClubs = new Card(Suit.CLUBS, Rank.ACE);
-    private Card aceOfDiamonds = new Card(Suit.DIAMONDS, Rank.ACE);
-    private Card aceOfHearts = new Card(Suit.HEARTS, Rank.ACE);
-    private Card aceOfSpades = new Card(Suit.SPADES, Rank.ACE);
+    private Card aceOfClubs = new Card(Suit.getCLUBS(), Rank.getACE());
+    private Card aceOfDiamonds = new Card(Suit.getDIAMONDS(), Rank.getACE());
+    private Card aceOfHearts = new Card(Suit.getHEARTS(), Rank.getACE());
+    private Card aceOfSpades = new Card(Suit.getSPADES(), Rank.getACE());
 
-    private Card kingOfClubs = new Card(Suit.CLUBS, Rank.KING);
-    private Card tenOfDiamonds = new Card(Suit.DIAMONDS, Rank.TEN);
-    private Card sevenOfHearts = new Card(Suit.HEARTS, Rank.SEVEN);
-    private Card twoOfSpades = new Card(Suit.SPADES, Rank.TWO);
+    private Card kingOfClubs = new Card(Suit.getCLUBS(), Rank.getKING());
+    private Card tenOfDiamonds = new Card(Suit.getDIAMONDS(), Rank.getTEN());
+    private Card sevenOfHearts = new Card(Suit.getHEARTS(), Rank.getSEVEN());
+    private Card twoOfSpades = new Card(Suit.getSPADES(), Rank.getTWO());
 
     @Test
     public void shouldCompareSuitsCorrectly() {

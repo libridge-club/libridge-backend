@@ -20,7 +20,10 @@ libridge uses Makefile and [Maven](https://maven.apache.org/) to build. The foll
 make
 ```
 
-This should clean your directory, compile, run all tests, package the final .jar at the `target/` directory and copy it into `./libridge-server.jar`. Use `java -jar ./libridge-server.jar` to run it.
+This should clean your directory, compile, run all tests, package the final .jar at the `target/` directory and copy it into `./libridge-server.jar`.
+
+### Setting the environment and running
+And then `java -Dspring.profiles.active=development -jar ./libridge-server.jar` to run the development server.
 
 ## Only unit tests
 

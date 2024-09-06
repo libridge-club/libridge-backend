@@ -15,10 +15,10 @@ public class Partial40CardDeck implements CardDeck {
 
     public Partial40CardDeck() {
         this.deck = new ArrayDeque<Card>();
-        Rank.ACE.compareTo(Rank.ACE);
+        Rank.getACE().compareTo(Rank.getACE());
         for (Suit suit : Suit.values()) {
             for (Rank rank : Rank.values()) {
-                if (rank.compareTo(Rank.FIVE) >= 0) { // Rank is greater or equal than five
+                if (rank.compareTo(Rank.getFIVE()) >= 0) { // Rank is greater or equal than five
                     Card card = new Card(suit, rank);
                     this.deck.add(card);
                 }

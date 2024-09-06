@@ -15,12 +15,12 @@ public class HandBuilderTest {
     public void myTest() {
         String first = "q5.kt85.qjt8632.";
         HandBuilder handBuilder = new HandBuilder();
-        Card sq = new Card(Suit.SPADES, Rank.QUEEN);
-        Card s5 = new Card(Suit.SPADES, Rank.FIVE);
-        Card s3 = new Card(Suit.SPADES, Rank.THREE);
-        Card ht = new Card(Suit.HEARTS, Rank.TEN);
-        Card d8 = new Card(Suit.DIAMONDS, Rank.EIGHT);
-        Card ca = new Card(Suit.CLUBS, Rank.ACE);
+        Card sq = new Card(Suit.getSPADES(), Rank.getQUEEN());
+        Card s5 = new Card(Suit.getSPADES(), Rank.getFIVE());
+        Card s3 = new Card(Suit.getSPADES(), Rank.getTHREE());
+        Card ht = new Card(Suit.getHEARTS(), Rank.getTEN());
+        Card d8 = new Card(Suit.getDIAMONDS(), Rank.getEIGHT());
+        Card ca = new Card(Suit.getCLUBS(), Rank.getACE());
 
         Hand firstHand = handBuilder.buildFromDotSeparatedString(first);
 

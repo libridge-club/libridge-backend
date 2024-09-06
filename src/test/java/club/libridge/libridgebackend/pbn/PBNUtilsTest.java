@@ -21,7 +21,7 @@ public class PBNUtilsTest {
     @Test
     void testPbnStringFromBoard() {
         ShuffledBoardDealer shuffledBoardDealer = new ShuffledBoardDealer();
-        Board dealBoard = shuffledBoardDealer.dealBoard(Direction.NORTH, new Complete52CardDeck().getDeck());
+        Board dealBoard = shuffledBoardDealer.dealBoard(Direction.getNorth(), new Complete52CardDeck().getDeck());
 
         String response = PBNUtils.dealTagStringFromBoard(dealBoard);
 
@@ -32,12 +32,12 @@ public class PBNUtilsTest {
     @Test
     void testDealTagStringFromBoardAndDirection() {
 
-        long seed = 123L;
-        ShuffledBoardDealerWithSeed shuffledBoardDealerWithSeed = new ShuffledBoardDealerWithSeed(seed);
-        Board boardWithSeed = shuffledBoardDealerWithSeed.dealBoard(Direction.NORTH, new Complete52CardDeck().getDeck());
-        String expectedString = "E:86.KT2.K85.Q9742 KJT932.97.942.86 54.8653.AQJT73.3 AQ7.AQJ4.6.AKJT5";
+        long arbitrarySeed = 123L;
+        ShuffledBoardDealerWithSeed shuffledBoardDealerWithSeed = new ShuffledBoardDealerWithSeed(arbitrarySeed);
+        Board boardWithSeed = shuffledBoardDealerWithSeed.dealBoard(Direction.getNorth(), new Complete52CardDeck().getDeck());
+        String expectedString = "E:86.KT2.Q9742.K85 KJT932.97.86.942 54.8653.3.AQJT73 AQ7.AQJ4.AKJT5.6";
 
-        String response = PBNUtils.dealTagStringFromBoardAndDirection(boardWithSeed, Direction.EAST);
+        String response = PBNUtils.dealTagStringFromBoardAndDirection(boardWithSeed, Direction.getEast());
 
         assertEquals(expectedString, response);
 
@@ -50,17 +50,17 @@ public class PBNUtilsTest {
 
         Board response = PBNUtils.getBoardFromDealTag(inputString);
 
-        assertEquals(response.getDealer(), Direction.EAST);
+        assertEquals(response.getDealer(), Direction.getEast());
 
-        Hand east = response.getHandOf(Direction.EAST);
-        assertTrue(east.containsCard(new Card(Suit.SPADES, Rank.EIGHT)));
-        assertFalse(east.containsCard(new Card(Suit.SPADES, Rank.ACE)));
-        assertTrue(east.containsCard(new Card(Suit.HEARTS, Rank.KING)));
+        Hand east = response.getHandOf(Direction.getEast());
+        assertTrue(east.containsCard(new Card(Suit.getSPADES(), Rank.getEIGHT())));
+        assertFalse(east.containsCard(new Card(Suit.getSPADES(), Rank.getACE())));
+        assertTrue(east.containsCard(new Card(Suit.getHEARTS(), Rank.getKING())));
 
-        Hand north = response.getHandOf(Direction.NORTH);
-        assertTrue(north.containsCard(new Card(Suit.SPADES, Rank.QUEEN)));
-        assertFalse(north.containsCard(new Card(Suit.DIAMONDS, Rank.ACE)));
-        assertTrue(north.containsCard(new Card(Suit.CLUBS, Rank.JACK)));
+        Hand north = response.getHandOf(Direction.getNorth());
+        assertTrue(north.containsCard(new Card(Suit.getSPADES(), Rank.getQUEEN())));
+        assertFalse(north.containsCard(new Card(Suit.getDIAMONDS(), Rank.getACE())));
+        assertTrue(north.containsCard(new Card(Suit.getCLUBS(), Rank.getJACK())));
     }
 
 }

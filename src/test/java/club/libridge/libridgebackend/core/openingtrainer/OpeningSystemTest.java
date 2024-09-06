@@ -29,7 +29,7 @@ public class OpeningSystemTest {
     public void getCall_shouldReturnTheRightCall() {
         String pbnString = "972.4.986.AQT842";
         Hand hand = handBuilder.buildFromDotSeparatedString(pbnString);
-        Call call = subject.getCall(boardFactory.fromHandAndDirection(hand, Direction.NORTH));
+        Call call = subject.getCall(boardFactory.fromHandAndDirection(hand, Direction.getNorth()));
         assertTrue(call.isPass());
     }
 }

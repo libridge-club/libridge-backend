@@ -2,7 +2,7 @@ package club.libridge.libridgebackend.core;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,7 +24,7 @@ public class Board {
     private Board() {
     }
 
-    private Map<Direction, Hand> hands = new EnumMap<Direction, Hand>(Direction.class);
+    private Map<Direction, Hand> hands = new HashMap<Direction, Hand>();
     @Getter
     private Direction dealer;
 

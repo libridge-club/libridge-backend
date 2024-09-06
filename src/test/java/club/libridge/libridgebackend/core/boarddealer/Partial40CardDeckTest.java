@@ -31,7 +31,7 @@ public class Partial40CardDeckTest {
 
     @Test
     public void getDeckshouldReturnADeckWithAllRanksGreaterThanFour() {
-        Card fourOfHearts = new Card(Suit.HEARTS, Rank.FOUR);
+        Card fourOfHearts = new Card(Suit.getHEARTS(), Rank.getFOUR());
         for (Card card : subject.getDeck()) {
             boolean isGreaterThanFour = card.compareRank(fourOfHearts) > 0;
             assertTrue(isGreaterThanFour);

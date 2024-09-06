@@ -4,22 +4,20 @@ import static club.libridge.libridgebackend.logging.LibridgeLogger.LOGGER;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import scalabridge.Direction;
 import club.libridge.libridgebackend.core.Player;
 import club.libridge.libridgebackend.networking.messages.GameNameFromGameServerIdentifier;
 import club.libridge.libridgebackend.networking.server.gameserver.GameServer;
+import scalabridge.Direction;
 
 /**
- * This class has two responsibilities: 1: control the players and the
- * directions they are sitting 2: host a gameServer. This way, the gameServer
- * should remain isolated from the lower layers and only be altered via this
- * table.
+ * This class has two responsibilities: 1: control the players and the directions they are sitting 2: host a gameServer. This way, the gameServer
+ * should remain isolated from the lower layers and only be altered via this table.
  */
 public class Table {
 
@@ -31,7 +29,7 @@ public class Table {
     public Table(GameServer gameServer) {
         this.gameServer = gameServer;
         this.gameServer.setTable(this);
-        this.seatedPlayers = new EnumMap<Direction, Player>(Direction.class);
+        this.seatedPlayers = new HashMap<Direction, Player>();
         this.spectatorPlayers = new ArrayList<Player>();
         this.id = UUID.randomUUID();
     }

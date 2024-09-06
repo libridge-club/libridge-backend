@@ -8,7 +8,7 @@ import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 
 import java.util.Comparator;
-import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -22,11 +22,11 @@ public class BoardTest {
 
     private Direction dealer;
     private Board board;
-    private Map<Direction, Hand> hands = new EnumMap<Direction, Hand>(Direction.class);
+    private Map<Direction, Hand> hands = new HashMap<Direction, Hand>();
 
     @BeforeEach
     public void createNorthBoard() {
-        dealer = Direction.NORTH;
+        dealer = Direction.getNorth();
         hands.clear();
         for (Direction direction : Direction.values()) {
             hands.put(direction, mock(Hand.class));

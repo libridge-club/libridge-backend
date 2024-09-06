@@ -22,7 +22,7 @@ public abstract class TrickGame {
     protected final Deque<Card> gameDeck;
 
     protected TrickGame(@NonNull Deque<Card> gameDeck) {
-        dealer = Direction.NORTH;
+        dealer = Direction.getNorth();
         this.gameDeck = gameDeck;
     }
 

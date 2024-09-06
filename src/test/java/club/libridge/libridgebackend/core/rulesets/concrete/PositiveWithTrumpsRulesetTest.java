@@ -16,7 +16,7 @@ public class PositiveWithTrumpsRulesetTest {
 
     @BeforeEach
     public void createPositiveNoTrumpsRuleset() {
-        trumpSuit = Suit.SPADES;
+        trumpSuit = Suit.getSPADES();
         this.positiveWithTrumpRuleset = new PositiveWithTrumpsRuleset(trumpSuit);
     }
 

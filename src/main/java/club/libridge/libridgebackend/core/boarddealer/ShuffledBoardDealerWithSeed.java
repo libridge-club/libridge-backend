@@ -1,15 +1,15 @@
 package club.libridge.libridgebackend.core.boarddealer;
 
 import java.util.Deque;
-import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.Map;
 
 import club.libridge.libridgebackend.core.Board;
-import scalabridge.Card;
-import scalabridge.Direction;
 import club.libridge.libridgebackend.core.Hand;
 import club.libridge.libridgebackend.core.ShuffledDeck;
 import lombok.AllArgsConstructor;
+import scalabridge.Card;
+import scalabridge.Direction;
 
 @AllArgsConstructor
 public class ShuffledBoardDealerWithSeed implements BoardDealer {
@@ -22,7 +22,7 @@ public class ShuffledBoardDealerWithSeed implements BoardDealer {
         Direction currentDirection;
         Hand currentHand;
         ShuffledDeck currentDeck = new ShuffledDeck(deck, seed);
-        hands = new EnumMap<Direction, Hand>(Direction.class);
+        hands = new HashMap<Direction, Hand>();
         for (Direction direction : Direction.values()) {
             hands.put(direction, new Hand());
         }

@@ -27,10 +27,10 @@ public class HandBuilder {
         Hand returnValue = new Hand();
         int enforceFourSuitsLimit = 4;
         String[] suits = dotSeparatedString.toUpperCase().split("\\.", enforceFourSuitsLimit);
-        getCardsFromSuitString(Suit.SPADES, suits[0]).stream().forEach(card -> returnValue.addCard(card));
-        getCardsFromSuitString(Suit.HEARTS, suits[1]).stream().forEach(card -> returnValue.addCard(card));
-        getCardsFromSuitString(Suit.DIAMONDS, suits[2]).stream().forEach(card -> returnValue.addCard(card));
-        getCardsFromSuitString(Suit.CLUBS, suits[3]).stream().forEach(card -> returnValue.addCard(card));
+        getCardsFromSuitString(Suit.getSPADES(), suits[0]).stream().forEach(card -> returnValue.addCard(card));
+        getCardsFromSuitString(Suit.getHEARTS(), suits[1]).stream().forEach(card -> returnValue.addCard(card));
+        getCardsFromSuitString(Suit.getDIAMONDS(), suits[2]).stream().forEach(card -> returnValue.addCard(card));
+        getCardsFromSuitString(Suit.getCLUBS(), suits[3]).stream().forEach(card -> returnValue.addCard(card));
         return returnValue;
     }
 

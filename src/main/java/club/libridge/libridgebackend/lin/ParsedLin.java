@@ -56,7 +56,7 @@ public class ParsedLin {
                 int firstQxIndex = qxIndexes.get(0);
                 Auction currentAuction = null;
                 boolean firstBoard = true;
-                Direction currentDirection = Direction.NORTH;
+                Direction currentDirection = Direction.getNorth();
                 for (int currentIndex = firstQxIndex; currentIndex < list.size(); currentIndex++) {
                     LinKey key = list.get(currentIndex).getKey();
                     String value = list.get(currentIndex).getValue();
@@ -107,7 +107,7 @@ public class ParsedLin {
                     }
                     // Then start the new board
                     boardNumber = Integer.parseInt(value.substring(1));
-                    currentDealer = Direction.WEST.next(boardNumber);
+                    currentDealer = Direction.getWest().next(boardNumber);
                     currentDirectionToMakeCall = currentDealer;
                     currentDirectionToPlayCard = null;
                     firstPlayedCard = true;
@@ -120,7 +120,7 @@ public class ParsedLin {
                 } else if (key.equals(LinKey.PC)) { // For every card played
                     // FIXME Play card direction is wrong for now.
                     // It needs to check who is declarer for first trick and who won the trick for the other tricks.
-                    currentDirectionToPlayCard = Direction.NORTH;
+                    currentDirectionToPlayCard = Direction.getNorth();
                     currentDeal = currentDeal.addEvent(new PlayCardEvent(Instant.now(), currentDirectionToPlayCard, LinParser.parseFromLinPC(value)));
                 }
             }

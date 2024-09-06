@@ -4,8 +4,11 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
 
+import scalabridge.Contract;
 import scalabridge.OddTricks;
+import scalabridge.PenaltyStatus;
 import scalabridge.Strain;
+import scalabridge.VulnerabilityStatus;
 
 public final class ContractFactory {
 
@@ -35,13 +38,14 @@ public final class ContractFactory {
         }
         boolean doubled = "X".equals(penalty);
         boolean redoubled = "XX".equals(penalty);
+        VulnerabilityStatus vulnerability = vulnerable ? VulnerabilityStatus.VULNERABLE : VulnerabilityStatus.NONVULNERABLE;
         PenaltyStatus penaltyStatus = PenaltyStatus.NONE;
         if (doubled) {
             penaltyStatus = PenaltyStatus.DOUBLED;
         } else if (redoubled) {
             penaltyStatus = PenaltyStatus.REDOUBLED;
         }
-        return new Contract(oddTricks, strain, penaltyStatus, vulnerable);
+        return new Contract(oddTricks, strain, penaltyStatus, vulnerability);
     }
 
 }

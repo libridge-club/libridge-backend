@@ -14,41 +14,40 @@ public class CardInsideHandWithSuitComparator implements Comparator<Card> {
 
     static {
         Map<Suit, Integer> whenSpades = new EnumMap<Suit, Integer>(Suit.class);
-        whenSpades.put(Suit.SPADES, 0);
-        whenSpades.put(Suit.HEARTS, 1);
-        whenSpades.put(Suit.CLUBS, 2);
-        whenSpades.put(Suit.DIAMONDS, 3);
+        whenSpades.put(Suit.getSPADES(), 0);
+        whenSpades.put(Suit.getHEARTS(), 1);
+        whenSpades.put(Suit.getCLUBS(), 2);
+        whenSpades.put(Suit.getDIAMONDS(), 3);
 
         Map<Suit, Integer> whenHearts = new EnumMap<Suit, Integer>(Suit.class);
-        whenHearts.put(Suit.HEARTS, 0);
-        whenHearts.put(Suit.SPADES, 1);
-        whenHearts.put(Suit.DIAMONDS, 2);
-        whenHearts.put(Suit.CLUBS, 3);
+        whenHearts.put(Suit.getHEARTS(), 0);
+        whenHearts.put(Suit.getSPADES(), 1);
+        whenHearts.put(Suit.getDIAMONDS(), 2);
+        whenHearts.put(Suit.getCLUBS(), 3);
 
         Map<Suit, Integer> whenDiamonds = new EnumMap<Suit, Integer>(Suit.class);
-        whenDiamonds.put(Suit.DIAMONDS, 0);
-        whenDiamonds.put(Suit.SPADES, 1);
-        whenDiamonds.put(Suit.HEARTS, 2);
-        whenDiamonds.put(Suit.CLUBS, 3);
+        whenDiamonds.put(Suit.getDIAMONDS(), 0);
+        whenDiamonds.put(Suit.getSPADES(), 1);
+        whenDiamonds.put(Suit.getHEARTS(), 2);
+        whenDiamonds.put(Suit.getCLUBS(), 3);
 
         Map<Suit, Integer> whenClubs = new EnumMap<Suit, Integer>(Suit.class);
-        whenClubs.put(Suit.CLUBS, 0);
-        whenClubs.put(Suit.HEARTS, 1);
-        whenClubs.put(Suit.SPADES, 2);
-        whenClubs.put(Suit.DIAMONDS, 3);
+        whenClubs.put(Suit.getCLUBS(), 0);
+        whenClubs.put(Suit.getHEARTS(), 1);
+        whenClubs.put(Suit.getSPADES(), 2);
+        whenClubs.put(Suit.getDIAMONDS(), 3);
 
         suitOrders = new EnumMap<>(Suit.class);
-        suitOrders.put(Suit.SPADES, whenSpades);
-        suitOrders.put(Suit.HEARTS, whenHearts);
-        suitOrders.put(Suit.DIAMONDS, whenDiamonds);
-        suitOrders.put(Suit.CLUBS, whenClubs);
+        suitOrders.put(Suit.getSPADES(), whenSpades);
+        suitOrders.put(Suit.getHEARTS(), whenHearts);
+        suitOrders.put(Suit.getDIAMONDS(), whenDiamonds);
+        suitOrders.put(Suit.getCLUBS(), whenClubs);
     }
 
     private Map<Suit, Integer> suitOrder;
 
     /**
-     * @deprecated Kryo needs a no-arg constructor
-     * FIXME kryo is not used anymore. Does jackson or spring web needs this?
+     * @deprecated Kryo needs a no-arg constructor FIXME kryo is not used anymore. Does jackson or spring web needs this?
      */
     @Deprecated
     @SuppressWarnings("unused")

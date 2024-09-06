@@ -19,8 +19,7 @@ public class Complete52CardDeck implements CardDeck {
         this.deck = new ArrayDeque<Card>(TOTAL_NUMBER_OF_CARDS);
         for (Suit suit : Suit.values()) {
             for (Rank rank : Rank.values()) {
-                Card card = new Card(suit, rank);
-                this.deck.add(card);
+                this.deck.add(new Card(suit, rank));
             }
         }
     }

@@ -1,17 +1,20 @@
 package club.libridge.libridgebackend.core;
 
 import java.math.BigInteger;
+import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Deque;
-import java.util.EnumMap;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-import club.libridge.libridgebackend.core.boarddealer.Complete52CardDeck;
 import scalabridge.Card;
 import scalabridge.Direction;
+import scalabridge.Rank;
+import scalabridge.Suit;
 
 /*
  * This is an implementation of http://www.rpbridge.net/7z68.htm
@@ -37,7 +40,15 @@ public class PavlicekNumber {
     static BigInteger bigD;
 
     static Deque<Card> getReferenceDeque() {
-        return new Complete52CardDeck().getDeck();
+        int totalNumberOfCards = 52;
+        Deque<Card> deck = new ArrayDeque<Card>(totalNumberOfCards);
+        List<Suit> suitOrder = Arrays.asList(Suit.getDIAMONDS(), Suit.getCLUBS(), Suit.getHEARTS(), Suit.getSPADES());
+        for (Suit suit : suitOrder) {
+            for (Rank rank : Rank.values()) {
+                deck.add(new Card(suit, rank));
+            }
+        }
+        return deck;
     }
 
     static {
@@ -58,7 +69,7 @@ public class PavlicekNumber {
     public static void main(String[] args) {
         // Deque<Card> completeDeque = getReferenceDeque();
         // ShuffledBoardDealer dealer = new ShuffledBoardDealer();
-        // Board board = dealer.dealBoard(Direction.NORTH, completeDeque);
+        // Board board = dealer.dealBoard(Direction.getNorth(), completeDeque);
         PavlicekNumber pavlicekNumber = new PavlicekNumber();
         // printBoard(board);
         // BigInteger derivedNumber = pavlicekNumber.getNumberFromBoard(board);
@@ -89,21 +100,21 @@ public class PavlicekNumber {
             Direction directionFromCard = (Direction) map.get(card.hashCode());
 
             x = getNewX(k, north, cards);
-            if (Direction.NORTH.equals(directionFromCard)) {
+            if (Direction.getNorth().equals(directionFromCard)) {
                 north--;
                 continue;
             }
 
             i = i.add(x);
             x = getNewX(k, east, cards);
-            if (Direction.EAST.equals(directionFromCard)) {
+            if (Direction.getEast().equals(directionFromCard)) {
                 east--;
                 continue;
             }
 
             i = i.add(x);
             x = getNewX(k, south, cards);
-            if (Direction.SOUTH.equals(directionFromCard)) {
+            if (Direction.getSouth().equals(directionFromCard)) {
                 south--;
                 continue;
             }
@@ -129,7 +140,7 @@ public class PavlicekNumber {
         long west = 13;
         BigInteger k = clone(bigD);
         BigInteger x = BigInteger.ZERO;
-        Map<Direction, Hand> map = new EnumMap<Direction, Hand>(Direction.class);
+        Map<Direction, Hand> map = new HashMap<Direction, Hand>();
         for (Direction direction : Direction.values()) {
             map.put(direction, new Hand());
         }
@@ -138,7 +149,7 @@ public class PavlicekNumber {
 
             x = getNewX(k, north, cards);
             if (i.compareTo(x) < 0) {
-                map.get(Direction.NORTH).addCard(card);
+                map.get(Direction.getNorth()).addCard(card);
                 north--;
                 continue;
             }
@@ -146,7 +157,7 @@ public class PavlicekNumber {
             i = i.subtract(x);
             x = getNewX(k, east, cards);
             if (i.compareTo(x) < 0) {
-                map.get(Direction.EAST).addCard(card);
+                map.get(Direction.getEast()).addCard(card);
                 east--;
                 continue;
             }
@@ -154,17 +165,17 @@ public class PavlicekNumber {
             i = i.subtract(x);
             x = getNewX(k, south, cards);
             if (i.compareTo(x) < 0) {
-                map.get(Direction.SOUTH).addCard(card);
+                map.get(Direction.getSouth()).addCard(card);
                 south--;
                 continue;
             }
 
             i = i.subtract(x);
-            map.get(Direction.WEST).addCard(card);
+            map.get(Direction.getWest()).addCard(card);
             x = getNewX(k, west, cards);
             west--;
         }
-        return new Board(map, Direction.NORTH);
+        return new Board(map, Direction.getNorth());
     }
 
     private Map<Integer, Direction> preProcess(Board board) {

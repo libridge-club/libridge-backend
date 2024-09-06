@@ -36,11 +36,11 @@ public class OpeningTrainerService {
     private static final int MAXIMUM_NUMBER_OF_TRIES = 1000;
 
     private Hand getRandom() {
-        return this.boardFactory.getRandom().getHandOf(Direction.NORTH);
+        return this.boardFactory.getRandom().getHandOf(Direction.getNorth());
     }
 
     private Call getCall(Hand hand) {
-        Board boardWithProvidedHand = boardFactory.fromHandAndDirection(hand, Direction.NORTH);
+        Board boardWithProvidedHand = boardFactory.fromHandAndDirection(hand, Direction.getNorth());
         return this.openingSystem.getCall(boardWithProvidedHand);
     }
 

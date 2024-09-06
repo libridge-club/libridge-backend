@@ -2,7 +2,6 @@ package club.libridge.libridgebackend.pbn;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,17 +20,21 @@ public final class PBNUtils {
      */
     private static final int MAX_CHARS_IN_DEAL_TAG = 70;
     private static final Map<Character, Direction> CHAR_TO_DIRECTION_MAP;
+    private static final Direction NORTH = Direction.getNorth();
+    private static final Direction EAST = Direction.getEast();
+    private static final Direction SOUTH = Direction.getSouth();
+    private static final Direction WEST = Direction.getWest();
 
     static {
         Map<Character, Direction> temp = new HashMap<Character, Direction>();
-        temp.put('N', Direction.NORTH);
-        temp.put('n', Direction.NORTH);
-        temp.put('E', Direction.EAST);
-        temp.put('e', Direction.EAST);
-        temp.put('S', Direction.SOUTH);
-        temp.put('s', Direction.SOUTH);
-        temp.put('W', Direction.WEST);
-        temp.put('w', Direction.WEST);
+        temp.put('N', NORTH);
+        temp.put('n', NORTH);
+        temp.put('E', EAST);
+        temp.put('e', EAST);
+        temp.put('S', SOUTH);
+        temp.put('s', SOUTH);
+        temp.put('W', WEST);
+        temp.put('w', WEST);
         CHAR_TO_DIRECTION_MAP = Collections.unmodifiableMap(temp);
 
     }
@@ -45,7 +48,7 @@ public final class PBNUtils {
      * Implemented from PBN Standard 2.1 - Defined at section 3.4.11 The Deal tag
      */
     public static String dealTagStringFromBoard(Board board) {
-        return dealTagStringFromBoardAndDirection(board, Direction.NORTH);
+        return dealTagStringFromBoardAndDirection(board, NORTH);
     }
 
     /**
@@ -83,7 +86,7 @@ public final class PBNUtils {
         HandBuilder handBuilder = new HandBuilder();
         Direction dealer = CHAR_TO_DIRECTION_MAP.get(dealTag.charAt(0));
         String[] dotSeparatedStrings = dealTag.substring(2).split(" ");
-        Map<Direction, Hand> hands = new EnumMap<Direction, Hand>(Direction.class);
+        Map<Direction, Hand> hands = new HashMap<Direction, Hand>();
         for (int i = 0; i < 4; i++) {
             hands.put(dealer.next(i), handBuilder.buildFromDotSeparatedString(dotSeparatedStrings[i]));
         }
@@ -107,7 +110,7 @@ public final class PBNUtils {
 
     public static String getDealTagStringFromLinMD(String linMD, Direction dealer) {
         StringBuilder returnValue = new StringBuilder(MAX_CHARS_IN_DEAL_TAG);
-        List<Suit> suitOrder = Arrays.asList(Suit.SPADES, Suit.HEARTS, Suit.DIAMONDS, Suit.CLUBS);
+        List<Suit> suitOrder = Arrays.asList(Suit.getSPADES(), Suit.getHEARTS(), Suit.getDIAMONDS(), Suit.getCLUBS());
         int magicNumberFirstHandIndicator = 5;
         try {
             int firstHandIndicator = Integer.parseInt(linMD.substring(0, 1));

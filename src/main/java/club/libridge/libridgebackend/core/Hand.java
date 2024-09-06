@@ -77,9 +77,9 @@ public class Hand {
     public String toString() {
         StringBuilder returnValue = new StringBuilder(20);
         this.sort(new CardInsideHandComparator());
-        List<Suit> suitsInDescendingOrder = List.of(Suit.SPADES, Suit.HEARTS, Suit.DIAMONDS, Suit.CLUBS);
+        List<Suit> suitsInDescendingOrder = List.of(Suit.getSPADES(), Suit.getHEARTS(), Suit.getDIAMONDS(), Suit.getCLUBS());
         for (Suit currentSuit : suitsInDescendingOrder) {
-            if (Suit.SPADES != currentSuit) {
+            if (Suit.getSPADES() != currentSuit) {
                 returnValue.append(".");
             }
             this.getCards().stream().filter(card -> card.getSuit() == currentSuit).map(card -> card.getRank().getSymbol())

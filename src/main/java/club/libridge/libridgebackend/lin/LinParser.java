@@ -3,7 +3,8 @@ package club.libridge.libridgebackend.lin;
 import java.util.LinkedList;
 import java.util.List;
 
-import club.libridge.libridgebackend.core.BiddingBox;
+import scala.jdk.javaapi.OptionConverters;
+import scalabridge.BiddingBox;
 import scalabridge.Call;
 import scalabridge.Card;
 import scalabridge.Rank;
@@ -43,20 +44,20 @@ public class LinParser {
         String linCallWithoutAlert = mb.replace("!", "").toUpperCase();
 
         if (pass.equals(linCallWithoutAlert)) {
-            return BiddingBox.PASS;
+            return BiddingBox.getPass();
         }
         for (String doublePossibleString : ddouble) {
             if (doublePossibleString.equals(linCallWithoutAlert)) {
-                return BiddingBox.DOUBLE;
+                return BiddingBox.getDouble();
             }
         }
         for (String redoublePossibleString : redouble) {
             if (redoublePossibleString.equals(linCallWithoutAlert)) {
-                return BiddingBox.REDOUBLE;
+                return BiddingBox.getRedouble();
             }
         }
         String label = linCallWithoutAlert.substring(0, 2);
-        return BiddingBox.get(label);
+        return OptionConverters.toJava(BiddingBox.getOption(label)).get();
     }
 
     public static Card parseFromLinPC(String pc) {
