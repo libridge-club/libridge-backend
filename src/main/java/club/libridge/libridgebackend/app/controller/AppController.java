@@ -85,7 +85,7 @@ public class AppController {
     @PostMapping("/moveToSeat/{directionAbbreviation}")
     public void moveToSeat(@RequestHeader("PlayerUUID") String playerUUID, @PathVariable String directionAbbreviation) {
         LOGGER.trace("moveToSeat");
-        Direction direction = Direction.getFromAbbreviation(directionAbbreviation.charAt(0));
+        Direction direction = Direction.getFromAbbreviation(directionAbbreviation.charAt(0)).get();
         this.libridgeServer.moveToSeat(direction, getUUID(playerUUID));
     }
 

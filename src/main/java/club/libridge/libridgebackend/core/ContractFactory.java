@@ -29,7 +29,7 @@ public final class ContractFactory {
      */
     public static Contract fromText(String text, boolean vulnerable) {
         int level = Integer.parseInt(text.substring(0, 1));
-        OddTricks oddTricks = OddTricks.fromLevel(level);
+        OddTricks oddTricks = OddTricks.fromLevel(level).get();
         String strainText = text.substring(1, 2).toUpperCase();
         Strain strain = STRING_TO_STRAIN_MAP.get(strainText);
         String penalty = "";

@@ -28,9 +28,11 @@ public class BoardDTO {
     private final List<String> hands;
     @Getter
     private final String pavlicekNumber;
+    @Getter
+    private final String pbnDealTag;
     private Map<Direction, Map<Strain, Integer>> doubleDummyTable;
 
-    public BoardDTO(Board board, String pavlicekNumber) {
+    public BoardDTO(Board board, String pavlicekNumber, String pbnDealTag) {
         this.board = board;
         List<String> hands = new ArrayList<String>();
         for (Direction direction : Direction.values()) {
@@ -39,6 +41,7 @@ public class BoardDTO {
         }
         this.hands = hands;
         this.pavlicekNumber = pavlicekNumber;
+        this.pbnDealTag = pbnDealTag;
     }
 
     public void setDoubleDummyTable(DoubleDummyTable doubleDummyTable) {

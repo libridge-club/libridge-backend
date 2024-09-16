@@ -112,7 +112,7 @@ public class LibridgeServer {
             return;
         }
         GameServer gameServer = table.getGameServer();
-        Strain strain = Strain.fromName(strainString);
+        Strain strain = Strain.fromName(strainString).get();
         Direction directionFromIdentifier = this.getDirectionFromIdentifier(playerIdentifier);
         if (strain != null && directionFromIdentifier != null) {
             if (gameServer instanceof MinibridgeGameServer minibridgeGameServer) {
@@ -342,7 +342,7 @@ public class LibridgeServer {
         }
         BoardEntity randomBoardEntity = random.get();
         Board board = this.boardFactory.fromEntity(randomBoardEntity);
-        BoardDTO boardDTO = new BoardDTO(board, randomBoardEntity.getPavlicekNumber());
+        BoardDTO boardDTO = new BoardDTO(board, randomBoardEntity.getPavlicekNumber(), PBNUtils.dealTagStringFromBoard(board));
         boardDTO.setId(randomBoardEntity.getId());
         if (randomBoardEntity.getDoubleDummyTableEntity() != null) {
             boardDTO.setDoubleDummyTable(randomBoardEntity.getDoubleDummyTableEntity().getDoubleDummyTable());
@@ -358,7 +358,7 @@ public class LibridgeServer {
         }
         BoardEntity boardEntity = list.get(0);
         Board board = this.boardFactory.fromEntity(boardEntity);
-        BoardDTO boardDTO = new BoardDTO(board, pavlicekNumber);
+        BoardDTO boardDTO = new BoardDTO(board, pavlicekNumber, PBNUtils.dealTagStringFromBoard(board));
         boardDTO.setId(boardEntity.getId());
         return Optional.of(boardDTO);
     }
@@ -367,7 +367,7 @@ public class LibridgeServer {
         Board board = this.boardFactory.getRandom();
         BoardEntity boardEntity = new BoardEntity(board);
         repository.saveAndFlush(boardEntity);
-        BoardDTO boardDTO = new BoardDTO(board, boardEntity.getPavlicekNumber());
+        BoardDTO boardDTO = new BoardDTO(board, boardEntity.getPavlicekNumber(), PBNUtils.dealTagStringFromBoard(board));
         boardDTO.setId(boardEntity.getId());
         return boardDTO;
     }

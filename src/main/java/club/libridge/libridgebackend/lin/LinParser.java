@@ -63,8 +63,8 @@ public class LinParser {
     public static Card parseFromLinPC(String pc) {
         Character suitSymbol = pc.charAt(0);
         Character rankSymbol = pc.charAt(1);
-        Suit suit = Suit.getFromAbbreviation(suitSymbol);
-        Rank rank = Rank.getFromAbbreviation(rankSymbol);
+        Suit suit = Suit.getFromAbbreviation(suitSymbol).get();
+        Rank rank = Rank.getFromAbbreviation(rankSymbol).get();
         return new Card(suit, rank);
     }
 }

@@ -22,15 +22,13 @@ import scalabridge.Suit;
  * where N = the number of different bridge deals or Boards, as modelled here.
  * N is also equal to 52! / (13! ^ 4) or 53644737765488792839237440000
  * which is between 95 and 96 bits ( i.e. log2(N)~=95.4 )
- * * One important difference is the suit order,
- * in which clubs and diamonds are swapped.
  *
  * Another implementation of the same algorithm:
  * https://bridge.thomasoandrews.com/bridge/impossible/
- * This one differs from mine in the minor suits. One of them is wrong.
- * I don't know which one.
+ * Andrews' books starts from page 1, not from 0. Keep that in mind when trying
+ * out its pages.
  *
- * For now, the important part is that f(f'(x)) = x and this works for the current
+ * The most important part is that f(f'(x)) = x and this works for the current
  * purpose. In the future, it could be refactored and easily recalculated for every
  * saved board.
  */
@@ -42,7 +40,7 @@ public class PavlicekNumber {
     static Deque<Card> getReferenceDeque() {
         int totalNumberOfCards = 52;
         Deque<Card> deck = new ArrayDeque<Card>(totalNumberOfCards);
-        List<Suit> suitOrder = Arrays.asList(Suit.getDIAMONDS(), Suit.getCLUBS(), Suit.getHEARTS(), Suit.getSPADES());
+        List<Suit> suitOrder = Arrays.asList(Suit.getCLUBS(), Suit.getDIAMONDS(), Suit.getHEARTS(), Suit.getSPADES());
         for (Suit suit : suitOrder) {
             for (Rank rank : Rank.values()) {
                 deck.add(new Card(suit, rank));

@@ -16,7 +16,7 @@ import scalabridge.Direction;
 import scalabridge.OpenDeal;
 import scalabridge.events.CallEvent;
 import scalabridge.events.PlayCardEvent;
-import scalabridge.nonpure.DuplicateBoardValidatedBuilder;
+import scalabridge.nonpure.DuplicateBoardBuilder;
 
 /**
  * You can use https://www.bridgebase.com/tools/handviewer.html?lin=<lin> to see what bridge base expects from a LIN.
@@ -113,7 +113,7 @@ public class ParsedLin {
                     firstPlayedCard = true;
                 } else if (key.equals(LinKey.MD)) { // Hands definition
                     String dealTagString = PBNUtils.getDealTagStringFromLinMD(value, currentDealer);
-                    currentDeal = OpenDeal.empty(DuplicateBoardValidatedBuilder.build(boardNumber, dealTagString));
+                    currentDeal = OpenDeal.empty(DuplicateBoardBuilder.build(boardNumber, dealTagString));
                 } else if (key.equals(LinKey.MB)) { // For every call
                     currentDeal = currentDeal.addEvent(new CallEvent(Instant.now(), currentDirectionToMakeCall, LinParser.parseFromLinMB(value)));
                     currentDirectionToMakeCall = currentDirectionToMakeCall.next();
