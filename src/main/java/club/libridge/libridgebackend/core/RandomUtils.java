@@ -1,7 +1,6 @@
 package club.libridge.libridgebackend.core;
 
 import java.security.SecureRandom;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -31,12 +30,6 @@ public class RandomUtils {
     public void shuffleWithSeed(@NonNull List<Card> listOfCards, long seed) {
         Random seededRandom = new Random(seed);
         Collections.shuffle(listOfCards, seededRandom);
-    }
-
-    public Card pickOneRandomCard(@NonNull Hand hand) {
-        ArrayList<Card> cards = new ArrayList<Card>(hand.getCards());
-        int randomIndex = this.nextInt(cards.size());
-        return cards.get(randomIndex);
     }
 
 }

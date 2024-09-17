@@ -10,12 +10,12 @@ import java.util.UUID;
 
 import club.libridge.libridgebackend.core.Board;
 import club.libridge.libridgebackend.core.Hand;
-import club.libridge.libridgebackend.core.NumberOfTricks;
 import club.libridge.libridgebackend.dds.DoubleDummyTable;
 import lombok.Getter;
 import lombok.Setter;
 import scalabridge.Direction;
 import scalabridge.Strain;
+import scalabridge.TricksMade;
 
 public class BoardDTO {
 
@@ -49,8 +49,8 @@ public class BoardDTO {
         for (Direction direction : Direction.values()) {
             EnumMap<Strain, Integer> strainMap = new EnumMap<Strain, Integer>(Strain.class);
             for (Strain strain : Strain.values()) {
-                NumberOfTricks tricksAvailableFor = doubleDummyTable.getTricksAvailableFor(strain, direction);
-                strainMap.put(strain, tricksAvailableFor.getInt());
+                TricksMade tricksAvailableFor = doubleDummyTable.getTricksAvailableFor(strain, direction);
+                strainMap.put(strain, tricksAvailableFor.tricks());
             }
             this.doubleDummyTable.put(direction, Collections.unmodifiableMap(strainMap));
         }

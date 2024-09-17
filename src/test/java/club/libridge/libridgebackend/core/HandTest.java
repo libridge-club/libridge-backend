@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -16,45 +18,31 @@ import scalabridge.Suit;
 public class HandTest {
 
     @Test
-    public void shouldBeConstructedEmpty() {
-        Hand hand = new Hand();
-
-        assertEquals(0, hand.size());
-    }
-
-    @Test
-    public void shouldAddAndGetACard() {
-        Hand hand = new Hand();
-
+    public void shouldAddCard() {
         Card card = Mockito.mock(Card.class);
-        hand.addCard(card);
+        Hand hand = new Hand(List.of(card));
 
         assertEquals(1, hand.size());
-        assertEquals(card, hand.get(0));
     }
 
     @Test
     public void shouldRemoveOnlyTheCorrectCard() {
-        Hand hand = new Hand();
-
         Card firstCard = Mockito.mock(Card.class);
         Card secondCard = Mockito.mock(Card.class);
-        hand.addCard(firstCard);
-        hand.addCard(secondCard);
 
-        hand.removeCard(firstCard);
+        Hand hand = new Hand(List.of(firstCard, secondCard));
+        Hand newHand = hand.playCard(firstCard);
 
-        assertEquals(1, hand.size());
-        assertEquals(secondCard, hand.get(0));
+        assertEquals(1, newHand.size());
+        assertTrue(newHand.getCards().contains(secondCard));
+        assertFalse(newHand.getCards().contains(firstCard));
     }
 
     @Test
     public void shouldReturnIfItContainsACard() {
-        Hand hand = new Hand();
-
         Card firstCard = Mockito.mock(Card.class);
         Card secondCard = Mockito.mock(Card.class);
-        hand.addCard(firstCard);
+        Hand hand = new Hand(List.of(firstCard));
 
         assertTrue(hand.containsCard(firstCard));
         assertFalse(hand.containsCard(secondCard));
@@ -72,10 +60,7 @@ public class HandTest {
         when(aceOfSpades.getSuit()).thenReturn(spades);
         when(kingOfHearts.getSuit()).thenReturn(hearts);
 
-        Hand hand = new Hand();
-
-        hand.addCard(aceOfSpades);
-        hand.addCard(kingOfHearts);
+        Hand hand = new Hand(List.of(aceOfSpades, kingOfHearts));
 
         assertTrue(hand.hasSuit(spades));
         assertTrue(hand.hasSuit(hearts));
@@ -87,21 +72,17 @@ public class HandTest {
     public void shouldTransformToStringUsingPBNImplementation() {
         Card aceOfSpades = new Card(Suit.getSPADES(), Rank.getACE());
         Card kingOfHearts = new Card(Suit.getHEARTS(), Rank.getKING());
-        Hand hand = new Hand();
-        hand.addCard(aceOfSpades);
-        hand.addCard(kingOfHearts);
-        String finalString = "A.K..";
+        Hand hand = new Hand(List.of(aceOfSpades, kingOfHearts));
+        String expectedString = "A.K..";
 
-        assertEquals(finalString, hand.toString());
+        assertEquals(expectedString, hand.toString());
     }
 
     @Test
     public void shouldBeEqualToAnotherHandWithSameCards() {
         Card aceOfSpades = new Card(Suit.getSPADES(), Rank.getACE());
-        Hand hand1 = new Hand();
-        Hand hand2 = new Hand();
-        hand1.addCard(aceOfSpades);
-        hand2.addCard(aceOfSpades);
+        Hand hand1 = new Hand(List.of(aceOfSpades));
+        Hand hand2 = new Hand(List.of(aceOfSpades));
 
         assertEquals(hand1, hand2);
     }

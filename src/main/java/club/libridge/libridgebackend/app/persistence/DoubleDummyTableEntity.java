@@ -168,30 +168,30 @@ public class DoubleDummyTableEntity {
         }
 
         private void updateAllFields(DoubleDummyTable doubleDummyTable) {
-                this.northSpades = doubleDummyTable.getTricksAvailableFor(Strain.getSPADES(), Direction.getNorth()).getInt();
-                this.eastSpades = doubleDummyTable.getTricksAvailableFor(Strain.getSPADES(), Direction.getEast()).getInt();
-                this.southSpades = doubleDummyTable.getTricksAvailableFor(Strain.getSPADES(), Direction.getSouth()).getInt();
-                this.westSpades = doubleDummyTable.getTricksAvailableFor(Strain.getSPADES(), Direction.getWest()).getInt();
+                this.northSpades = doubleDummyTable.getTricksAvailableFor(Strain.getSPADES(), Direction.getNorth()).tricks();
+                this.eastSpades = doubleDummyTable.getTricksAvailableFor(Strain.getSPADES(), Direction.getEast()).tricks();
+                this.southSpades = doubleDummyTable.getTricksAvailableFor(Strain.getSPADES(), Direction.getSouth()).tricks();
+                this.westSpades = doubleDummyTable.getTricksAvailableFor(Strain.getSPADES(), Direction.getWest()).tricks();
 
-                this.northHearts = doubleDummyTable.getTricksAvailableFor(Strain.getHEARTS(), Direction.getNorth()).getInt();
-                this.eastHearts = doubleDummyTable.getTricksAvailableFor(Strain.getHEARTS(), Direction.getEast()).getInt();
-                this.southHearts = doubleDummyTable.getTricksAvailableFor(Strain.getHEARTS(), Direction.getSouth()).getInt();
-                this.westHearts = doubleDummyTable.getTricksAvailableFor(Strain.getHEARTS(), Direction.getWest()).getInt();
+                this.northHearts = doubleDummyTable.getTricksAvailableFor(Strain.getHEARTS(), Direction.getNorth()).tricks();
+                this.eastHearts = doubleDummyTable.getTricksAvailableFor(Strain.getHEARTS(), Direction.getEast()).tricks();
+                this.southHearts = doubleDummyTable.getTricksAvailableFor(Strain.getHEARTS(), Direction.getSouth()).tricks();
+                this.westHearts = doubleDummyTable.getTricksAvailableFor(Strain.getHEARTS(), Direction.getWest()).tricks();
 
-                this.northDiamonds = doubleDummyTable.getTricksAvailableFor(Strain.getDIAMONDS(), Direction.getNorth()).getInt();
-                this.eastDiamonds = doubleDummyTable.getTricksAvailableFor(Strain.getDIAMONDS(), Direction.getEast()).getInt();
-                this.southDiamonds = doubleDummyTable.getTricksAvailableFor(Strain.getDIAMONDS(), Direction.getSouth()).getInt();
-                this.westDiamonds = doubleDummyTable.getTricksAvailableFor(Strain.getDIAMONDS(), Direction.getWest()).getInt();
+                this.northDiamonds = doubleDummyTable.getTricksAvailableFor(Strain.getDIAMONDS(), Direction.getNorth()).tricks();
+                this.eastDiamonds = doubleDummyTable.getTricksAvailableFor(Strain.getDIAMONDS(), Direction.getEast()).tricks();
+                this.southDiamonds = doubleDummyTable.getTricksAvailableFor(Strain.getDIAMONDS(), Direction.getSouth()).tricks();
+                this.westDiamonds = doubleDummyTable.getTricksAvailableFor(Strain.getDIAMONDS(), Direction.getWest()).tricks();
 
-                this.northClubs = doubleDummyTable.getTricksAvailableFor(Strain.getCLUBS(), Direction.getNorth()).getInt();
-                this.eastClubs = doubleDummyTable.getTricksAvailableFor(Strain.getCLUBS(), Direction.getEast()).getInt();
-                this.southClubs = doubleDummyTable.getTricksAvailableFor(Strain.getCLUBS(), Direction.getSouth()).getInt();
-                this.westClubs = doubleDummyTable.getTricksAvailableFor(Strain.getCLUBS(), Direction.getWest()).getInt();
+                this.northClubs = doubleDummyTable.getTricksAvailableFor(Strain.getCLUBS(), Direction.getNorth()).tricks();
+                this.eastClubs = doubleDummyTable.getTricksAvailableFor(Strain.getCLUBS(), Direction.getEast()).tricks();
+                this.southClubs = doubleDummyTable.getTricksAvailableFor(Strain.getCLUBS(), Direction.getSouth()).tricks();
+                this.westClubs = doubleDummyTable.getTricksAvailableFor(Strain.getCLUBS(), Direction.getWest()).tricks();
 
-                this.northNotrumps = doubleDummyTable.getTricksAvailableFor(Strain.getNOTRUMPS(), Direction.getNorth()).getInt();
-                this.eastNotrumps = doubleDummyTable.getTricksAvailableFor(Strain.getNOTRUMPS(), Direction.getEast()).getInt();
-                this.southNotrumps = doubleDummyTable.getTricksAvailableFor(Strain.getNOTRUMPS(), Direction.getSouth()).getInt();
-                this.westNotrumps = doubleDummyTable.getTricksAvailableFor(Strain.getNOTRUMPS(), Direction.getWest()).getInt();
+                this.northNotrumps = doubleDummyTable.getTricksAvailableFor(Strain.getNOTRUMPS(), Direction.getNorth()).tricks();
+                this.eastNotrumps = doubleDummyTable.getTricksAvailableFor(Strain.getNOTRUMPS(), Direction.getEast()).tricks();
+                this.southNotrumps = doubleDummyTable.getTricksAvailableFor(Strain.getNOTRUMPS(), Direction.getSouth()).tricks();
+                this.westNotrumps = doubleDummyTable.getTricksAvailableFor(Strain.getNOTRUMPS(), Direction.getWest()).tricks();
         }
 
 }

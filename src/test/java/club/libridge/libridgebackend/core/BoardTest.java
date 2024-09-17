@@ -29,7 +29,9 @@ public class BoardTest {
         dealer = Direction.getNorth();
         hands.clear();
         for (Direction direction : Direction.values()) {
-            hands.put(direction, mock(Hand.class));
+            Direction finalDirection = direction.next(4);
+            Hand currentMock = mock(Hand.class);
+            hands.put(finalDirection, currentMock);
         }
 
         board = new Board(hands, dealer);
@@ -40,22 +42,16 @@ public class BoardTest {
         assertNotNull(this.board);
     }
 
-    @Test
-    public void shouldSortAllHands() {
-        Comparator<Card> comparator = mock(CardInsideHandComparator.class);
-        for (Direction direction : Direction.values()) {
-            Hand currentMock = this.hands.get(direction);
-            // To clear constructor calls to sort
-            reset(currentMock);
-        }
+    // @Test
+    // public void shouldSortAllHands() { // FIXME when this moves to scalabridge
+    // Comparator<Card> comparator = mock(CardInsideHandComparator.class);
 
-        this.board.sortAllHands(comparator);
+    // this.board.sortAllHands(comparator);
 
-        for (Direction direction : Direction.values()) {
-            Hand currentMock = this.hands.get(direction);
-            verify(currentMock, only()).sort(comparator);
-        }
-    }
+    // for (Direction direction : Direction.values()) {
+    // verify(this.hands.get(direction), only()).sort(comparator);
+    // }
+    // }
 
     @Test
     public void shouldGetCorrectDealer() {

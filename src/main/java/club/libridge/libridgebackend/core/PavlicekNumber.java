@@ -2,6 +2,7 @@ package club.libridge.libridgebackend.core;
 
 import java.math.BigInteger;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Deque;
@@ -138,16 +139,16 @@ public class PavlicekNumber {
         long west = 13;
         BigInteger k = clone(bigD);
         BigInteger x = BigInteger.ZERO;
-        Map<Direction, Hand> map = new HashMap<Direction, Hand>();
+        Map<Direction, List<Card>> map = new HashMap<Direction, List<Card>>();
         for (Direction direction : Direction.values()) {
-            map.put(direction, new Hand());
+            map.put(direction, new ArrayList<Card>());
         }
         for (long cards = 52; cards > 0; k = clone(x), cards--) {
             Card card = completeDeque.pollLast();
 
             x = getNewX(k, north, cards);
             if (i.compareTo(x) < 0) {
-                map.get(Direction.getNorth()).addCard(card);
+                map.get(Direction.getNorth()).add(card);
                 north--;
                 continue;
             }
@@ -155,7 +156,7 @@ public class PavlicekNumber {
             i = i.subtract(x);
             x = getNewX(k, east, cards);
             if (i.compareTo(x) < 0) {
-                map.get(Direction.getEast()).addCard(card);
+                map.get(Direction.getEast()).add(card);
                 east--;
                 continue;
             }
@@ -163,17 +164,22 @@ public class PavlicekNumber {
             i = i.subtract(x);
             x = getNewX(k, south, cards);
             if (i.compareTo(x) < 0) {
-                map.get(Direction.getSouth()).addCard(card);
+                map.get(Direction.getSouth()).add(card);
                 south--;
                 continue;
             }
 
             i = i.subtract(x);
-            map.get(Direction.getWest()).addCard(card);
+            map.get(Direction.getWest()).add(card);
             x = getNewX(k, west, cards);
             west--;
         }
-        return new Board(map, Direction.getNorth());
+        Map<Direction, Hand> returnMap = new HashMap<Direction, Hand>();
+        for (Direction direction : Direction.values()) {
+            List<Card> listOfCardsForDirection = map.get(direction);
+            returnMap.put(direction, new Hand(listOfCardsForDirection));
+        }
+        return new Board(returnMap, Direction.getNorth());
     }
 
     private Map<Integer, Direction> preProcess(Board board) {

@@ -206,7 +206,7 @@ public class DealTest {
         numberOfCardsInTheTrick = deal.getCurrentTrick().getCards().size();
         deal.playCard(card);
 
-        verify(hand).removeCard(card);
+        verify(hand).playCard(card);
         assertEquals(numberOfCardsInTheTrick + 1, deal.getCurrentTrick().getCards().size());
     }
 
@@ -390,7 +390,7 @@ public class DealTest {
         deal.undo(directionThatCallsUndo);
 
         Direction currentPlayerAfterUndo = deal.getCurrentPlayer();
-        verify(board, never()).putCardInHand(any());
+        verify(board, never()).unplayCardsInHands(any());
         assertEquals(currentPlayerBeforeEachUndo, currentPlayerAfterUndo);
     }
 

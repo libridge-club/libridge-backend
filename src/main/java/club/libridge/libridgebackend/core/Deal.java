@@ -132,7 +132,10 @@ public class Deal {
             this.currentTrick = startNewTrick();
         }
 
-        moveCardFromHandToCurrentTrick(card, handOfCurrentPlayer);
+        // FIXME Should be a transaction or immutable
+        Hand newHand = handOfCurrentPlayer.playCard(card);
+        this.board.setHandOf(this.currentPlayer, newHand);
+        currentTrick.addCard(card);
 
         if (currentTrick.isComplete()) {
             Direction currentTrickWinner = this.getWinnerOfCurrentTrick();
@@ -173,12 +176,6 @@ public class Deal {
         Trick newTrick = new Trick(currentPlayer);
         tricks.add(newTrick);
         return newTrick;
-    }
-
-    private void moveCardFromHandToCurrentTrick(Card card, Hand handOfCurrentPlayer) {
-        // FIXME Should be a transaction
-        handOfCurrentPlayer.removeCard(card);
-        currentTrick.addCard(card);
     }
 
     private Direction getWinnerOfCurrentTrick() {
@@ -289,7 +286,7 @@ public class Deal {
     }
 
     private void giveBackCardsToHands(Map<Card, Direction> cardDirectionMap) {
-        this.board.putCardInHand(cardDirectionMap);
+        this.board.unplayCardsInHands(cardDirectionMap);
         this.board.sortAllHands(ruleset.getCardComparator());
     }
 
@@ -302,7 +299,8 @@ public class Deal {
         for (Trick trick : tricks) {
             Direction currentDirection = trick.getLeader();
             for (Card card : trick.getCards()) {
-                this.board.getHandOf(currentDirection).addCard(card);
+                Hand newHand = this.board.getHandOf(currentDirection).addCard(card);
+                this.board.setHandOf(currentDirection, newHand);
                 currentDirection = currentDirection.next();
             }
         }

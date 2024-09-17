@@ -1,10 +1,10 @@
 package club.libridge.libridgebackend.core;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import club.libridge.libridgebackend.core.comparators.CardInsideHandComparator;
 import lombok.EqualsAndHashCode;
@@ -39,26 +39,34 @@ public class Board {
         return this.hands.get(direction);
     }
 
+    protected void setHandOf(Direction direction, Hand hand) { // FIXME this is temporary for translating Hand into immutable class
+        this.hands.put(direction, hand);
+    }
+
     public void sortAllHands(@NonNull Comparator<Card> comparator) {
-        for (Direction direction : Direction.values()) {
-            this.getHandOf(direction).sort(comparator);
+        Set<Entry<Direction, Hand>> entrySet = this.hands.entrySet();
+        for (Entry<Direction, Hand> entry : entrySet) {
+            Hand sortedHand = entry.getValue().sort(comparator);
+            this.setHandOf(entry.getKey(), sortedHand);
         }
     }
 
-    public List<Card> removeOneCardFromEachHand() {
-        List<Card> removedCards = new ArrayList<Card>();
+    public void removeOneCardFromEachHand() {
         for (Direction direction : Direction.values()) {
-            Hand currentHand = this.getHandOf(direction);
-            Card removedCard = currentHand.removeOneRandomCard();
-            removedCards.add(removedCard);
+            Hand newHand = this.getHandOf(direction).removeOneRandomCard();
+            this.setHandOf(direction, newHand);
         }
-        return removedCards;
     }
 
-    public void putCardInHand(Map<Card, Direction> cardDirectionMap) {
+    public void unplayCardsInHands(Map<Card, Direction> cardDirectionMap) {
         for (Map.Entry<Card, Direction> cardDirection : cardDirectionMap.entrySet()) {
-            this.hands.get(cardDirection.getValue()).addCard(cardDirection.getKey());
+            Hand newHand = this.unplayCardInHand(cardDirection.getKey(), cardDirection.getValue());
+            this.setHandOf(cardDirection.getValue(), newHand);
         }
+    }
+
+    private Hand unplayCardInHand(Card card, Direction direction) {
+        return this.hands.get(direction).unplayCard(card);
     }
 
 }

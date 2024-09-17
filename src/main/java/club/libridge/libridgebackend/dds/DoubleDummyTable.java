@@ -6,15 +6,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import club.libridge.libridgebackend.core.NumberOfTricks;
 import scalabridge.Direction;
 import scalabridge.Strain;
+import scalabridge.TricksMade;
 
 public class DoubleDummyTable {
 
     private static final List<Strain> STRAIN_ORDER_FROM_DDS;
     private static final List<Direction> DIRECTION_ORDER_FROM_DDS;
-    private final Map<StrainAndDirectionCombination, NumberOfTricks> tricksAvailable;
+    private final Map<StrainAndDirectionCombination, TricksMade> tricksAvailable;
 
     static {
         STRAIN_ORDER_FROM_DDS = List.of(Strain.getSPADES(), Strain.getHEARTS(), Strain.getDIAMONDS(), Strain.getCLUBS(), Strain.getNOTRUMPS());
@@ -28,13 +28,13 @@ public class DoubleDummyTable {
         for (Strain strain : STRAIN_ORDER_FROM_DDS) {
             for (Direction direction : DIRECTION_ORDER_FROM_DDS) {
                 StrainAndDirectionCombination combination = new StrainAndDirectionCombination(strain, direction);
-                this.tricksAvailable.put(combination, new NumberOfTricks(list.get(currentIndex)));
+                this.tricksAvailable.put(combination, TricksMade.fromOrdinal(list.get(currentIndex)));
                 currentIndex++;
             }
         }
     }
 
-    public NumberOfTricks getTricksAvailableFor(Strain strain, Direction direction) {
+    public TricksMade getTricksAvailableFor(Strain strain, Direction direction) {
         return this.tricksAvailable.get(new StrainAndDirectionCombination(strain, direction));
     }
 
@@ -42,8 +42,8 @@ public class DoubleDummyTable {
         ArrayList<Integer> returnValue = new ArrayList<Integer>();
         for (Strain strain : STRAIN_ORDER_FROM_DDS) {
             for (Direction direction : DIRECTION_ORDER_FROM_DDS) {
-                NumberOfTricks numberOfTricks = this.tricksAvailable.get(new StrainAndDirectionCombination(strain, direction));
-                returnValue.add(numberOfTricks.getInt());
+                TricksMade numberOfTricks = this.tricksAvailable.get(new StrainAndDirectionCombination(strain, direction));
+                returnValue.add(numberOfTricks.tricks());
             }
         }
         return returnValue;
@@ -54,8 +54,8 @@ public class DoubleDummyTable {
         for (Direction direction : DIRECTION_ORDER_FROM_DDS) {
             Map<Strain, Integer> allStrainsInADirection = new EnumMap<Strain, Integer>(Strain.class);
             for (Strain strain : STRAIN_ORDER_FROM_DDS) {
-                NumberOfTricks numberOfTricks = this.tricksAvailable.get(new StrainAndDirectionCombination(strain, direction));
-                allStrainsInADirection.put(strain, numberOfTricks.getInt());
+                TricksMade numberOfTricks = this.tricksAvailable.get(new StrainAndDirectionCombination(strain, direction));
+                allStrainsInADirection.put(strain, numberOfTricks.tricks());
             }
             returnValue.put(direction, allStrainsInADirection);
         }

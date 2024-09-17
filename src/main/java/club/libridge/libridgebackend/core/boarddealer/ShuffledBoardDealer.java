@@ -1,7 +1,9 @@
 package club.libridge.libridgebackend.core.boarddealer;
 
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import club.libridge.libridgebackend.core.Board;
@@ -14,17 +16,30 @@ public class ShuffledBoardDealer implements BoardDealer {
 
     @Override
     public Board dealBoard(Direction dealer, Deque<Card> deck) {
-        Map<Direction, Hand> hands;
+        return this.dealBoard(dealer, new ShuffledDeck(deck));
+    }
+
+    public Board dealBoard(Direction dealer, Deque<Card> deck, long seed) {
+        return this.dealBoard(dealer, new ShuffledDeck(deck, seed));
+    }
+
+    private Board dealBoard(Direction dealer, ShuffledDeck shuffledDeck) {
+        Map<Direction, List<Card>> temporaryMap = new HashMap<Direction, List<Card>>();
+        Map<Direction, Hand> hands = new HashMap<Direction, Hand>();
         Direction currentDirection;
-        Hand currentHand;
-        ShuffledDeck currentDeck = new ShuffledDeck(deck);
-        hands = new HashMap<Direction, Hand>();
         for (Direction direction : Direction.values()) {
-            hands.put(direction, new Hand());
+            temporaryMap.put(direction, new ArrayList<Card>());
         }
-        for (currentDirection = dealer; currentDeck.hasCard(); currentDirection = currentDirection.next()) {
-            currentHand = hands.get(currentDirection);
-            currentHand.addCard(currentDeck.dealCard());
+
+        currentDirection = dealer;
+
+        while (shuffledDeck.hasCard()) {
+            temporaryMap.get(currentDirection).add(shuffledDeck.dealCard());
+            currentDirection = currentDirection.next();
+        }
+        for (Direction direction : Direction.values()) {
+            List<Card> listOfCardsForDirection = temporaryMap.get(direction);
+            hands.put(direction, new Hand(listOfCardsForDirection));
         }
         return new Board(hands, dealer);
     }

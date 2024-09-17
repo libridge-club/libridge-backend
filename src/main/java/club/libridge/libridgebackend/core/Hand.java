@@ -8,66 +8,95 @@ import java.util.HashSet;
 import java.util.List;
 
 import club.libridge.libridgebackend.core.comparators.CardInsideHandComparator;
+import scala.collection.Iterator;
 import scalabridge.Card;
+import scalabridge.CompleteHand;
 import scalabridge.Suit;
 
-public class Hand {
+public final class Hand {
 
     private final List<Card> cards;
+    private final List<Card> playedCards;
 
-    public Hand() {
-        this.cards = new ArrayList<Card>();
+    public Hand(CompleteHand completeHand) {
+        List<Card> cards = new ArrayList<Card>();
+        Iterator<Card> iterator = completeHand.cards().iterator();
+        while (iterator.hasNext()) {
+            Card current = iterator.next();
+            cards.add(current);
+        }
+        this.cards = Collections.unmodifiableList(new ArrayList<Card>(cards));
+        this.playedCards = Collections.unmodifiableList(new ArrayList<Card>());
+    }
+
+    public Hand(List<Card> cards) {
+        this(new ArrayList<Card>(cards), new ArrayList<Card>());
+    }
+
+    public Hand(List<Card> cards, List<Card> playedCards) {
+        this.cards = Collections.unmodifiableList(new ArrayList<Card>(cards));
+        this.playedCards = Collections.unmodifiableList(new ArrayList<Card>(playedCards));
     }
 
     public Collection<Card> getCards() {
-        return Collections.unmodifiableCollection(this.cards);
+        return Collections.unmodifiableCollection(this.getUnplayedCardsAsList());
     }
 
     public HandEvaluations getHandEvaluations() {
         return new HandEvaluations(this);
     }
 
-    public void addCard(Card card) {
-        this.cards.add(card);
+    public Hand addCard(Card card) {
+        List<Card> newCardsList = new ArrayList<Card>(this.cards);
+        newCardsList.add(card);
+        return new Hand(newCardsList, this.playedCards);
     }
 
-    public void removeCard(Card card) {
-        this.cards.remove(card);
+    public Hand playCard(Card card) {
+        List<Card> newListOfPlayedCards = new ArrayList<Card>();
+        newListOfPlayedCards.add(card);
+        newListOfPlayedCards.addAll(this.playedCards);
+        return new Hand(this.cards, newListOfPlayedCards);
     }
 
-    public Card removeOneRandomCard() {
-        Card randomCardFromHand = new RandomUtils().pickOneRandomCard(this);
-        this.removeCard(randomCardFromHand);
-        return randomCardFromHand;
+    public Hand unplayCard(Card card) {
+        List<Card> newListOfPlayedCards = new ArrayList<Card>();
+        newListOfPlayedCards.addAll(this.playedCards);
+        newListOfPlayedCards.remove(card);
+        return new Hand(this.cards, newListOfPlayedCards);
     }
 
-    public Card get(int position) {
-        return this.getCardsAsList().get(position);
+    public Hand removeOneRandomCard() {
+        List<Card> cardsAsList = this.getUnplayedCardsAsList();
+        int size = cardsAsList.size();
+        int randomIndex = new RandomUtils().nextInt(size);
+        Card cardToRemove = cardsAsList.get(randomIndex);
+        List<Card> newCards = this.cards.stream().filter(card -> !card.equals(cardToRemove)).toList();
+        return new Hand(newCards, this.playedCards);
     }
 
     public int size() {
-        return this.getCardsAsList().size();
+        return this.getUnplayedCardsAsList().size();
     }
 
-    public void sort(Comparator<Card> comparator) {
-        Collections.sort(this.cards, comparator);
+    public Hand sort(Comparator<Card> comparator) {
+        ArrayList<Card> sortedCards = new ArrayList<Card>(this.cards);
+        Collections.sort(sortedCards, comparator);
+        return new Hand(sortedCards, this.playedCards);
     }
 
     public boolean containsCard(Card card) {
-        return this.getCardsAsList().contains(card);
+        return this.getUnplayedCardsAsList().contains(card);
     }
 
     public boolean hasSuit(Suit suit) {
-        for (Card card : this.getCardsAsList()) {
-            if (card.getSuit() == suit) {
-                return true;
-            }
-        }
-        return false;
+        return this.getUnplayedCardsAsList().stream().anyMatch(card -> card.getSuit() == suit);
     }
 
-    private List<Card> getCardsAsList() {
-        return Collections.unmodifiableList(this.cards);
+    private List<Card> getUnplayedCardsAsList() {
+        HashSet<Card> playedCardsSet = new HashSet<Card>(this.playedCards);
+        List<Card> nonPlayedCards = this.cards.stream().filter(card -> !playedCardsSet.contains(card)).toList();
+        return Collections.unmodifiableList(nonPlayedCards);
     }
 
     /**
@@ -76,13 +105,13 @@ public class Hand {
     @Override
     public String toString() {
         StringBuilder returnValue = new StringBuilder(20);
-        this.sort(new CardInsideHandComparator());
+        Hand sortedHand = this.sort(new CardInsideHandComparator());
         List<Suit> suitsInDescendingOrder = List.of(Suit.getSPADES(), Suit.getHEARTS(), Suit.getDIAMONDS(), Suit.getCLUBS());
         for (Suit currentSuit : suitsInDescendingOrder) {
             if (Suit.getSPADES() != currentSuit) {
                 returnValue.append(".");
             }
-            this.getCards().stream().filter(card -> card.getSuit() == currentSuit).map(card -> card.getRank().getSymbol())
+            sortedHand.getCards().stream().filter(card -> card.getSuit() == currentSuit).map(card -> card.getRank().getSymbol())
                     .forEach(returnValue::append);
         }
         return returnValue.toString();

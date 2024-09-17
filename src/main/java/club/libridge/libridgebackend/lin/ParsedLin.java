@@ -8,11 +8,10 @@ import java.util.List;
 import java.util.Map;
 
 import club.libridge.libridgebackend.core.Auction;
-import club.libridge.libridgebackend.core.BoardNumber;
-import club.libridge.libridgebackend.core.PlasticBoard;
 import club.libridge.libridgebackend.pbn.PBNUtils;
 import scalabridge.Call;
 import scalabridge.Direction;
+import scalabridge.DuplicateBoard;
 import scalabridge.OpenDeal;
 import scalabridge.events.CallEvent;
 import scalabridge.events.PlayCardEvent;
@@ -24,20 +23,23 @@ import scalabridge.nonpure.DuplicateBoardBuilder;
 
 public class ParsedLin {
 
-    private final Map<LinKey, List<Integer>> symbolToListOfIndexes; // FIXME this should be static
+    private static final Map<LinKey, List<Integer>> SYMBOL_TO_LIST_OF_INDEXES;
+    private static String anyDealTag = "N:86.KT2.K85.Q9742 KJT932.97.942.86 54.8653.AQJT73.3 AQ7.AQJ4.6.AKJT5";
+    static {
+        SYMBOL_TO_LIST_OF_INDEXES = new EnumMap<LinKey, List<Integer>>(LinKey.class);
+        for (LinKey key : LinKey.values()) {
+            SYMBOL_TO_LIST_OF_INDEXES.put(key, new ArrayList<Integer>());
+        }
+    }
+
     private final ArrayList<LinKeyValuePair> list;
     private List<Auction> auctions;
 
     public ParsedLin(List<LinKeyValuePair> list) {
-        symbolToListOfIndexes = new EnumMap<LinKey, List<Integer>>(LinKey.class);
-        for (LinKey key : LinKey.values()) {
-            symbolToListOfIndexes.put(key, new ArrayList<Integer>());
-        }
-
         this.list = new ArrayList<>();
         int i = 0;
         for (LinKeyValuePair linKeyValuePair : list) {
-            symbolToListOfIndexes.get(linKeyValuePair.getKey()).add(i);
+            SYMBOL_TO_LIST_OF_INDEXES.get(linKeyValuePair.getKey()).add(i);
             this.list.add(linKeyValuePair);
             i++;
         }
@@ -51,7 +53,7 @@ public class ParsedLin {
             return Collections.unmodifiableList(auctions);
         } else {
             List<Auction> auctionList = new ArrayList<Auction>();
-            List<Integer> qxIndexes = symbolToListOfIndexes.get(LinKey.QX);
+            List<Integer> qxIndexes = SYMBOL_TO_LIST_OF_INDEXES.get(LinKey.QX);
             if (!qxIndexes.isEmpty()) {
                 int firstQxIndex = qxIndexes.get(0);
                 Auction currentAuction = null;
@@ -68,7 +70,8 @@ public class ParsedLin {
                         }
                         // Then start the new board
                         Integer boardNumber = Integer.parseInt(value.substring(1));
-                        Direction dealer = PlasticBoard.getDealerFromBoardNumber(new BoardNumber(boardNumber));
+                        DuplicateBoard duplicateBoard = DuplicateBoardBuilder.build(boardNumber, anyDealTag);
+                        Direction dealer = duplicateBoard.getDealer();
                         currentAuction = new Auction(dealer);
                         currentDirection = dealer;
                     } else if (key.equals(LinKey.MB)) { // For every bid
@@ -86,13 +89,12 @@ public class ParsedLin {
 
     public List<OpenDeal> getDeals() {
         List<OpenDeal> dealList = new ArrayList<OpenDeal>();
-        List<Integer> qxIndexes = symbolToListOfIndexes.get(LinKey.QX);
+        List<Integer> qxIndexes = SYMBOL_TO_LIST_OF_INDEXES.get(LinKey.QX);
         if (!qxIndexes.isEmpty()) {
             int firstQxIndex = qxIndexes.get(0);
             Direction currentDealer = null;
             Direction currentDirectionToMakeCall = null;
             Direction currentDirectionToPlayCard = null;
-            boolean firstPlayedCard = true;
             Integer boardNumber = null;
             OpenDeal currentDeal = null;
             boolean firstBoard = true;
@@ -110,7 +112,6 @@ public class ParsedLin {
                     currentDealer = Direction.getWest().next(boardNumber);
                     currentDirectionToMakeCall = currentDealer;
                     currentDirectionToPlayCard = null;
-                    firstPlayedCard = true;
                 } else if (key.equals(LinKey.MD)) { // Hands definition
                     String dealTagString = PBNUtils.getDealTagStringFromLinMD(value, currentDealer);
                     currentDeal = OpenDeal.empty(DuplicateBoardBuilder.build(boardNumber, dealTagString));

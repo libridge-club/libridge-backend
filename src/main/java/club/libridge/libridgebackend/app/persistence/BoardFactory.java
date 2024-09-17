@@ -1,8 +1,10 @@
 package club.libridge.libridgebackend.app.persistence;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Component;
@@ -65,10 +67,11 @@ public class BoardFactory {
         hands.put(direction, hand);
         Direction currentDirection = direction.next();
         while (!deque.isEmpty()) {
-            Hand currentHand = new Hand();
+            List<Card> cardsToAdd = new ArrayList<Card>();
             for (int i = 0; i < CARDS_IN_A_FULL_HAND; i++) {
-                currentHand.addCard(deque.removeFirst());
+                cardsToAdd.add(deque.removeFirst());
             }
+            Hand currentHand = new Hand(cardsToAdd);
             hands.put(currentDirection, currentHand);
             currentDirection = currentDirection.next();
         }

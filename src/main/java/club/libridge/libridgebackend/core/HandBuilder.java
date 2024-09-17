@@ -24,14 +24,14 @@ public class HandBuilder {
      *
      */
     public Hand buildFromDotSeparatedString(String dotSeparatedString) {
-        Hand returnValue = new Hand();
+        List<Card> cardsToAdd = new ArrayList<Card>();
         int enforceFourSuitsLimit = 4;
         String[] suits = dotSeparatedString.toUpperCase().split("\\.", enforceFourSuitsLimit);
-        getCardsFromSuitString(Suit.getSPADES(), suits[0]).stream().forEach(card -> returnValue.addCard(card));
-        getCardsFromSuitString(Suit.getHEARTS(), suits[1]).stream().forEach(card -> returnValue.addCard(card));
-        getCardsFromSuitString(Suit.getDIAMONDS(), suits[2]).stream().forEach(card -> returnValue.addCard(card));
-        getCardsFromSuitString(Suit.getCLUBS(), suits[3]).stream().forEach(card -> returnValue.addCard(card));
-        return returnValue;
+        getCardsFromSuitString(Suit.getSPADES(), suits[0]).stream().forEach(card -> cardsToAdd.add(card));
+        getCardsFromSuitString(Suit.getHEARTS(), suits[1]).stream().forEach(card -> cardsToAdd.add(card));
+        getCardsFromSuitString(Suit.getDIAMONDS(), suits[2]).stream().forEach(card -> cardsToAdd.add(card));
+        getCardsFromSuitString(Suit.getCLUBS(), suits[3]).stream().forEach(card -> cardsToAdd.add(card));
+        return new Hand(cardsToAdd);
     }
 
     private List<Card> getCardsFromSuitString(Suit suit, String string) {

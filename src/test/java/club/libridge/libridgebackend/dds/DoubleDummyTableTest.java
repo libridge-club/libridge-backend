@@ -60,6 +60,6 @@ public class DoubleDummyTableTest {
         }
 
         private int getNumber(DoubleDummyTable doubleDummyTable, Strain strain, Direction direction) {
-                return doubleDummyTable.getTricksAvailableFor(strain, direction).getInt();
+                return doubleDummyTable.getTricksAvailableFor(strain, direction).tricks();
         }
 }
