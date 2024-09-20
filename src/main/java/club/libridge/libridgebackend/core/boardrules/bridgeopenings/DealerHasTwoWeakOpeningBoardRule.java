@@ -1,10 +1,10 @@
 package club.libridge.libridgebackend.core.boardrules.bridgeopenings;
 
 import club.libridge.libridgebackend.core.Board;
-import club.libridge.libridgebackend.core.Hand;
-import club.libridge.libridgebackend.core.HandEvaluations;
-import scalabridge.Suit;
 import club.libridge.libridgebackend.core.boardrules.BoardRule;
+import scalabridge.Hand;
+import scalabridge.HandEvaluations;
+import scalabridge.Suit;
 
 public class DealerHasTwoWeakOpeningBoardRule extends SingletonEqualsAndHashcode implements BoardRule {
 

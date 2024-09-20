@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import scalabridge.Card;
+import scalabridge.Hand;
 import scalabridge.Rank;
 import scalabridge.Suit;
 

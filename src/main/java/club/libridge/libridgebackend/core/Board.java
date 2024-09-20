@@ -4,14 +4,13 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 
-import club.libridge.libridgebackend.core.comparators.CardInsideHandComparator;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 import scalabridge.Card;
 import scalabridge.Direction;
+import scalabridge.Hand;
 
 @EqualsAndHashCode
 public class Board {
@@ -30,8 +29,7 @@ public class Board {
 
     public Board(@NonNull Map<Direction, Hand> hands, @NonNull Direction dealer) {
         this.hands = hands;
-
-        this.sortAllHands(new CardInsideHandComparator());
+        this.sortAllHands();
         this.dealer = dealer;
     }
 
@@ -43,11 +41,15 @@ public class Board {
         this.hands.put(direction, hand);
     }
 
+    public void sortAllHands() {
+        for (Entry<Direction, Hand> entry : this.hands.entrySet()) {
+            hands.put(entry.getKey(), entry.getValue().withDefaultOrdering());
+        }
+    }
+
     public void sortAllHands(@NonNull Comparator<Card> comparator) {
-        Set<Entry<Direction, Hand>> entrySet = this.hands.entrySet();
-        for (Entry<Direction, Hand> entry : entrySet) {
-            Hand sortedHand = entry.getValue().sort(comparator);
-            this.setHandOf(entry.getKey(), sortedHand);
+        for (Entry<Direction, Hand> entry : this.hands.entrySet()) {
+            hands.put(entry.getKey(), entry.getValue().withDefaultOrdering()); //FIXME use comparator
         }
     }
 

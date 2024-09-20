@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Map;
 
 import club.libridge.libridgebackend.core.Board;
-import club.libridge.libridgebackend.core.Hand;
 import club.libridge.libridgebackend.core.ShuffledDeck;
 import scalabridge.Card;
 import scalabridge.Direction;
+import scalabridge.Hand;
 
 public class ShuffledBoardDealer implements BoardDealer {
 

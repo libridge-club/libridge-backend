@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import scalabridge.Card;
 import scalabridge.Direction;
+import scalabridge.Hand;
 import scalabridge.Rank;
 import scalabridge.Suit;
 

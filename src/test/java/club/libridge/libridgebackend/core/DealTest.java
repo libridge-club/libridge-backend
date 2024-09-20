@@ -26,6 +26,7 @@ import club.libridge.libridgebackend.core.rulesets.abstractrulesets.Ruleset;
 import scalabridge.Card;
 import scalabridge.Direction;
 import scalabridge.GameConstants;
+import scalabridge.Hand;
 import scalabridge.Suit;
 
 public class DealTest {

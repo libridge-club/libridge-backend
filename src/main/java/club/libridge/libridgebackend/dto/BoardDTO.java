@@ -9,11 +9,11 @@ import java.util.Map;
 import java.util.UUID;
 
 import club.libridge.libridgebackend.core.Board;
-import club.libridge.libridgebackend.core.Hand;
 import club.libridge.libridgebackend.dds.DoubleDummyTable;
 import lombok.Getter;
 import lombok.Setter;
 import scalabridge.Direction;
+import scalabridge.Hand;
 import scalabridge.Strain;
 import scalabridge.TricksMade;
 

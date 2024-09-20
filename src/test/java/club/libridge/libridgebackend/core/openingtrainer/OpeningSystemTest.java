@@ -6,11 +6,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import club.libridge.libridgebackend.app.persistence.BoardFactory;
-import scalabridge.Call;
-import scalabridge.Direction;
-import club.libridge.libridgebackend.core.Hand;
 import club.libridge.libridgebackend.core.HandBuilder;
 import club.libridge.libridgebackend.core.PavlicekNumber;
+import scalabridge.Call;
+import scalabridge.Direction;
+import scalabridge.Hand;
 
 public class OpeningSystemTest {
 
