@@ -2,15 +2,15 @@ package club.libridge.libridgebackend.core.rulesets.abstractrulesets;
 
 import java.util.Comparator;
 
-import scalabridge.Card;
-import scalabridge.Direction;
-import club.libridge.libridgebackend.core.Hand;
 import club.libridge.libridgebackend.core.Trick;
 import club.libridge.libridgebackend.core.comparators.CardInsideHandComparator;
 import club.libridge.libridgebackend.core.rulesets.interfaces.CardComparable;
 import club.libridge.libridgebackend.core.rulesets.interfaces.SuitFollowable;
 import club.libridge.libridgebackend.core.rulesets.interfaces.Winnable;
 import lombok.Getter;
+import scalabridge.Card;
+import scalabridge.Direction;
+import scalabridge.Hand;
 
 public abstract class Ruleset implements SuitFollowable, Winnable, CardComparable {
 

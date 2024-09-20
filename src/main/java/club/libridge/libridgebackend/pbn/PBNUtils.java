@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Map;
 
 import club.libridge.libridgebackend.core.Board;
-import club.libridge.libridgebackend.core.Hand;
 import club.libridge.libridgebackend.core.HandBuilder;
 import club.libridge.libridgebackend.core.exceptions.MalformedLinMDValueException;
 import scalabridge.Direction;
+import scalabridge.Hand;
 import scalabridge.Suit;
 
 public final class PBNUtils {

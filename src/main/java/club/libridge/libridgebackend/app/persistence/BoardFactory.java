@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
 import club.libridge.libridgebackend.core.Board;
-import club.libridge.libridgebackend.core.Hand;
 import club.libridge.libridgebackend.core.PavlicekNumber;
 import club.libridge.libridgebackend.core.boarddealer.BoardDealer;
 import club.libridge.libridgebackend.core.boarddealer.CardDeck;
@@ -23,6 +22,7 @@ import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import scalabridge.Card;
 import scalabridge.Direction;
+import scalabridge.Hand;
 
 @Validated
 @Component

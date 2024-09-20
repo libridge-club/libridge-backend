@@ -7,12 +7,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import club.libridge.libridgebackend.core.Board;
-import club.libridge.libridgebackend.core.Hand;
 import club.libridge.libridgebackend.core.boarddealer.Complete52CardDeck;
 import club.libridge.libridgebackend.core.boarddealer.ShuffledBoardDealer;
 import club.libridge.libridgebackend.core.boarddealer.ShuffledBoardDealerWithSeed;
 import scalabridge.Card;
 import scalabridge.Direction;
+import scalabridge.Hand;
 import scalabridge.Rank;
 import scalabridge.Suit;
 

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import scalabridge.Card;
+import scalabridge.Hand;
 import scalabridge.Rank;
 import scalabridge.Suit;
 

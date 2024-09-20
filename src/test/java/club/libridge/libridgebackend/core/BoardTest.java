@@ -3,20 +3,15 @@ package club.libridge.libridgebackend.core;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.only;
-import static org.mockito.Mockito.reset;
-import static org.mockito.Mockito.verify;
 
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import club.libridge.libridgebackend.core.comparators.CardInsideHandComparator;
-import scalabridge.Card;
 import scalabridge.Direction;
+import scalabridge.Hand;
 
 public class BoardTest {
 

@@ -15,6 +15,7 @@ import lombok.Getter;
 import lombok.Setter;
 import scalabridge.Card;
 import scalabridge.Direction;
+import scalabridge.Hand;
 import scalabridge.Suit;
 
 @EqualsAndHashCode

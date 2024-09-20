@@ -11,7 +11,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import club.libridge.libridgebackend.core.Hand;
+import scalabridge.Hand;
 
 @Component
 public class BenWebClient {

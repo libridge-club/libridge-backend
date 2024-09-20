@@ -3,8 +3,6 @@ package club.libridge.libridgebackend.core;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -13,70 +11,40 @@ import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 
-import club.libridge.libridgebackend.TestWithMocks;
 import scalabridge.Card;
-import scalabridge.EffectiveDuplicateBoardNumber;
+import scalabridge.Hand;
+import scalabridge.HandEvaluations;
 import scalabridge.Rank;
 import scalabridge.Suit;
 
-public class HandEvaluationsTest extends TestWithMocks {
+public class HandEvaluationsTest {
 
-    @Mock
     private Card aceOfSpades;
-    @Mock
     private Card kingOfSpades;
-    @Mock
     private Card queenOfSpades;
-    @Mock
     private Card jackOfSpades;
-    @Mock
     private Card tenOfSpades;
-    @Mock
     private Card nineOfSpades;
-    @Mock
     private Card kingOfHearts;
-    @Mock
     private Card threeOfClubs;
-    @Mock
     private Card sevenOfDiamonds;
-    @Mock
     private Hand emptyHand;
-
     private HandEvaluations emptyHandEvaluations;
 
     @BeforeEach
     public void setup() {
-        when(aceOfSpades.getRank()).thenReturn(Rank.getACE());
-        when(aceOfSpades.getSuit()).thenReturn(Suit.getSPADES());
-
-        when(kingOfSpades.getRank()).thenReturn(Rank.getKING());
-        when(kingOfSpades.getSuit()).thenReturn(Suit.getSPADES());
-
-        when(queenOfSpades.getRank()).thenReturn(Rank.getQUEEN());
-        when(queenOfSpades.getSuit()).thenReturn(Suit.getSPADES());
-
-        when(jackOfSpades.getRank()).thenReturn(Rank.getJACK());
-        when(jackOfSpades.getSuit()).thenReturn(Suit.getSPADES());
-
-        when(tenOfSpades.getRank()).thenReturn(Rank.getTEN());
-        when(tenOfSpades.getSuit()).thenReturn(Suit.getSPADES());
-
-        when(nineOfSpades.getRank()).thenReturn(Rank.getNINE());
-        when(nineOfSpades.getSuit()).thenReturn(Suit.getSPADES());
-
-        when(kingOfHearts.getRank()).thenReturn(Rank.getKING());
-        when(kingOfHearts.getSuit()).thenReturn(Suit.getHEARTS());
-
-        when(threeOfClubs.getRank()).thenReturn(Rank.getTHREE());
-        when(threeOfClubs.getSuit()).thenReturn(Suit.getCLUBS());
-
-        when(sevenOfDiamonds.getRank()).thenReturn(Rank.getSEVEN());
-        when(sevenOfDiamonds.getSuit()).thenReturn(Suit.getDIAMONDS());
-
-        when(emptyHand.getCards()).thenReturn(new ArrayList<Card>());
-        emptyHandEvaluations = new HandEvaluations(emptyHand);
+        this.aceOfSpades = new Card(Suit.getSPADES(), Rank.getACE());
+        this.kingOfSpades = new Card(Suit.getSPADES(), Rank.getKING());
+        this.queenOfSpades = new Card(Suit.getSPADES(), Rank.getQUEEN());
+        this.jackOfSpades = new Card(Suit.getSPADES(), Rank.getJACK());
+        this.tenOfSpades = new Card(Suit.getSPADES(), Rank.getTEN());
+        this.nineOfSpades = new Card(Suit.getSPADES(), Rank.getNINE());
+        this.kingOfHearts = new Card(Suit.getHEARTS(), Rank.getKING());
+        this.threeOfClubs = new Card(Suit.getCLUBS(), Rank.getTHREE());
+        this.sevenOfDiamonds = new Card(Suit.getDIAMONDS(), Rank.getSEVEN());
+        this.emptyHand = new Hand(new ArrayList<Card>());
+        this.emptyHandEvaluations = new HandEvaluations(emptyHand);
     }
 
     @Test
@@ -84,8 +52,6 @@ public class HandEvaluationsTest extends TestWithMocks {
         int acePoints = 4;
         int kingPoints = 3;
         int totalPoints = acePoints + kingPoints;
-        when(aceOfSpades.getPoints()).thenReturn(acePoints);
-        when(kingOfHearts.getPoints()).thenReturn(kingPoints);
 
         Hand firstHand = this.createMockedHandWithDistribution(this.createSuitDistribution(0, 1, 0, 0));
         Hand secondHand = this.createMockedHandWithDistribution(this.createSuitDistribution(1, 1, 0, 0));
@@ -315,7 +281,6 @@ public class HandEvaluationsTest extends TestWithMocks {
     }
 
     private Hand createMockedHandWithDistribution(Map<Suit, Integer> suitDistribution) {
-        Hand hand = mock(Hand.class);
         List<Card> mockedCards = new ArrayList<Card>();
         Map<Suit, Card> mockedCardOfSuit = new EnumMap<Suit, Card>(Suit.class);
         mockedCardOfSuit.put(Suit.getSPADES(), aceOfSpades);
@@ -333,8 +298,7 @@ public class HandEvaluationsTest extends TestWithMocks {
             }
         }
 
-        when(hand.getCards()).thenReturn(mockedCards);
-        return hand;
+        return new Hand(mockedCards);
     }
 
     private Map<Suit, Integer> createSuitDistribution(int spades, int hearts, int diamonds, int clubs) {
@@ -347,21 +311,17 @@ public class HandEvaluationsTest extends TestWithMocks {
     }
 
     private Hand createMockedHandWithSpecificCards(Card card1, Card card2) {
-        Hand hand = mock(Hand.class);
         List<Card> mockedCards = new ArrayList<Card>();
         mockedCards.add(card1);
         mockedCards.add(card2);
-        when(hand.getCards()).thenReturn(mockedCards);
-        return hand;
+        return new Hand(mockedCards);
     }
 
     private Hand createMockedHandWithSpecificCards(Card card1, Card card2, Card card3) {
-        Hand hand = mock(Hand.class);
         List<Card> mockedCards = new ArrayList<Card>();
         mockedCards.add(card1);
         mockedCards.add(card2);
         mockedCards.add(card3);
-        when(hand.getCards()).thenReturn(mockedCards);
-        return hand;
+        return new Hand(mockedCards);
     }
 }

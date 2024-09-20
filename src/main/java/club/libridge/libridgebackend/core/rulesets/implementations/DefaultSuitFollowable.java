@@ -1,11 +1,11 @@
 package club.libridge.libridgebackend.core.rulesets.implementations;
 
-import scalabridge.Card;
-import club.libridge.libridgebackend.core.Hand;
-import scalabridge.Suit;
 import club.libridge.libridgebackend.core.Trick;
 import club.libridge.libridgebackend.core.rulesets.interfaces.SuitFollowable;
 import lombok.NonNull;
+import scalabridge.Card;
+import scalabridge.Hand;
+import scalabridge.Suit;
 
 public class DefaultSuitFollowable implements SuitFollowable {
 

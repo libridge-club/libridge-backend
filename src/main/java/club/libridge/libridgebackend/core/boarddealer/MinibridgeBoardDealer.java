@@ -5,11 +5,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import club.libridge.libridgebackend.core.Board;
-import club.libridge.libridgebackend.core.Hand;
-import club.libridge.libridgebackend.core.HandEvaluations;
 import club.libridge.libridgebackend.core.exceptions.ImpossibleBoardException;
 import scalabridge.Card;
 import scalabridge.Direction;
+import scalabridge.Hand;
+import scalabridge.HandEvaluations;
 
 public class MinibridgeBoardDealer implements BoardDealer {
 

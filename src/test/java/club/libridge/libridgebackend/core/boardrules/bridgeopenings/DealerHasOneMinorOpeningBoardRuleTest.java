@@ -11,8 +11,8 @@ import org.mockito.Mock;
 import club.libridge.libridgebackend.TestWithMocks;
 import club.libridge.libridgebackend.core.Board;
 import scalabridge.Direction;
-import club.libridge.libridgebackend.core.Hand;
-import club.libridge.libridgebackend.core.HandEvaluations;
+import scalabridge.Hand;
+import scalabridge.HandEvaluations;
 
 public class DealerHasOneMinorOpeningBoardRuleTest extends TestWithMocks {
 
