@@ -4,6 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 import scalabridge.Direction;
+import scalabridge.Trick;
 
 @Getter
 @EqualsAndHashCode

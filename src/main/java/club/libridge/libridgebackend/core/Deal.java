@@ -17,6 +17,7 @@ import scalabridge.Card;
 import scalabridge.Direction;
 import scalabridge.Hand;
 import scalabridge.Suit;
+import scalabridge.Trick;
 
 @EqualsAndHashCode
 public class Deal {
@@ -136,7 +137,7 @@ public class Deal {
         // FIXME Should be a transaction or immutable
         Hand newHand = handOfCurrentPlayer.playCard(card);
         this.board.setHandOf(this.currentPlayer, newHand);
-        currentTrick.addCard(card);
+        currentTrick = currentTrick.addCard(card).get();
 
         if (currentTrick.isComplete()) {
             Direction currentTrickWinner = this.getWinnerOfCurrentTrick();

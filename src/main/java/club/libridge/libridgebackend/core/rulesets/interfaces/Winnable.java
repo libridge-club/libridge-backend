@@ -1,8 +1,8 @@
 package club.libridge.libridgebackend.core.rulesets.interfaces;
 
-import scalabridge.Direction;
-import club.libridge.libridgebackend.core.Trick;
 import lombok.NonNull;
+import scalabridge.Direction;
+import scalabridge.Trick;
 
 public interface Winnable {
 

@@ -1,9 +1,9 @@
 package club.libridge.libridgebackend.core.rulesets.interfaces;
 
-import club.libridge.libridgebackend.core.Trick;
 import lombok.NonNull;
 import scalabridge.Card;
 import scalabridge.Hand;
+import scalabridge.Trick;
 
 public interface SuitFollowable {
 

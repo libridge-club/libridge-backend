@@ -1,10 +1,10 @@
 package club.libridge.libridgebackend.core.rulesets.implementations;
 
-import scalabridge.Direction;
-import scalabridge.Suit;
-import club.libridge.libridgebackend.core.Trick;
 import club.libridge.libridgebackend.core.rulesets.interfaces.Winnable;
 import lombok.NonNull;
+import scalabridge.Direction;
+import scalabridge.Suit;
+import scalabridge.Trick;
 
 public class TrumpSuitWinnable implements Winnable {
 
@@ -25,7 +25,7 @@ public class TrumpSuitWinnable implements Winnable {
 
     @Override
     public Direction getWinner(@NonNull Trick trick) {
-        return trick.getWinnerWithTrumpSuit(this.trumpSuit);
+        return trick.getWinnerWithTrumpSuit(this.trumpSuit).get();
     }
 
 }
