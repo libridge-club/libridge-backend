@@ -14,9 +14,11 @@ import club.libridge.libridgebackend.lin.LinParser;
 import club.libridge.libridgebackend.lin.ParsedLin;
 import club.libridge.libridgebackend.utils.FileUtils;
 import scala.jdk.javaapi.OptionConverters;
+import scalabridge.Auction;
 import scalabridge.BiddingBox;
 import scalabridge.Contract;
 import scalabridge.Direction;
+import scalabridge.VulnerabilityStatus;
 
 class AuctionExtendedTest {
 
@@ -29,7 +31,7 @@ class AuctionExtendedTest {
             Auction auction = new Auction(current);
             for (String call : validAuction.split(" ")) {
                 assertFalse(auction.isFinished());
-                auction.makeCall(current, OptionConverters.toJava(BiddingBox.getOption(call)).get());
+                auction = auction.makeCall(current, OptionConverters.toJava(BiddingBox.getOption(call)).get()).get();
                 current = current.next();
             }
             assertTrue(auction.isFinished());
@@ -47,14 +49,14 @@ class AuctionExtendedTest {
                 List<Auction> auctions = parsedLin.getAuctions();
 
                 for (Auction currentAuction : auctions) {
-                    if (currentAuction.getBids().size() > 0) { // Ignore empty auctions
+                    if (currentAuction.getCalls().size() > 0) { // Ignore empty auctions
                         if (!currentAuction.isFinished()) {
                             // System.out.println(linFile + " false");
                         } else { // remove later
                             System.out.println(currentAuction);
                             assertTrue(currentAuction.isFinished());
-                            if (currentAuction.getBids().size() > 4) {
-                                Contract finalContract = currentAuction.getFinalContract();
+                            if (currentAuction.getCalls().size() > 4) {
+                                Contract finalContract = currentAuction.getFinalContract(VulnerabilityStatus.NONVULNERABLE).get();
                                 // System.out.println(finalContract);
                                 String finalContractText = finalContract.toString();
                                 if (quantity.get(finalContractText) == null) {

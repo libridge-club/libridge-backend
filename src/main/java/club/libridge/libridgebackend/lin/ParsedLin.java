@@ -7,8 +7,8 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-import club.libridge.libridgebackend.core.Auction;
 import club.libridge.libridgebackend.pbn.PBNUtils;
+import scalabridge.Auction;
 import scalabridge.Call;
 import scalabridge.Direction;
 import scalabridge.DuplicateBoard;
@@ -76,7 +76,7 @@ public class ParsedLin {
                         currentDirection = dealer;
                     } else if (key.equals(LinKey.MB)) { // For every bid
                         Call currentCall = LinParser.parseFromLinMB(value);
-                        currentAuction.makeCall(currentDirection, currentCall);
+                        currentAuction = currentAuction.makeCall(currentDirection, currentCall).get(); // FIXME need to test this
                         currentDirection = currentDirection.next();
                     }
                 }
