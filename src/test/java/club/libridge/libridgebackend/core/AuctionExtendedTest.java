@@ -14,7 +14,6 @@ import club.libridge.libridgebackend.lin.ParsedLin;
 import club.libridge.libridgebackend.utils.FileUtils;
 import scalabridge.Auction;
 import scalabridge.Contract;
-import scalabridge.VulnerabilityStatus;
 
 class AuctionExtendedTest {
 
@@ -36,7 +35,7 @@ class AuctionExtendedTest {
                             System.out.println(currentAuction);
                             assertTrue(currentAuction.isFinished());
                             if (currentAuction.getCalls().size() > 4) {
-                                Contract finalContract = currentAuction.getFinalContract(VulnerabilityStatus.NONVULNERABLE).get();
+                                Contract finalContract = currentAuction.getFinalContract().get();
                                 // System.out.println(finalContract);
                                 String finalContractText = finalContract.toString();
                                 if (quantity.get(finalContractText) == null) {
