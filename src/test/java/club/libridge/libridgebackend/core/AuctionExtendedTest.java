@@ -1,6 +1,5 @@
 package club.libridge.libridgebackend.core;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
@@ -13,30 +12,11 @@ import org.junit.jupiter.api.Test;
 import club.libridge.libridgebackend.lin.LinParser;
 import club.libridge.libridgebackend.lin.ParsedLin;
 import club.libridge.libridgebackend.utils.FileUtils;
-import scala.jdk.javaapi.OptionConverters;
 import scalabridge.Auction;
-import scalabridge.BiddingBox;
 import scalabridge.Contract;
-import scalabridge.Direction;
 import scalabridge.VulnerabilityStatus;
 
 class AuctionExtendedTest {
-
-    @Test
-    void shouldFinishSomeValidAuctions() throws IOException {
-        String data = FileUtils.readFromFilename("/auctions-valid.txt", false);
-        String validAuctions[] = data.split("\n");
-        for (String validAuction : validAuctions) {
-            Direction current = Direction.getEast();
-            Auction auction = new Auction(current);
-            for (String call : validAuction.split(" ")) {
-                assertFalse(auction.isFinished());
-                auction = auction.makeCall(current, OptionConverters.toJava(BiddingBox.getOption(call)).get()).get();
-                current = current.next();
-            }
-            assertTrue(auction.isFinished());
-        }
-    }
 
     @Test
     void shouldReadLinFile() throws IOException {

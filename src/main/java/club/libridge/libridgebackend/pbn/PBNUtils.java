@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import club.libridge.libridgebackend.core.Board;
-import club.libridge.libridgebackend.core.HandBuilder;
 import club.libridge.libridgebackend.core.exceptions.MalformedLinMDValueException;
 import scalabridge.Direction;
 import scalabridge.Hand;
@@ -83,12 +82,12 @@ public final class PBNUtils {
      * Example "E:86.KT2.K85.Q9742 KJT932.97.942.86 54.8653.AQJT73.3 AQ7.AQJ4.6.AKJT5"
      */
     public static Board getBoardFromDealTag(String dealTag) {
-        HandBuilder handBuilder = new HandBuilder();
         Direction dealer = CHAR_TO_DIRECTION_MAP.get(dealTag.charAt(0));
         String[] dotSeparatedStrings = dealTag.substring(2).split(" ");
         Map<Direction, Hand> hands = new HashMap<Direction, Hand>();
         for (int i = 0; i < 4; i++) {
-            hands.put(dealer.next(i), handBuilder.buildFromDotSeparatedString(dotSeparatedStrings[i]));
+            Hand currentHand = scalabridge.pbn.PBNUtils.handFromPartialDealTag(dotSeparatedStrings[i]).get();
+            hands.put(dealer.next(i), currentHand);
         }
 
         return new Board(hands, dealer);
