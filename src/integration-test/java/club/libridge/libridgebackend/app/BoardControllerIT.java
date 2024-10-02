@@ -2,7 +2,6 @@ package club.libridge.libridgebackend.app;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -21,8 +20,8 @@ import org.springframework.web.server.ResponseStatusException;
 import club.libridge.libridgebackend.app.controller.BoardController;
 import club.libridge.libridgebackend.app.persistence.BoardEntity;
 import club.libridge.libridgebackend.app.persistence.BoardRepository;
-import club.libridge.libridgebackend.core.Board;
 import club.libridge.libridgebackend.dto.BoardDTO;
+import scalabridge.GameConstants;
 
 @SpringBootTest()
 @ActiveProfiles("development")
@@ -52,7 +51,7 @@ public class BoardControllerIT {
 
         BoardDTO randomBoard = controller.getRandomBoard();
 
-        assertNotNull(randomBoard.getBoard());
+        assertEquals(GameConstants.NUMBER_OF_HANDS(), randomBoard.getHands().size());
     }
 
     @Test
@@ -73,11 +72,7 @@ public class BoardControllerIT {
 
         BoardDTO byPavlicekNumber = controller.getByPavlicekNumber(pavlicekNumber);
 
-        Board board1 = createdBoard.getBoard();
-        Board board2 = byPavlicekNumber.getBoard();
-        board1.equals(board2);
-
-        assertEquals(createdBoard.getBoard(), byPavlicekNumber.getBoard());
+        assertEquals(createdBoard.getPbnDealTag(), byPavlicekNumber.getPbnDealTag());
     }
 
     @Test
@@ -94,15 +89,21 @@ public class BoardControllerIT {
     public void createRandomBoard_ShouldReturnABoard() {
         BoardDTO randomBoard = controller.createRandomBoard();
 
-        assertNotNull(randomBoard.getBoard());
+        assertEquals(GameConstants.NUMBER_OF_HANDS(), randomBoard.getHands().size());
     }
 
-    // @Test // Commenting this test for now
-    public void magicNumberURL_ShouldCreateBoardsAndDoubleDummyTablesInLessThanFiveSeconds() {
+    @Test
+    public void magicNumberURL_ShouldRunInLessThanFiveSeconds() {
+        /**
+         * This pavlicek number and double dummy table refers to this specific hand of the hands-with-table.txt file:
+         * PBN 0 2 0 3 "N:KT.6.AKQ64.A7654 Q53.KT9874.T2.Q2 AJ876.A2.953.KJT 942.QJ53.J87.983"
+         * TABLE 13 0 13 0 8 5 8 5 13 0 13 0 13 0 13 0 13 0 13 0
+         */
+        String includedBoard = "28127388640394793836568292831";
+        int[] correctDoubleDummyTableList = { 13, 0, 13, 0, 8, 5, 8, 5, 13, 0, 13, 0, 13, 0, 13, 0, 13, 0, 13, 0 };
+
         Instant start, finish;
-        String includedBoard = "32950149871269851215330677922";
         int numberOfCreatedHands = 1000;
-        int[] correctDoubleDummyTableList = { 8, 5, 8, 5, 9, 4, 9, 4, 6, 7, 6, 6, 7, 6, 6, 5, 8, 5, 7, 5 };
         long fiveSecondsInNanoseconds = 5000000000L;
         repository.deleteAll();
 

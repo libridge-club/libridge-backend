@@ -1,10 +1,8 @@
 package club.libridge.libridgebackend.dto;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -23,9 +21,9 @@ public class BoardDTO {
     private UUID id;
 
     @Getter
-    private final Board board;
+    private final Direction dealer;
     @Getter
-    private final List<String> hands;
+    private final Map<Direction, String> hands;
     @Getter
     private final String pavlicekNumber;
     @Getter
@@ -33,11 +31,11 @@ public class BoardDTO {
     private Map<Direction, Map<Strain, Integer>> doubleDummyTable;
 
     public BoardDTO(Board board, String pavlicekNumber, String pbnDealTag) {
-        this.board = board;
-        List<String> hands = new ArrayList<String>();
+        this.dealer = board.getDealer();
+        Map<Direction, String> hands = new HashMap<Direction, String>();
         for (Direction direction : Direction.values()) {
             Hand thisHand = board.getHandOf(direction);
-            hands.add(thisHand.toString());
+            hands.put(direction, thisHand.toString());
         }
         this.hands = hands;
         this.pavlicekNumber = pavlicekNumber;

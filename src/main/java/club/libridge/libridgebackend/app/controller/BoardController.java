@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -55,7 +56,8 @@ public class BoardController {
         return this.libridgeServer.createRandomBoard(repository);
     }
 
-    @GetMapping("/437c542d77291aaff96d6b223b798628")
+    @GetMapping("/437c542d77291aaff96d6b223b798628") // This should be a PUT, but a GET is easier to trigger with a browser request.
+    @PutMapping("/437c542d77291aaff96d6b223b798628")
     public void magicNumberCreateTablesFromFile() {
         LOGGER.trace("magicNumberCreateTablesFromFile");
         String existingBoard = "32950149871269851215330677922";
