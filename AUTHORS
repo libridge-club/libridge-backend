@@ -1,19 +1,11 @@
 Developers
 ==========
-Alessandro Wagner Palmeira <alessandro.palmeira at gmail.com>
-Felipe Yamaguti <felipe at yamaguti.me>
+Alessandro Wagner Palmeira <contact at libridge.club>
+Felipe Yamaguti
+Guilherme Fernandes
+Lucas Perez
 
-
-Ideas
-=====
-Based on The Card Game Assignment by John K. Estell - http://nifty.stanford.edu/2004/EstellCardGame/index.html
-
-
-Card Images v0.1
-===========
-John Fitzgibbon - http://www.jfitz.com/cards/index.html
-
-
-Card Images v0.2
-===========
-nicubunu White Deck at Open Clipart - https://openclipart.org/detail/23224/white-deck-ace-of-spades
+You can check all developers with this command:
+```
+git shortlog --summary --numbered --email
+```
