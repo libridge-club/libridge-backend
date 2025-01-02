@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Test;
 import club.libridge.libridgebackend.core.Board;
 import scalabridge.Card;
 import scalabridge.Direction;
+import scalabridge.PositiveInteger;
+import scalabridge.Side;
 
 public class MinibridgeBoardDealerTest {
 
@@ -40,7 +42,7 @@ public class MinibridgeBoardDealerTest {
         int nonDealerPartnershipHCP = 0;
         for (Direction direction : Direction.values()) {
             int currentDirectionHCP = minibridgeBoard.getHandOf(direction).getHandEvaluations().getHCP();
-            if (direction.isNorthSouth() == anyDirection.isNorthSouth()) {
+            if (Side.getFromDirection(direction) == Side.getFromDirection(anyDirection)) {
                 dealerPartnershipHCP += currentDirectionHCP;
             } else {
                 nonDealerPartnershipHCP += currentDirectionHCP;
@@ -54,7 +56,7 @@ public class MinibridgeBoardDealerTest {
         Board minibridgeBoard = subject.dealBoard(anyDirection, completeDeck);
 
         int dealerHCP = minibridgeBoard.getHandOf(anyDirection).getHandEvaluations().getHCP();
-        int dealerPartnerHCP = minibridgeBoard.getHandOf(anyDirection.next(2)).getHandEvaluations().getHCP();
+        int dealerPartnerHCP = minibridgeBoard.getHandOf(anyDirection.next(new PositiveInteger(2))).getHandEvaluations().getHCP();
         assertTrue(dealerHCP >= dealerPartnerHCP);
     }
 

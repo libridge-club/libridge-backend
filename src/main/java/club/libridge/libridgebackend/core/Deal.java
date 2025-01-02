@@ -16,6 +16,7 @@ import lombok.Setter;
 import scalabridge.Card;
 import scalabridge.Direction;
 import scalabridge.Hand;
+import scalabridge.PositiveInteger;
 import scalabridge.Suit;
 import scalabridge.Trick;
 
@@ -204,14 +205,14 @@ public class Deal {
     private Direction getCorrectUndoDirectionConsideringDummy(Direction direction) {
         Direction lastPlayer;
         if (this.currentTrickHasCards()) {
-            lastPlayer = this.currentPlayer.next(3);
+            lastPlayer = this.currentPlayer.next(new PositiveInteger(3));
         } else if (this.completedTricks > 0) {
             lastPlayer = this.getPreviousTrick().getLastPlayer();
         } else {
             return direction;
         }
-        if (this.dummy != null && direction.next(2) == this.dummy) {
-            if (lastPlayer == this.dummy.next(1) || lastPlayer == this.dummy) {
+        if (this.dummy != null && direction.next(new PositiveInteger(2)) == this.dummy) {
+            if (lastPlayer == this.dummy.next(new PositiveInteger(1)) || lastPlayer == this.dummy) {
                 return this.dummy;
             }
         }
@@ -338,7 +339,7 @@ public class Deal {
     private boolean isClaimerOrPartner(Map.Entry<Direction, Boolean> entry) {
         Direction direction = entry.getKey();
         boolean isClaimer = direction == this.claimer;
-        boolean isClaimerPartner = this.isPartnershipGame && direction.next(2) == this.claimer;
+        boolean isClaimerPartner = this.isPartnershipGame && direction.next(new PositiveInteger(2)) == this.claimer;
         return isClaimer || isClaimerPartner;
     }
 

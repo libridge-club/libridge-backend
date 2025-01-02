@@ -13,6 +13,7 @@ import scalabridge.Call;
 import scalabridge.Direction;
 import scalabridge.DuplicateBoard;
 import scalabridge.OpenDeal;
+import scalabridge.PositiveInteger;
 import scalabridge.events.CallEvent;
 import scalabridge.events.PlayCardEvent;
 import scalabridge.nonpure.DuplicateBoardBuilder;
@@ -109,7 +110,7 @@ public class ParsedLin {
                     }
                     // Then start the new board
                     boardNumber = Integer.parseInt(value.substring(1));
-                    currentDealer = Direction.getWest().next(boardNumber);
+                    currentDealer = Direction.getWest().next(new PositiveInteger(boardNumber));
                     currentDirectionToMakeCall = currentDealer;
                     currentDirectionToPlayCard = null;
                 } else if (key.equals(LinKey.MD)) { // Hands definition

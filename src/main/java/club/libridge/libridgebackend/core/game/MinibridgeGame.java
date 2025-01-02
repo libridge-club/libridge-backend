@@ -2,13 +2,14 @@ package club.libridge.libridgebackend.core.game;
 
 import java.util.Deque;
 
-import scalabridge.Card;
 import club.libridge.libridgebackend.core.Deal;
-import scalabridge.Direction;
 import club.libridge.libridgebackend.core.boarddealer.BoardDealer;
 import club.libridge.libridgebackend.core.boarddealer.MinibridgeBoardDealer;
 import club.libridge.libridgebackend.core.rulesets.concrete.PositiveRuleset;
 import lombok.NonNull;
+import scalabridge.Card;
+import scalabridge.Direction;
+import scalabridge.PositiveInteger;
 
 public class MinibridgeGame extends TrickGame {
 
@@ -24,7 +25,7 @@ public class MinibridgeGame extends TrickGame {
         this.currentBoard = boardDealer.dealBoard(this.dealer, this.gameDeck);
         this.currentDeal = new Deal(currentBoard, new PositiveRuleset(), this.getLeader(), true);
         this.currentDeal.setCurrentPlayer(this.dealer.next());
-        this.currentDeal.setDummy(this.dealer.next(2));
+        this.currentDeal.setDummy(this.dealer.next(new PositiveInteger(2)));
     }
 
     @Override

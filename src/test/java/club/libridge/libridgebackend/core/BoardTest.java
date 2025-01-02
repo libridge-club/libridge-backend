@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import scalabridge.Direction;
 import scalabridge.Hand;
+import scalabridge.PositiveInteger;
 
 public class BoardTest {
 
@@ -24,7 +25,7 @@ public class BoardTest {
         dealer = Direction.getNorth();
         hands.clear();
         for (Direction direction : Direction.values()) {
-            Direction finalDirection = direction.next(4);
+            Direction finalDirection = direction.next(new PositiveInteger(4));
             Hand currentMock = mock(Hand.class);
             hands.put(finalDirection, currentMock);
         }

@@ -4,6 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 import scalabridge.Direction;
+import scalabridge.Side;
 import scalabridge.Trick;
 
 @Getter
@@ -14,7 +15,7 @@ public class Score {
     private int eastWestTricks = 0;
 
     public void addTrickToDirection(@NonNull Trick trick, @NonNull Direction winner) {
-        if (winner.isNorthSouth()) {
+        if (winner.isSide(Side.NORTHSOUTH)) {
             this.northSouthTricks++;
         } else {
             this.eastWestTricks++;
@@ -22,7 +23,7 @@ public class Score {
     }
 
     public void subtractTrickFromDirection(@NonNull Trick trick, @NonNull Direction winner) {
-        if (winner.isNorthSouth()) {
+        if (winner.isSide(Side.NORTHSOUTH)) {
             this.northSouthTricks--;
         } else {
             this.eastWestTricks--;
@@ -35,7 +36,7 @@ public class Score {
 
     public void finishScore(@NonNull Direction winner, int totalPoints) {
         int remainingPoints = totalPoints - this.getAlreadyPlayedTricks();
-        if (winner.isNorthSouth()) {
+        if (winner.isSide(Side.NORTHSOUTH)) {
             this.northSouthTricks += remainingPoints;
         } else {
             this.eastWestTricks += remainingPoints;

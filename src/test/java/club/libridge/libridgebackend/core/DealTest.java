@@ -27,6 +27,7 @@ import scalabridge.Card;
 import scalabridge.Direction;
 import scalabridge.GameConstants;
 import scalabridge.Hand;
+import scalabridge.PositiveInteger;
 import scalabridge.Suit;
 
 public class DealTest {
@@ -446,7 +447,7 @@ public class DealTest {
     public void undoShouldRemoveTwoTricksWhenLeaderOfThePreviousTrickAsksForUndoOnCurrentTrickBeforeEachPlayCard() {
         Deal deal = this.initDeal(hand, ruleset);
         Direction firstPlayer = deal.getCurrentPlayer();
-        Direction anyOtherPlayer = firstPlayer.next(3);
+        Direction anyOtherPlayer = firstPlayer.next(new PositiveInteger(3));
         when(ruleset.getWinner(any())).thenReturn(firstPlayer);
         int numberOfTricks = 10;
         playNTimesCard(deal, numberOfTricks * 4 - 1, hand);
@@ -581,7 +582,7 @@ public class DealTest {
 
         deal.claim(claimer);
         deal.acceptClaim(claimer.next());
-        deal.acceptClaim(claimer.next(3));
+        deal.acceptClaim(claimer.next(new PositiveInteger(3)));
 
         assertEquals(totalPoints, deal.getScore().getNorthSouthTricks());
     }
@@ -594,8 +595,8 @@ public class DealTest {
 
         deal.claim(claimer);
         deal.acceptClaim(claimer.next());
-        deal.acceptClaim(claimer.next(2));
-        deal.acceptClaim(claimer.next(3));
+        deal.acceptClaim(claimer.next(new PositiveInteger(2)));
+        deal.acceptClaim(claimer.next(new PositiveInteger(3)));
 
         assertEquals(totalPoints, deal.getScore().getNorthSouthTricks());
     }

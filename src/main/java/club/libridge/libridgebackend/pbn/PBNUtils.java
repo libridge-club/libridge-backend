@@ -10,6 +10,7 @@ import club.libridge.libridgebackend.core.Board;
 import club.libridge.libridgebackend.core.exceptions.MalformedLinMDValueException;
 import scalabridge.Direction;
 import scalabridge.Hand;
+import scalabridge.PositiveInteger;
 import scalabridge.Suit;
 
 public final class PBNUtils {
@@ -58,7 +59,7 @@ public final class PBNUtils {
         StringBuilder returnValue = new StringBuilder(MAX_CHARS_IN_DEAL_TAG);
 
         for (int i = 0; i < 4; i++) {
-            Direction current = firstDirection.next(i);
+            Direction current = firstDirection.next(new PositiveInteger(i));
             Hand currentHand = board.getHandOf(current);
             if (i == 0) {
                 returnValue.append(firstDirection.getAbbreviation() + ":");
@@ -87,7 +88,7 @@ public final class PBNUtils {
         Map<Direction, Hand> hands = new HashMap<Direction, Hand>();
         for (int i = 0; i < 4; i++) {
             Hand currentHand = scalabridge.pbn.PBNUtils.handFromPartialDealTag(dotSeparatedStrings[i]).get();
-            hands.put(dealer.next(i), currentHand);
+            hands.put(dealer.next(new PositiveInteger(i)), currentHand);
         }
 
         return new Board(hands, dealer);
@@ -113,7 +114,11 @@ public final class PBNUtils {
         int magicNumberFirstHandIndicator = 5;
         try {
             int firstHandIndicator = Integer.parseInt(linMD.substring(0, 1));
-            Direction firstDirection = dealer.next(magicNumberFirstHandIndicator - firstHandIndicator);
+            int index = magicNumberFirstHandIndicator - firstHandIndicator;
+            if (index < 0) {
+                throw new IllegalArgumentException("index must be non-negative");
+            }
+            Direction firstDirection = dealer.next(new PositiveInteger(index));
             returnValue.append(firstDirection.getAbbreviation());
             returnValue.append(":");
             String[] hands = linMD.substring(1).split(",");

@@ -10,6 +10,8 @@ import scalabridge.Card;
 import scalabridge.Direction;
 import scalabridge.Hand;
 import scalabridge.HandEvaluations;
+import scalabridge.PositiveInteger;
+import scalabridge.Side;
 
 public class MinibridgeBoardDealer implements BoardDealer {
 
@@ -38,7 +40,7 @@ public class MinibridgeBoardDealer implements BoardDealer {
             for (Direction direction : Direction.values()) {
                 HandEvaluations handEvaluations = board.getHandOf(direction).getHandEvaluations();
                 int hcp = handEvaluations.getHCP();
-                if (direction.isNorthSouth() == dealer.isNorthSouth()) {
+                if (Side.getFromDirection(direction) == Side.getFromDirection(dealer)) {
                     dealerPartnershipHCP += hcp;
                 } else {
                     nonDealerPartnershipHCP += hcp;
@@ -56,7 +58,7 @@ public class MinibridgeBoardDealer implements BoardDealer {
         }
 
         HandEvaluations dealerHandEvaluations = board.getHandOf(dealer).getHandEvaluations();
-        HandEvaluations dealerPartnerHandEvaluations = board.getHandOf(dealer.next(2)).getHandEvaluations();
+        HandEvaluations dealerPartnerHandEvaluations = board.getHandOf(dealer.next(new PositiveInteger(2))).getHandEvaluations();
         if (dealerHandEvaluations.getHCP() < dealerPartnerHandEvaluations.getHCP()) {
             board = this.rotateHands(board, 2);
         }
@@ -66,8 +68,11 @@ public class MinibridgeBoardDealer implements BoardDealer {
 
     private Board rotateHands(Board board, int i) {
         Map<Direction, Hand> hands = new HashMap<Direction, Hand>();
+        if (i < 0) {
+            throw new IllegalArgumentException("i must be non-negative");
+        }
         for (Direction direction : Direction.values()) {
-            hands.put(direction.next(i), board.getHandOf(direction));
+            hands.put(direction.next(new PositiveInteger(i)), board.getHandOf(direction));
         }
         return new Board(hands, board.getDealer());
     }
