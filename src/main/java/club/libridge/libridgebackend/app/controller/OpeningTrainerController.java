@@ -13,26 +13,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import club.libridge.libridgebackend.app.persistence.BoardEntity;
 import club.libridge.libridgebackend.app.persistence.BoardFactory;
-import club.libridge.libridgebackend.app.persistence.BoardRepository;
 import club.libridge.libridgebackend.app.service.OpeningTrainerService;
-import scalabridge.Direction;
 import club.libridge.libridgebackend.dto.ExpectedCallDTO;
 import club.libridge.libridgebackend.dto.HandWithCandidateBidsDTO;
-import club.libridge.libridgebackend.networking.server.LibridgeServer;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
+import scalabridge.Direction;
 
 @RestController
 @RequestMapping("/openingTrainer")
 @AllArgsConstructor
 public class OpeningTrainerController {
 
-    @NonNull
-    private final LibridgeServer libridgeServer;
-    @NonNull
-    private final BoardRepository boardRepository;
     @NonNull
     private final BoardFactory boardFactory;
 
@@ -42,9 +35,9 @@ public class OpeningTrainerController {
     @GetMapping("/{boardId}/{direction}")
     public ExpectedCallDTO getExpectedCall(@PathVariable UUID boardId, @PathVariable Direction direction) {
         LOGGER.trace("getExpectedCall");
-        Optional<BoardEntity> boardEntity = boardRepository.findById(boardId);
-        if (boardEntity.isPresent()) {
-            return new ExpectedCallDTO(boardId, libridgeServer.getExpectedCall(boardFactory.fromEntity(boardEntity.get())));
+        Optional<ExpectedCallDTO> expectedCallOption = openingTrainerService.getExpectedCall(boardId, direction);
+        if (expectedCallOption.isPresent()) {
+            return expectedCallOption.get();
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "There is no board in the database with this ID");
         }

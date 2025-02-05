@@ -2,10 +2,13 @@ package club.libridge.libridgebackend.app.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
+import club.libridge.libridgebackend.app.persistence.BoardEntity;
 import club.libridge.libridgebackend.app.persistence.BoardFactory;
+import club.libridge.libridgebackend.app.persistence.BoardRepository;
 import club.libridge.libridgebackend.ben.BenCandidate;
 import club.libridge.libridgebackend.ben.BenResponse;
 import club.libridge.libridgebackend.ben.BenWebClient;
@@ -13,7 +16,9 @@ import club.libridge.libridgebackend.core.Board;
 import club.libridge.libridgebackend.core.exceptions.ImpossibleBoardException;
 import club.libridge.libridgebackend.core.openingtrainer.OpeningSystem;
 import club.libridge.libridgebackend.dto.CallWithProbabilityDTO;
+import club.libridge.libridgebackend.dto.ExpectedCallDTO;
 import club.libridge.libridgebackend.dto.HandWithCandidateBidsDTO;
+import club.libridge.libridgebackend.networking.server.LibridgeServer;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import scalabridge.Call;
@@ -28,10 +33,16 @@ public class OpeningTrainerService {
     private final BoardFactory boardFactory;
 
     @NonNull
+    private final BoardRepository boardRepository;
+
+    @NonNull
     private final OpeningSystem openingSystem;
 
     @NonNull
     private final BenWebClient benWebClient;
+
+    @NonNull
+    private final LibridgeServer libridgeServer;
 
     private static final int MAXIMUM_NUMBER_OF_TRIES = 1000;
 
@@ -70,5 +81,16 @@ public class OpeningTrainerService {
             return new HandWithCandidateBidsDTO(hand, call, list);
         }
 
+    }
+
+    public Optional<ExpectedCallDTO> getExpectedCall(UUID boardId, Direction direction) {
+        Optional<BoardEntity> boardEntity = boardRepository.findById(boardId);
+        if (boardEntity.isPresent()) {
+            ExpectedCallDTO expectedCallDTO = new ExpectedCallDTO(boardId,
+                    libridgeServer.getExpectedCall(boardFactory.fromEntity(boardEntity.get())));
+            return Optional.of(expectedCallDTO);
+        } else {
+            return Optional.empty();
+        }
     }
 }
