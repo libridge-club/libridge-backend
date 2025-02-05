@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import club.libridge.libridgebackend.app.persistence.BoardFactory;
 import club.libridge.libridgebackend.app.service.OpeningTrainerService;
 import club.libridge.libridgebackend.dto.ExpectedCallDTO;
 import club.libridge.libridgebackend.dto.HandWithCandidateBidsDTO;
@@ -25,9 +24,6 @@ import scalabridge.Direction;
 @RequestMapping("/openingTrainer")
 @AllArgsConstructor
 public class OpeningTrainerController {
-
-    @NonNull
-    private final BoardFactory boardFactory;
 
     @NonNull
     private final OpeningTrainerService openingTrainerService;
