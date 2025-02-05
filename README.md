@@ -12,6 +12,8 @@ libridge uses [ben](https://github.com/lorserker/ben) for bidding suggestions (a
 
 libridge-backend uses Java 21 (LTS) in development and in runtime. It will be updated to Java 25 LTS after its launch at September 2025.
 
+We recommend installing using SDKMAN!
+
 ## Compiling
 
 libridge uses Makefile and [Maven](https://maven.apache.org/) to build. The following line should be enough:
