@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import club.libridge.libridgebackend.dto.LobbyScreenTableDTO;
-import club.libridge.libridgebackend.networking.server.LibridgeServer;
+import club.libridge.libridgebackend.app.persistence.TableEntity;
+import club.libridge.libridgebackend.app.service.LobbyService;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 
@@ -19,12 +19,12 @@ import lombok.NonNull;
 public class TableController {
 
     @NonNull
-    private final LibridgeServer libridgeServer;
+    private final LobbyService lobbyService;
 
     @GetMapping
-    public List<LobbyScreenTableDTO> getTables() {
+    public List<TableEntity> getTables() {
         LOGGER.trace("getTables");
-        return this.libridgeServer.getTablesDTO();
+        return this.lobbyService.getLobbyTables();
     }
 
 }

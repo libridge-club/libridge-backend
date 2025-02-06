@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import scalabridge.Direction;
 import club.libridge.libridgebackend.dto.RequestCard;
 import club.libridge.libridgebackend.dto.RequestWithString;
 import club.libridge.libridgebackend.networking.messages.GameServerFromGameNameIdentifier;
@@ -25,6 +24,7 @@ import club.libridge.libridgebackend.networking.server.gameserver.GameServer;
 import club.libridge.libridgebackend.networking.websockets.PlayerDTO;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
+import scalabridge.Direction;
 
 @RestController
 @AllArgsConstructor
@@ -68,12 +68,6 @@ public class AppController {
     public void joinTable(@RequestHeader("PlayerUUID") String playerUUID, @PathVariable String tableId) {
         LOGGER.trace("joinTable");
         this.libridgeServer.joinTable(getUUID(playerUUID), UUID.fromString(tableId));
-    }
-
-    @PostMapping("/table/refresh/{tableId}")
-    public void refreshTable(@RequestHeader("PlayerUUID") String playerUUID, @PathVariable String tableId) {
-        LOGGER.trace("refreshTable");
-        this.libridgeServer.refreshTable(UUID.fromString(tableId));
     }
 
     @PostMapping("/table/leave") // Each player can only be in one table for now

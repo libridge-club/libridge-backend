@@ -10,8 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import club.libridge.libridgebackend.app.controller.TableController;
-import club.libridge.libridgebackend.dto.LobbyScreenTableDTO;
-import club.libridge.libridgebackend.networking.server.LibridgeServer;
+import club.libridge.libridgebackend.app.persistence.TableEntity;
 
 @SpringBootTest()
 @ActiveProfiles("development")
@@ -20,16 +19,11 @@ public class TableControllerIT {
     @Autowired
     private TableController controller;
 
-    @Autowired
-    private LibridgeServer server;
-
     @Test
     public void getTables_ShouldReturnAllExistingTables() {
-        List<LobbyScreenTableDTO> existingTables = server.getTablesDTO();
+        List<TableEntity> tables = controller.getTables();
 
-        List<LobbyScreenTableDTO> tables = controller.getTables();
-
-        assertEquals(existingTables, tables);
+        assertEquals(0, tables.size());
     }
 
 }

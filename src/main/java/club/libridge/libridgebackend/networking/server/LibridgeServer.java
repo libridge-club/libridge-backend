@@ -218,10 +218,6 @@ public class LibridgeServer {
         identifierToPlayerMap.remove(playerIdentifier);
     }
 
-    public Table getTable(UUID tableIdentifier) {
-        return this.tables.get(tableIdentifier);
-    }
-
     public UUID createTable(Class<? extends GameServer> gameServerClass) {
         GameServer gameServer;
         try {
@@ -329,10 +325,6 @@ public class LibridgeServer {
         }
         GameServer gameServer = table.getGameServer();
         return GameNameFromGameServerIdentifier.identify(gameServer.getClass());
-    }
-
-    public void refreshTable(UUID tableId) {
-        this.getTable(tableId).sendDealAll();
     }
 
     public Optional<BoardDTO> getRandomBoard(BoardRepository repository) {
