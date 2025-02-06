@@ -24,6 +24,10 @@ public class TableControllerIT {
         List<TableEntity> tables = controller.getTables();
 
         assertEquals(0, tables.size());
+
+        controller.createTable();
+        List<TableEntity> tables2 = controller.getTables();
+        assertEquals(1, tables2.size());
     }
 
 }

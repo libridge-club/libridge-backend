@@ -18,9 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import club.libridge.libridgebackend.dto.RequestCard;
 import club.libridge.libridgebackend.dto.RequestWithString;
-import club.libridge.libridgebackend.networking.messages.GameServerFromGameNameIdentifier;
 import club.libridge.libridgebackend.networking.server.LibridgeServer;
-import club.libridge.libridgebackend.networking.server.gameserver.GameServer;
 import club.libridge.libridgebackend.networking.websockets.PlayerDTO;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
@@ -53,15 +51,6 @@ public class AppController {
     public void playCard(@RequestHeader("PlayerUUID") String playerUUID, @RequestBody RequestCard requestCard) {
         LOGGER.trace("playCard");
         this.libridgeServer.play(requestCard.getCard(), getUUID(playerUUID));
-    }
-
-    @PostMapping("/table")
-    public ResponseEntity<UUID> createTable(@RequestHeader("PlayerUUID") String playerUUID, @RequestBody RequestWithString requestWithString) {
-        LOGGER.trace("createTable");
-        Class<? extends GameServer> gameServerClass = GameServerFromGameNameIdentifier.identify(requestWithString.getContent());
-        LOGGER.info("Player {} created a {} table.", playerUUID, gameServerClass.getSimpleName());
-        UUID tableId = this.libridgeServer.createTable(gameServerClass);
-        return new ResponseEntity<>(tableId, HttpStatus.CREATED);
     }
 
     @PostMapping("/table/join/{tableId}")
