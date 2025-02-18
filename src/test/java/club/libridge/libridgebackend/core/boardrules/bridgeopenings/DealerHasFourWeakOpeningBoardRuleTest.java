@@ -9,17 +9,20 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
 import club.libridge.libridgebackend.TestWithMocks;
-import club.libridge.libridgebackend.core.Board;
+import scalabridge.CompleteHand;
 import scalabridge.Direction;
+import scalabridge.DuplicateBoard;
 import scalabridge.Hand;
 import scalabridge.HandEvaluations;
 
 public class DealerHasFourWeakOpeningBoardRuleTest extends TestWithMocks {
 
     @Mock
-    private Board board;
+    private DuplicateBoard board;
     @Mock
-    private Hand hand;
+    private CompleteHand hand;
+    @Mock
+    private Hand oldHand;
     @Mock
     private HandEvaluations handEvaluations;
     private Direction dealer;
@@ -33,7 +36,8 @@ public class DealerHasFourWeakOpeningBoardRuleTest extends TestWithMocks {
         dealer = Direction.getSouth();
         when(board.getDealer()).thenReturn(dealer);
         when(board.getHandOf(dealer)).thenReturn(hand);
-        when(hand.getHandEvaluations()).thenReturn(handEvaluations);
+        when(hand.hand()).thenReturn(oldHand);
+        when(hand.hand().getHandEvaluations()).thenReturn(handEvaluations);
     }
 
     private void configureParameterizedMocks(int hcp, boolean hasEightCardInAnySuit) {

@@ -14,6 +14,7 @@ import club.libridge.libridgebackend.core.boarddealer.CardDeck;
 import club.libridge.libridgebackend.core.boarddealer.Complete52CardDeck;
 import club.libridge.libridgebackend.core.boarddealer.ShuffledBoardDealer;
 import club.libridge.libridgebackend.pbn.PBNUtils;
+import scalabridge.CompleteDeckInFourHands;
 import scalabridge.Direction;
 
 public class PavlicekNumberTest {
@@ -42,7 +43,7 @@ public class PavlicekNumberTest {
     public void bothFunctionsShouldBeInverseOfEachOtherTwo() {
         BoardDealer boardDealer = new ShuffledBoardDealer();
         CardDeck anyCardDeck = new Complete52CardDeck();
-        Board randomBoard = boardDealer.dealBoard(Direction.getNorth(), anyCardDeck.getDeck());
+        CompleteDeckInFourHands randomBoard = boardDealer.dealBoard(Direction.getNorth(), anyCardDeck.getDeck()).hands();
         assertEquals(randomBoard, subject.getBoardFromNumber(subject.getNumberFromBoard(randomBoard)));
     }
 

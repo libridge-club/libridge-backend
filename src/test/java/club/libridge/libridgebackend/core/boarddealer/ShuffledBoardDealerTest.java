@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import club.libridge.libridgebackend.core.Board;
 import scalabridge.Direction;
+import scalabridge.DuplicateBoard;
 import scalabridge.GameConstants;
 
 public class ShuffledBoardDealerTest {
@@ -16,13 +16,13 @@ public class ShuffledBoardDealerTest {
         Direction dealer = Direction.getNorth();
         BoardDealer boardDealer = new ShuffledBoardDealer();
         CardDeck anyCardDeck = new Complete52CardDeck();
-        Board board = boardDealer.dealBoard(dealer, anyCardDeck.getDeck());
+        DuplicateBoard board = boardDealer.dealBoard(dealer, anyCardDeck.getDeck());
 
         // The correct test should verify if new Board(hands, dealer)
         // was called but Mockito can't do that.
         // Coupling this test with Hand and Board instead :(
         for (Direction direction : Direction.values()) {
-            assertEquals(GameConstants.instance().SIZE_OF_HAND(), board.getHandOf(direction).size());
+            assertEquals(GameConstants.instance().SIZE_OF_HAND(), board.getHandOf(direction).hand().size());
         }
         assertEquals(dealer, board.getDealer());
 

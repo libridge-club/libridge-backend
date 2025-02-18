@@ -2,19 +2,19 @@ package club.libridge.libridgebackend.core.game;
 
 import java.util.Deque;
 
-import club.libridge.libridgebackend.core.Board;
-import scalabridge.Card;
 import club.libridge.libridgebackend.core.Deal;
-import scalabridge.Direction;
 import club.libridge.libridgebackend.core.Player;
 import club.libridge.libridgebackend.core.rulesets.abstractrulesets.Ruleset;
 import lombok.Getter;
 import lombok.NonNull;
+import scalabridge.Card;
+import scalabridge.Direction;
+import scalabridge.DuplicateBoard;
 
 public abstract class TrickGame {
 
     @Getter
-    protected Board currentBoard;
+    protected DuplicateBoard currentBoard;
     @Getter
     protected Deal currentDeal;
     @Getter

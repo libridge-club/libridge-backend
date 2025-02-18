@@ -8,9 +8,9 @@ import java.util.Deque;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import club.libridge.libridgebackend.core.Board;
 import scalabridge.Card;
 import scalabridge.Direction;
+import scalabridge.DuplicateBoard;
 import scalabridge.PositiveInteger;
 import scalabridge.Side;
 
@@ -29,19 +29,19 @@ public class MinibridgeBoardDealerTest {
 
     @Test
     public void dealBoardShouldDealABoardWithTheCorrectDealer() {
-        Board minibridgeBoard = subject.dealBoard(anyDirection, completeDeck);
+        DuplicateBoard minibridgeBoard = subject.dealBoard(anyDirection, completeDeck);
 
         assertEquals(anyDirection, minibridgeBoard.getDealer());
     }
 
     @Test
     public void dealBoardShouldDealABoardWithStrictlyMoreHCPForDealerPartnership() {
-        Board minibridgeBoard = subject.dealBoard(anyDirection, completeDeck);
+        DuplicateBoard minibridgeBoard = subject.dealBoard(anyDirection, completeDeck);
 
         int dealerPartnershipHCP = 0;
         int nonDealerPartnershipHCP = 0;
         for (Direction direction : Direction.values()) {
-            int currentDirectionHCP = minibridgeBoard.getHandOf(direction).getHandEvaluations().getHCP();
+            int currentDirectionHCP = minibridgeBoard.getHandOf(direction).hand().getHandEvaluations().getHCP();
             if (Side.getFromDirection(direction) == Side.getFromDirection(anyDirection)) {
                 dealerPartnershipHCP += currentDirectionHCP;
             } else {
@@ -53,10 +53,10 @@ public class MinibridgeBoardDealerTest {
 
     @Test
     public void dealBoardShouldDealABoardWithEqualOrMoreHCPForDealerThanTheirPartner() {
-        Board minibridgeBoard = subject.dealBoard(anyDirection, completeDeck);
+        DuplicateBoard minibridgeBoard = subject.dealBoard(anyDirection, completeDeck);
 
-        int dealerHCP = minibridgeBoard.getHandOf(anyDirection).getHandEvaluations().getHCP();
-        int dealerPartnerHCP = minibridgeBoard.getHandOf(anyDirection.next(new PositiveInteger(2))).getHandEvaluations().getHCP();
+        int dealerHCP = minibridgeBoard.getHandOf(anyDirection).hand().getHandEvaluations().getHCP();
+        int dealerPartnerHCP = minibridgeBoard.getHandOf(anyDirection.next(new PositiveInteger(2))).hand().getHandEvaluations().getHCP();
         assertTrue(dealerHCP >= dealerPartnerHCP);
     }
 

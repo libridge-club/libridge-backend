@@ -1,16 +1,16 @@
 package club.libridge.libridgebackend.core.boardrules.bridgeopenings;
 
-import club.libridge.libridgebackend.core.Board;
 import club.libridge.libridgebackend.core.boardrules.BoardRule;
-import scalabridge.Hand;
+import scalabridge.CompleteHand;
+import scalabridge.DuplicateBoard;
 import scalabridge.HandEvaluations;
 
 public class DealerHasTwoNoTrumpOpeningBoardRule extends SingletonEqualsAndHashcode implements BoardRule {
 
     @Override
-    public boolean isValid(Board board) {
-        Hand dealerHand = board.getHandOf(board.getDealer());
-        HandEvaluations handEvaluations = dealerHand.getHandEvaluations();
+    public boolean isValid(DuplicateBoard board) {
+        CompleteHand dealerHand = board.getHandOf(board.getDealer());
+        HandEvaluations handEvaluations = dealerHand.hand().getHandEvaluations();
         return hasCorrectHCPRange(handEvaluations) && hasCorrectDistribution(handEvaluations);
     }
 

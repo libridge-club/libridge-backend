@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import club.libridge.libridgebackend.core.comparators.CardInsideHandWithSuitComparator;
+import org.apache.commons.lang3.NotImplementedException;
+
 import club.libridge.libridgebackend.core.exceptions.DoesNotFollowSuitException;
 import club.libridge.libridgebackend.core.exceptions.PlayedCardInAnotherPlayersTurnException;
 import club.libridge.libridgebackend.core.rulesets.abstractrulesets.Ruleset;
@@ -15,9 +16,9 @@ import lombok.Getter;
 import lombok.Setter;
 import scalabridge.Card;
 import scalabridge.Direction;
+import scalabridge.DuplicateBoard;
 import scalabridge.Hand;
 import scalabridge.PositiveInteger;
-import scalabridge.Suit;
 import scalabridge.Trick;
 
 @EqualsAndHashCode
@@ -31,7 +32,7 @@ public class Deal {
     private Deal() {
     }
 
-    private Board board;
+    private DuplicateBoard duplicateBoard;
     @Getter
     private int completedTricks;
     private int startingNumberOfCardsInTheHand;
@@ -59,12 +60,12 @@ public class Deal {
     @Getter
     private Boolean isPartnershipGame;
 
-    public Deal(Board board, Ruleset ruleset, Direction leader, Boolean isPartnershipGame) {
-        this.board = board;
+    public Deal(DuplicateBoard board, Ruleset ruleset, Direction leader, Boolean isPartnershipGame) {
+        this.duplicateBoard = board;
         this.currentPlayer = leader;
         this.setRuleset(ruleset);
         this.completedTricks = 0;
-        this.startingNumberOfCardsInTheHand = board.getHandOf(leader).size();
+        this.startingNumberOfCardsInTheHand = board.getHandOf(leader).hand().size();
         this.tricks = new ArrayList<Trick>();
         this.players = new HashMap<Direction, Player>();
         for (Direction direction : Direction.values()) {
@@ -75,7 +76,6 @@ public class Deal {
 
     public void setRuleset(Ruleset ruleset) {
         this.ruleset = ruleset;
-        this.board.sortAllHands(ruleset.getCardComparator());
         this.score = new Score();
     }
 
@@ -92,7 +92,7 @@ public class Deal {
     }
 
     public Hand getHandOf(Direction direction) {
-        return this.board.getHandOf(direction);
+        return this.duplicateBoard.getHandOf(direction).hand();
     }
 
     public Trick getCurrentTrick() {
@@ -136,23 +136,25 @@ public class Deal {
         }
 
         // FIXME Should be a transaction or immutable
-        Hand newHand = handOfCurrentPlayer.playCard(card);
-        this.board.setHandOf(this.currentPlayer, newHand);
-        currentTrick = currentTrick.addCard(card).get();
+        // FIXME Should be implemented in scalabridge
+        throw new NotImplementedException("Should be implemented in scalabridge");
+        // Hand newHand = handOfCurrentPlayer.playCard(card);
+        // this.duplicateBoard.setHandOf(this.currentPlayer, newHand);
+        // currentTrick = currentTrick.addCard(card).get();
 
-        if (currentTrick.isComplete()) {
-            Direction currentTrickWinner = this.getWinnerOfCurrentTrick();
-            currentPlayer = currentTrickWinner;
-            updateScoreboard(currentTrickWinner);
-            completedTricks++;
-        } else {
-            currentPlayer = currentPlayer.next();
-        }
+        // if (currentTrick.isComplete()) {
+        //     Direction currentTrickWinner = this.getWinnerOfCurrentTrick();
+        //     currentPlayer = currentTrickWinner;
+        //     updateScoreboard(currentTrickWinner);
+        //     completedTricks++;
+        // } else {
+        //     currentPlayer = currentPlayer.next();
+        // }
 
     }
 
     private Hand getHandOfCurrentPlayer() {
-        return this.board.getHandOf(this.currentPlayer);
+        return this.duplicateBoard.getHandOf(this.currentPlayer).hand();
     }
 
     private void throwExceptionIfCardIsNotFromCurrentPlayer(Hand handOfCurrentPlayer, Card card) {
@@ -181,25 +183,20 @@ public class Deal {
         return newTrick;
     }
 
-    private Direction getWinnerOfCurrentTrick() {
-        return this.ruleset.getWinner(currentTrick);
-    }
+    // private Direction getWinnerOfCurrentTrick() {
+    //     return this.ruleset.getWinner(currentTrick);
+    // }
 
-    private void updateScoreboard(Direction currentTrickWinner) {
-        this.score.addTrickToDirection(currentTrick, currentTrickWinner);
-    }
+    // private void updateScoreboard(Direction currentTrickWinner) {
+    //     this.score.addTrickToDirection(currentTrick, currentTrickWinner);
+    // }
 
     public Direction getDealer() {
-        return this.board.getDealer();
+        return this.duplicateBoard.getDealer();
     }
 
     public boolean isDummyOpen() {
         return this.getCompletedTricks() > 0 || !this.getCurrentTrick().isEmpty();
-    }
-
-    public void sortAllHandsByTrumpSuit(Suit trumpSuit) {
-        CardInsideHandWithSuitComparator cardInsideHandWithSuitComparator = new CardInsideHandWithSuitComparator(trumpSuit);
-        this.board.sortAllHands(cardInsideHandWithSuitComparator);
     }
 
     private Direction getCorrectUndoDirectionConsideringDummy(Direction direction) {
@@ -289,8 +286,9 @@ public class Deal {
     }
 
     private void giveBackCardsToHands(Map<Card, Direction> cardDirectionMap) {
-        this.board.unplayCardsInHands(cardDirectionMap);
-        this.board.sortAllHands(ruleset.getCardComparator());
+        // TODO Unimplemented
+        // this.board.unplayCardsInHands(cardDirectionMap);
+        throw new NotImplementedException();
     }
 
     private void undoScore(Trick trick) {
@@ -299,16 +297,17 @@ public class Deal {
     }
 
     public void giveBackAllCardsToHands() {
-        for (Trick trick : tricks) {
-            Direction currentDirection = trick.getLeader();
-            for (Card card : trick.getCards()) {
-                Hand newHand = this.board.getHandOf(currentDirection).addCard(card);
-                this.board.setHandOf(currentDirection, newHand);
-                currentDirection = currentDirection.next();
-            }
-        }
-        this.currentTrick = startNewTrick();
-        this.board.sortAllHands(ruleset.getCardComparator());
+        // FIXME Should be implemented in scalabridge
+        throw new NotImplementedException("Should be implemented in scalabridge");
+        // for (Trick trick : tricks) {
+        //     Direction currentDirection = trick.getLeader();
+        //     for (Card card : trick.getCards()) {
+        //         Hand newHand = this.duplicateBoard.getHandOf(currentDirection).addCard(card);
+        //         this.duplicateBoard.setHandOf(currentDirection, newHand);
+        //         currentDirection = currentDirection.next();
+        //     }
+        // }
+        // this.currentTrick = startNewTrick();
     }
 
     public void claim(Direction direction) {

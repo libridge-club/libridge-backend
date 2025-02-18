@@ -6,11 +6,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import club.libridge.libridgebackend.core.Board;
 import club.libridge.libridgebackend.dds.DoubleDummyTable;
 import lombok.Getter;
 import lombok.Setter;
 import scalabridge.Direction;
+import scalabridge.DuplicateBoard;
 import scalabridge.Hand;
 import scalabridge.Strain;
 import scalabridge.TricksMade;
@@ -30,11 +30,11 @@ public class BoardDTO {
     private final String pbnDealTag;
     private Map<Direction, Map<Strain, Integer>> doubleDummyTable;
 
-    public BoardDTO(Board board, String pavlicekNumber, String pbnDealTag) {
+    public BoardDTO(DuplicateBoard board, String pavlicekNumber, String pbnDealTag) {
         this.dealer = board.getDealer();
         Map<Direction, String> hands = new HashMap<Direction, String>();
         for (Direction direction : Direction.values()) {
-            Hand thisHand = board.getHandOf(direction);
+            Hand thisHand = board.getHandOf(direction).hand();
             hands.put(direction, thisHand.toString());
         }
         this.hands = hands;

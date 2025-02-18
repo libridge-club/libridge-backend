@@ -12,7 +12,6 @@ import club.libridge.libridgebackend.app.persistence.BoardRepository;
 import club.libridge.libridgebackend.ben.BenCandidate;
 import club.libridge.libridgebackend.ben.BenResponse;
 import club.libridge.libridgebackend.ben.BenWebClient;
-import club.libridge.libridgebackend.core.Board;
 import club.libridge.libridgebackend.core.exceptions.ImpossibleBoardException;
 import club.libridge.libridgebackend.core.openingtrainer.OpeningSystem;
 import club.libridge.libridgebackend.dto.CallWithProbabilityDTO;
@@ -22,8 +21,11 @@ import club.libridge.libridgebackend.networking.server.LibridgeServer;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import scalabridge.Call;
+import scalabridge.CompleteDeckInFourHands;
 import scalabridge.Direction;
+import scalabridge.DuplicateBoard;
 import scalabridge.Hand;
+import scalabridge.PositiveInteger;
 
 @Service
 @AllArgsConstructor
@@ -47,11 +49,11 @@ public class OpeningTrainerService {
     private static final int MAXIMUM_NUMBER_OF_TRIES = 1000;
 
     private Hand getRandom() {
-        return this.boardFactory.getRandom().getHandOf(Direction.getNorth());
+        return this.boardFactory.getRandom().getHandOf(Direction.getNorth()).hand();
     }
 
     private Call getCall(Hand hand) {
-        Board boardWithProvidedHand = boardFactory.fromHandAndDirection(hand, Direction.getNorth());
+        DuplicateBoard boardWithProvidedHand = boardFactory.fromHandAndDirection(hand, Direction.getNorth());
         return this.openingSystem.getCall(boardWithProvidedHand);
     }
 
@@ -86,8 +88,19 @@ public class OpeningTrainerService {
     public Optional<ExpectedCallDTO> getExpectedCall(UUID boardId, Direction direction) {
         Optional<BoardEntity> boardEntity = boardRepository.findById(boardId);
         if (boardEntity.isPresent()) {
-            ExpectedCallDTO expectedCallDTO = new ExpectedCallDTO(boardId,
-                    libridgeServer.getExpectedCall(boardFactory.fromEntity(boardEntity.get())));
+            CompleteDeckInFourHands fromEntity = boardFactory.fromEntity(boardEntity.get());
+            int positiveInteger = 0;
+            if (Direction.NORTH == direction) {
+                positiveInteger = 1;
+            } else if (Direction.EAST == direction) {
+                positiveInteger = 2;
+            } else if (Direction.SOUTH == direction) {
+                positiveInteger = 3;
+            } else if (Direction.WEST == direction) {
+                positiveInteger = 4;
+            }
+            DuplicateBoard duplicateBoard = new DuplicateBoard(new PositiveInteger(positiveInteger), fromEntity);
+            ExpectedCallDTO expectedCallDTO = new ExpectedCallDTO(boardId, libridgeServer.getExpectedCall(duplicateBoard));
             return Optional.of(expectedCallDTO);
         } else {
             return Optional.empty();

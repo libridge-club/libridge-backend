@@ -9,8 +9,6 @@ import club.libridge.libridgebackend.core.exceptions.PlayedCardInAnotherPlayersT
 import club.libridge.libridgebackend.core.exceptions.SelectedStrainInAnotherPlayersTurnException;
 import club.libridge.libridgebackend.core.game.MinibridgeGame;
 import club.libridge.libridgebackend.core.rulesets.RulesetFromStrainString;
-import club.libridge.libridgebackend.core.rulesets.concrete.PositiveRuleset;
-import club.libridge.libridgebackend.core.rulesets.concrete.PositiveWithTrumpsRuleset;
 import club.libridge.libridgebackend.networking.server.notifications.CardPlayNotification;
 import club.libridge.libridgebackend.networking.server.notifications.StrainNotification;
 import scalabridge.Card;
@@ -77,10 +75,11 @@ public class MinibridgeGameServer extends GameServer {
             LOGGER.info("Everything selected! Game commencing!");
             this.minibridgeGame.setRuleset(RulesetFromStrainString.identify(currentStrain.getName()));
 
-            PositiveRuleset currentRuleset = RulesetFromStrainString.identify(currentStrain.getName());
-            if (currentRuleset instanceof PositiveWithTrumpsRuleset positiveWithTrumpsRuleset) {
-                this.game.getCurrentDeal().sortAllHandsByTrumpSuit(positiveWithTrumpsRuleset.getTrumpSuit());
-            }
+            // FIXME enforce this ordering somewhere else
+            // PositiveRuleset currentRuleset = RulesetFromStrainString.identify(currentStrain.getName());
+            // if (currentRuleset instanceof PositiveWithTrumpsRuleset positiveWithTrumpsRuleset) {
+            //     this.game.getCurrentDeal().sortAllHandsByTrumpSuit(positiveWithTrumpsRuleset.getTrumpSuit());
+            // }
 
             this.dealHasChanged = true;
             while (!shouldStop && !this.game.getCurrentDeal().isFinished()) {

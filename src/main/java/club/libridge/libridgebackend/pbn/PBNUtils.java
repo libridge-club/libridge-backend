@@ -1,17 +1,15 @@
 package club.libridge.libridgebackend.pbn;
 
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import club.libridge.libridgebackend.core.Board;
 import club.libridge.libridgebackend.core.exceptions.MalformedLinMDValueException;
+import scalabridge.CompleteDeckInFourHands;
 import scalabridge.Direction;
 import scalabridge.Hand;
 import scalabridge.PositiveInteger;
 import scalabridge.Suit;
+import scalabridge.nonpure.DuplicateBoardBuilder;
 
 public final class PBNUtils {
 
@@ -19,25 +17,8 @@ public final class PBNUtils {
      * 69 in fact: 52 cards + 3*4 = 12 dots, 3 spaces and a "X:" in the start
      */
     private static final int MAX_CHARS_IN_DEAL_TAG = 70;
-    private static final Map<Character, Direction> CHAR_TO_DIRECTION_MAP;
     private static final Direction NORTH = Direction.getNorth();
-    private static final Direction EAST = Direction.getEast();
-    private static final Direction SOUTH = Direction.getSouth();
-    private static final Direction WEST = Direction.getWest();
-
-    static {
-        Map<Character, Direction> temp = new HashMap<Character, Direction>();
-        temp.put('N', NORTH);
-        temp.put('n', NORTH);
-        temp.put('E', EAST);
-        temp.put('e', EAST);
-        temp.put('S', SOUTH);
-        temp.put('s', SOUTH);
-        temp.put('W', WEST);
-        temp.put('w', WEST);
-        CHAR_TO_DIRECTION_MAP = Collections.unmodifiableMap(temp);
-
-    }
+    private static final int DEFAULT_DUPLICATE_BOARD_NUMBER = 1;
 
     private PBNUtils() {
         throw new IllegalStateException("Utility class");
@@ -47,7 +28,7 @@ public final class PBNUtils {
      *
      * Implemented from PBN Standard 2.1 - Defined at section 3.4.11 The Deal tag
      */
-    public static String dealTagStringFromBoard(Board board) {
+    public static String dealTagStringFromBoard(CompleteDeckInFourHands board) {
         return dealTagStringFromBoardAndDirection(board, NORTH);
     }
 
@@ -55,12 +36,12 @@ public final class PBNUtils {
      *
      * Implemented from PBN Standard 2.1 - Defined at section 3.4.11 The Deal tag
      */
-    public static String dealTagStringFromBoardAndDirection(Board board, Direction firstDirection) {
+    public static String dealTagStringFromBoardAndDirection(CompleteDeckInFourHands board, Direction firstDirection) {
         StringBuilder returnValue = new StringBuilder(MAX_CHARS_IN_DEAL_TAG);
 
         for (int i = 0; i < 4; i++) {
             Direction current = firstDirection.next(new PositiveInteger(i));
-            Hand currentHand = board.getHandOf(current);
+            Hand currentHand = board.getHandOf(current).hand();
             if (i == 0) {
                 returnValue.append(firstDirection.getAbbreviation() + ":");
             } else {
@@ -82,16 +63,9 @@ public final class PBNUtils {
     /**
      * Example "E:86.KT2.K85.Q9742 KJT932.97.942.86 54.8653.AQJT73.3 AQ7.AQJ4.6.AKJT5"
      */
-    public static Board getBoardFromDealTag(String dealTag) {
-        Direction dealer = CHAR_TO_DIRECTION_MAP.get(dealTag.charAt(0));
-        String[] dotSeparatedStrings = dealTag.substring(2).split(" ");
-        Map<Direction, Hand> hands = new HashMap<Direction, Hand>();
-        for (int i = 0; i < 4; i++) {
-            Hand currentHand = scalabridge.pbn.PBNUtils.handFromPartialDealTag(dotSeparatedStrings[i]).get();
-            hands.put(dealer.next(new PositiveInteger(i)), currentHand);
-        }
-
-        return new Board(hands, dealer);
+    // FIXME this should create a DuplicateBoard
+    public static CompleteDeckInFourHands getBoardFromDealTag(String dealTag) {
+        return DuplicateBoardBuilder.build(DEFAULT_DUPLICATE_BOARD_NUMBER, dealTag).hands();
     }
 
     /**

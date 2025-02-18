@@ -4,7 +4,6 @@ import java.util.UUID;
 
 import org.springframework.validation.annotation.Validated;
 
-import club.libridge.libridgebackend.core.Board;
 import club.libridge.libridgebackend.core.PavlicekNumber;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -15,6 +14,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import scalabridge.CompleteDeckInFourHands;
 
 @Entity(name = "Board")
 @Getter
@@ -45,9 +45,9 @@ public class BoardEntity {
     private BoardEntity() {
     }
 
-    public BoardEntity(@NotNull Board board) {
+    public BoardEntity(@NotNull CompleteDeckInFourHands completeDeckInFourHands) {
         PavlicekNumber pavlicekNumberGenerator = new PavlicekNumber();
-        this.pavlicekNumber = pavlicekNumberGenerator.getNumberFromBoard(board).toString();
+        this.pavlicekNumber = pavlicekNumberGenerator.getNumberFromBoard(completeDeckInFourHands).toString();
     }
 
     public BoardEntity(@NotNull String pavlicekNumber) {

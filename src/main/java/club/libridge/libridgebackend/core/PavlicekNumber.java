@@ -4,15 +4,20 @@ import java.math.BigInteger;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
+import scala.Tuple2;
+import scala.collection.mutable.Buffer;
+import scala.jdk.javaapi.CollectionConverters;
 import scalabridge.Card;
+import scalabridge.CompleteDeckInFourHands;
+import scalabridge.CompleteHand;
 import scalabridge.Direction;
 import scalabridge.Hand;
 import scalabridge.Rank;
@@ -76,13 +81,13 @@ public class PavlicekNumber {
         // System.out.println(derivedNumber);
         String numberString = "25119193013129491541542678034";
         BigInteger bigInt = new BigInteger(numberString);
-        Board derivedBoard = pavlicekNumber.getBoardFromNumber(bigInt);
+        CompleteDeckInFourHands derivedBoard = pavlicekNumber.getBoardFromNumber(bigInt);
         // printBoard(derivedBoard);
         derivedBoard = pavlicekNumber.getBoardFromNumber(new BigInteger("25119193013129491541542678034"));
         printBoard(derivedBoard);
     }
 
-    public BigInteger getNumberFromBoard(Board board) {
+    public BigInteger getNumberFromBoard(CompleteDeckInFourHands completeDeckInFourHands) {
         /*
          * This will be used as the ordering reference or the implementation
          */
@@ -94,7 +99,7 @@ public class PavlicekNumber {
         BigInteger k = clone(bigD);
         BigInteger i = BigInteger.ZERO;
         BigInteger x = BigInteger.ZERO;
-        Map<Integer, Direction> map = preProcess(board);
+        Map<Integer, Direction> map = preProcess(completeDeckInFourHands);
         for (long cards = 52; cards > 0; k = clone(x), cards--) {
             Card card = completeDeque.pollLast();
             Direction directionFromCard = (Direction) map.get(card.hashCode());
@@ -126,7 +131,7 @@ public class PavlicekNumber {
         return i;
     }
 
-    public Board getBoardFromNumber(BigInteger i) {
+    public CompleteDeckInFourHands getBoardFromNumber(BigInteger i) {
         if (bigD.compareTo(i) <= 0 || BigInteger.ZERO.compareTo(i) > 0) {
             throw new IllegalArgumentException("Number must be between 0 and 53644737765488792839237440000 - 1");
         }
@@ -175,18 +180,22 @@ public class PavlicekNumber {
             x = getNewX(k, west, cards);
             west--;
         }
-        Map<Direction, Hand> returnMap = new HashMap<Direction, Hand>();
+        List<Tuple2<Direction, CompleteHand>> list = new ArrayList<>();
         for (Direction direction : Direction.values()) {
             List<Card> listOfCardsForDirection = map.get(direction);
-            returnMap.put(direction, new Hand(listOfCardsForDirection));
+            CompleteHand completeHand = new CompleteHand(new Hand(listOfCardsForDirection));
+            Tuple2<Direction, CompleteHand> current = new Tuple2<Direction, CompleteHand>(direction, completeHand);
+            list.add(current);
         }
-        return new Board(returnMap, Direction.getNorth());
+        Buffer<Tuple2<Direction, CompleteHand>> scalaBuffer = CollectionConverters.asScala(list);
+        scala.collection.immutable.Map<Direction, CompleteHand> scalaImmutableMap = scala.collection.immutable.Map.from(scalaBuffer);
+        return new CompleteDeckInFourHands(scalaImmutableMap);
     }
 
-    private Map<Integer, Direction> preProcess(Board board) {
+    private Map<Integer, Direction> preProcess(CompleteDeckInFourHands completeDeckInFourHands) {
         Map<Integer, Direction> map = new HashMap<Integer, Direction>();
         for (Direction direction : Direction.values()) {
-            Collection<Card> cards = board.getHandOf(direction).getCards();
+            Set<Card> cards = CollectionConverters.asJava(completeDeckInFourHands.getHandOf(direction).cards());
             for (Card card : cards) {
                 map.put(card.hashCode(), direction);
             }
@@ -202,9 +211,9 @@ public class PavlicekNumber {
         return x.add(BigInteger.ZERO);
     }
 
-    private static void printBoard(Board board) {
+    private static void printBoard(CompleteDeckInFourHands completeDeckInFourHands) {
         for (Direction direction : Direction.values()) {
-            System.out.println(board.getHandOf(direction));
+            System.out.println(completeDeckInFourHands.getHandOf(direction));
         }
     }
 

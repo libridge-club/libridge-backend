@@ -21,7 +21,6 @@ import club.libridge.libridgebackend.app.persistence.BoardEntity;
 import club.libridge.libridgebackend.app.persistence.BoardFactory;
 import club.libridge.libridgebackend.app.persistence.BoardRepository;
 import club.libridge.libridgebackend.app.persistence.DoubleDummyTableEntity;
-import club.libridge.libridgebackend.core.Board;
 import club.libridge.libridgebackend.core.Deal;
 import club.libridge.libridgebackend.core.Player;
 import club.libridge.libridgebackend.core.RandomNameGenerator;
@@ -40,7 +39,10 @@ import club.libridge.libridgebackend.utils.FileUtils;
 import jakarta.annotation.PostConstruct;
 import scalabridge.Call;
 import scalabridge.Card;
+import scalabridge.CompleteDeckInFourHands;
 import scalabridge.Direction;
+import scalabridge.DuplicateBoard;
+import scalabridge.PositiveInteger;
 import scalabridge.Strain;
 
 /**
@@ -333,13 +335,19 @@ public class LibridgeServer {
             return Optional.empty();
         }
         BoardEntity randomBoardEntity = random.get();
-        Board board = this.boardFactory.fromEntity(randomBoardEntity);
-        BoardDTO boardDTO = new BoardDTO(board, randomBoardEntity.getPavlicekNumber(), PBNUtils.dealTagStringFromBoard(board));
+        CompleteDeckInFourHands board = this.boardFactory.fromEntity(randomBoardEntity);
+        DuplicateBoard duplicateBoard = this.fromCompleteDeckInFourHands(board);
+        BoardDTO boardDTO = new BoardDTO(duplicateBoard, randomBoardEntity.getPavlicekNumber(), PBNUtils.dealTagStringFromBoard(board));
         boardDTO.setId(randomBoardEntity.getId());
         if (randomBoardEntity.getDoubleDummyTableEntity() != null) {
             boardDTO.setDoubleDummyTable(randomBoardEntity.getDoubleDummyTableEntity().getDoubleDummyTable());
         }
         return Optional.of(boardDTO);
+    }
+
+    private DuplicateBoard fromCompleteDeckInFourHands(CompleteDeckInFourHands deck) {
+        int northAsDealer = 1;
+        return new DuplicateBoard(new PositiveInteger(northAsDealer), deck);
     }
 
     public Optional<BoardDTO> getBoardByPavlicekNumber(BoardRepository repository, String pavlicekNumber) {
@@ -349,17 +357,19 @@ public class LibridgeServer {
             return Optional.empty();
         }
         BoardEntity boardEntity = list.get(0);
-        Board board = this.boardFactory.fromEntity(boardEntity);
-        BoardDTO boardDTO = new BoardDTO(board, pavlicekNumber, PBNUtils.dealTagStringFromBoard(board));
+        CompleteDeckInFourHands board = this.boardFactory.fromEntity(boardEntity);
+        DuplicateBoard duplicateBoard = this.fromCompleteDeckInFourHands(board);
+        BoardDTO boardDTO = new BoardDTO(duplicateBoard, pavlicekNumber, PBNUtils.dealTagStringFromBoard(board));
         boardDTO.setId(boardEntity.getId());
         return Optional.of(boardDTO);
     }
 
     public BoardDTO createRandomBoard(BoardRepository repository) {
-        Board board = this.boardFactory.getRandom();
+        CompleteDeckInFourHands board = this.boardFactory.getRandom();
         BoardEntity boardEntity = new BoardEntity(board);
         repository.saveAndFlush(boardEntity);
-        BoardDTO boardDTO = new BoardDTO(board, boardEntity.getPavlicekNumber(), PBNUtils.dealTagStringFromBoard(board));
+        DuplicateBoard duplicateBoard = this.fromCompleteDeckInFourHands(board);
+        BoardDTO boardDTO = new BoardDTO(duplicateBoard, boardEntity.getPavlicekNumber(), PBNUtils.dealTagStringFromBoard(board));
         boardDTO.setId(boardEntity.getId());
         return boardDTO;
     }
@@ -384,7 +394,7 @@ public class LibridgeServer {
             for (int j = 1; j <= 20; j++) {
                 finalTable.add(Integer.parseInt(table[j]));
             }
-            Board boardFromDealTag = PBNUtils.getBoardFromDealTag(finalPbn);
+            CompleteDeckInFourHands boardFromDealTag = PBNUtils.getBoardFromDealTag(finalPbn);
             DoubleDummyTable doubleDummyTable = new DoubleDummyTable(finalTable);
 
             BoardEntity boardEntity = new BoardEntity(boardFromDealTag);
@@ -406,7 +416,7 @@ public class LibridgeServer {
         this.createTable(MinibridgeGameServer.class);
     }
 
-    public Call getExpectedCall(Board board) {
+    public Call getExpectedCall(DuplicateBoard board) {
         return new OpeningSystem().getCall(board);
     }
 

@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-import club.libridge.libridgebackend.core.Board;
 import club.libridge.libridgebackend.core.boardrules.BoardRule;
 import club.libridge.libridgebackend.core.boardrules.bridgeopenings.AlwaysValidBoardRule;
 import club.libridge.libridgebackend.core.boardrules.bridgeopenings.DealerHasFourWeakOpeningBoardRule;
@@ -21,6 +20,7 @@ import club.libridge.libridgebackend.core.boardrules.bridgeopenings.DealerHasTwo
 import scala.jdk.javaapi.OptionConverters;
 import scalabridge.BiddingBox;
 import scalabridge.Call;
+import scalabridge.DuplicateBoard;
 import scalabridge.OddTricks;
 import scalabridge.Strain;
 import scalabridge.Suit;
@@ -29,7 +29,7 @@ import scalabridge.Suit;
 public class OpeningSystem {
 
     interface BiddableFromBoard {
-        Call getCorrectCall(Board board);
+        Call getCorrectCall(DuplicateBoard board);
     }
 
     private static final Map<BoardRule, BiddableFromBoard> RULE_TO_CALL_MAP;
@@ -42,61 +42,61 @@ public class OpeningSystem {
 
         class TwoClubsBiddable implements BiddableFromBoard {
             @Override
-            public Call getCorrectCall(Board board) {
+            public Call getCorrectCall(DuplicateBoard board) {
                 return getCallUnsafely("2C");
             }
         }
 
         class OneMajorBiddable implements BiddableFromBoard {
             @Override
-            public Call getCorrectCall(Board board) {
-                Suit longestMajor = board.getHandOf(board.getDealer()).getHandEvaluations().getLongestMajor();
+            public Call getCorrectCall(DuplicateBoard board) {
+                Suit longestMajor = board.getHandOf(board.getDealer()).hand().getHandEvaluations().getLongestMajor();
                 return BiddingBox.getBid(OddTricks.getONE(), Strain.fromSuit(longestMajor));
             }
         }
 
         class OneNoTrumpBiddable implements BiddableFromBoard {
             @Override
-            public Call getCorrectCall(Board board) {
+            public Call getCorrectCall(DuplicateBoard board) {
                 return getCallUnsafely("1N");
             }
         }
 
         class TwoNoTrumpsBiddable implements BiddableFromBoard {
             @Override
-            public Call getCorrectCall(Board board) {
+            public Call getCorrectCall(DuplicateBoard board) {
                 return getCallUnsafely("2N");
             }
         }
 
         class OneMinorBiddable implements BiddableFromBoard {
             @Override
-            public Call getCorrectCall(Board board) {
-                Suit longestMinor = board.getHandOf(board.getDealer()).getHandEvaluations().getLongestMinor();
+            public Call getCorrectCall(DuplicateBoard board) {
+                Suit longestMinor = board.getHandOf(board.getDealer()).hand().getHandEvaluations().getLongestMinor();
                 return BiddingBox.getBid(OddTricks.getONE(), Strain.fromSuit(longestMinor));
             }
         }
 
         class FourWeakBiddable implements BiddableFromBoard {
             @Override
-            public Call getCorrectCall(Board board) {
-                Suit longestSuit = board.getHandOf(board.getDealer()).getHandEvaluations().getLongestSuit();
+            public Call getCorrectCall(DuplicateBoard board) {
+                Suit longestSuit = board.getHandOf(board.getDealer()).hand().getHandEvaluations().getLongestSuit();
                 return BiddingBox.getBid(OddTricks.getFOUR(), Strain.fromSuit(longestSuit));
             }
         }
 
         class ThreeWeakBiddable implements BiddableFromBoard {
             @Override
-            public Call getCorrectCall(Board board) {
-                Suit longestSuit = board.getHandOf(board.getDealer()).getHandEvaluations().getLongestSuit();
+            public Call getCorrectCall(DuplicateBoard board) {
+                Suit longestSuit = board.getHandOf(board.getDealer()).hand().getHandEvaluations().getLongestSuit();
                 return BiddingBox.getBid(OddTricks.getTHREE(), Strain.fromSuit(longestSuit));
             }
         }
 
         class TwoWeakBiddable implements BiddableFromBoard {
             @Override
-            public Call getCorrectCall(Board board) {
-                Suit longestSuit = board.getHandOf(board.getDealer()).getHandEvaluations().getLongestSuit();
+            public Call getCorrectCall(DuplicateBoard board) {
+                Suit longestSuit = board.getHandOf(board.getDealer()).hand().getHandEvaluations().getLongestSuit();
                 return BiddingBox.getBid(OddTricks.getTWO(), Strain.fromSuit(longestSuit));
             }
         }
@@ -136,7 +136,7 @@ public class OpeningSystem {
 
     }
 
-    public Call getCall(Board board) {
+    public Call getCall(DuplicateBoard board) {
         try {
             BoardRule firstValidOpeningRule = this.getFirstValidOpeningRule(board);
             BiddableFromBoard biddableFromBoard = RULE_TO_CALL_MAP.get(firstValidOpeningRule);
@@ -150,7 +150,7 @@ public class OpeningSystem {
         }
     }
 
-    private BoardRule getFirstValidOpeningRule(Board board) {
+    private BoardRule getFirstValidOpeningRule(DuplicateBoard board) {
         for (BoardRule boardRule : rulePriority) {
             if (boardRule.isValid(board)) {
                 return boardRule;

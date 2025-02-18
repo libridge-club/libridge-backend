@@ -14,11 +14,12 @@ import org.springframework.test.context.ActiveProfiles;
 import club.libridge.libridgebackend.app.controller.OpeningTrainerController;
 import club.libridge.libridgebackend.app.persistence.BoardEntity;
 import club.libridge.libridgebackend.app.persistence.BoardRepository;
-import club.libridge.libridgebackend.core.Board;
 import club.libridge.libridgebackend.dto.ExpectedCallDTO;
 import club.libridge.libridgebackend.pbn.PBNUtils;
 import scalabridge.BiddingBox;
 import scalabridge.Call;
+import scalabridge.CompleteDeckInFourHands;
+import scalabridge.Direction;
 import scalabridge.OddTricks;
 import scalabridge.Strain;
 
@@ -77,10 +78,10 @@ public class OpeningTrainerControllerIT {
         handToBidMap.put(fourSpadesOpener, BiddingBox.getBid(OddTricks.getFOUR(), Strain.getSPADES()));
 
         for (Entry<String, Call> entry : handToBidMap.entrySet()) {
-            Board board = PBNUtils.getBoardFromDealTag(entry.getKey());
+            CompleteDeckInFourHands board = PBNUtils.getBoardFromDealTag(entry.getKey());
             BoardEntity boardEntity = new BoardEntity(board);
             BoardEntity saved = boardRepository.save(boardEntity);
-            ExpectedCallDTO expectedCallDTO = controller.getExpectedCall(saved.getId(), board.getDealer());
+            ExpectedCallDTO expectedCallDTO = controller.getExpectedCall(saved.getId(), Direction.NORTH);
             assertEquals(entry.getValue(), expectedCallDTO.getCall());
         }
 

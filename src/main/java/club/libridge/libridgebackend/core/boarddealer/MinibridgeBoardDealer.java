@@ -1,16 +1,12 @@
 package club.libridge.libridgebackend.core.boarddealer;
 
 import java.util.Deque;
-import java.util.HashMap;
-import java.util.Map;
 
-import club.libridge.libridgebackend.core.Board;
 import club.libridge.libridgebackend.core.exceptions.ImpossibleBoardException;
 import scalabridge.Card;
 import scalabridge.Direction;
-import scalabridge.Hand;
+import scalabridge.DuplicateBoard;
 import scalabridge.HandEvaluations;
-import scalabridge.PositiveInteger;
 import scalabridge.Side;
 
 public class MinibridgeBoardDealer implements BoardDealer {
@@ -27,23 +23,30 @@ public class MinibridgeBoardDealer implements BoardDealer {
      * its partner.
      */
     @Override
-    public Board dealBoard(Direction dealer, Deque<Card> deck) {
+    public DuplicateBoard dealBoard(Direction dealer, Deque<Card> deck) {
         int dealerPartnershipHCP;
         int nonDealerPartnershipHCP;
         int numberOfTries = 0;
-        Board board;
+        int dealerHCP;
+        boolean isDealerMaximum;
+        DuplicateBoard board;
 
         do {
             dealerPartnershipHCP = 0;
             nonDealerPartnershipHCP = 0;
             board = shuffledBoardDealer.dealBoard(dealer, deck);
+            dealerHCP = board.getHandOf(dealer).hand().getHandEvaluations().getHCP();
+            isDealerMaximum = true;
             for (Direction direction : Direction.values()) {
-                HandEvaluations handEvaluations = board.getHandOf(direction).getHandEvaluations();
+                HandEvaluations handEvaluations = board.getHandOf(direction).hand().getHandEvaluations();
                 int hcp = handEvaluations.getHCP();
                 if (Side.getFromDirection(direction) == Side.getFromDirection(dealer)) {
                     dealerPartnershipHCP += hcp;
                 } else {
                     nonDealerPartnershipHCP += hcp;
+                }
+                if (direction != dealer && hcp > dealerHCP) {
+                    isDealerMaximum = false;
                 }
             }
             if (numberOfTries > MAXIMUM_NUMBER_OF_TRIES) {
@@ -51,30 +54,9 @@ public class MinibridgeBoardDealer implements BoardDealer {
             } else {
                 numberOfTries++;
             }
-        } while (dealerPartnershipHCP == nonDealerPartnershipHCP);
-
-        if (dealerPartnershipHCP < nonDealerPartnershipHCP) {
-            board = this.rotateHands(board, 1);
-        }
-
-        HandEvaluations dealerHandEvaluations = board.getHandOf(dealer).getHandEvaluations();
-        HandEvaluations dealerPartnerHandEvaluations = board.getHandOf(dealer.next(new PositiveInteger(2))).getHandEvaluations();
-        if (dealerHandEvaluations.getHCP() < dealerPartnerHandEvaluations.getHCP()) {
-            board = this.rotateHands(board, 2);
-        }
+        } while (dealerPartnershipHCP < nonDealerPartnershipHCP || !isDealerMaximum);
 
         return board;
-    }
-
-    private Board rotateHands(Board board, int i) {
-        Map<Direction, Hand> hands = new HashMap<Direction, Hand>();
-        if (i < 0) {
-            throw new IllegalArgumentException("i must be non-negative");
-        }
-        for (Direction direction : Direction.values()) {
-            hands.put(direction.next(new PositiveInteger(i)), board.getHandOf(direction));
-        }
-        return new Board(hands, board.getDealer());
     }
 
 }

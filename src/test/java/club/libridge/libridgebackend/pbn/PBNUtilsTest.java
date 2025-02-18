@@ -6,11 +6,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import club.libridge.libridgebackend.core.Board;
 import club.libridge.libridgebackend.core.boarddealer.Complete52CardDeck;
 import club.libridge.libridgebackend.core.boarddealer.ShuffledBoardDealer;
 import club.libridge.libridgebackend.core.boarddealer.ShuffledBoardDealerWithSeed;
 import scalabridge.Card;
+import scalabridge.CompleteDeckInFourHands;
 import scalabridge.Direction;
 import scalabridge.Hand;
 import scalabridge.Rank;
@@ -21,7 +21,7 @@ public class PBNUtilsTest {
     @Test
     void testPbnStringFromBoard() {
         ShuffledBoardDealer shuffledBoardDealer = new ShuffledBoardDealer();
-        Board dealBoard = shuffledBoardDealer.dealBoard(Direction.getNorth(), new Complete52CardDeck().getDeck());
+        CompleteDeckInFourHands dealBoard = shuffledBoardDealer.dealBoard(Direction.getNorth(), new Complete52CardDeck().getDeck()).hands();
 
         String response = PBNUtils.dealTagStringFromBoard(dealBoard);
 
@@ -34,7 +34,8 @@ public class PBNUtilsTest {
 
         long arbitrarySeed = 123L;
         ShuffledBoardDealerWithSeed shuffledBoardDealerWithSeed = new ShuffledBoardDealerWithSeed(arbitrarySeed);
-        Board boardWithSeed = shuffledBoardDealerWithSeed.dealBoard(Direction.getNorth(), new Complete52CardDeck().getDeck());
+        CompleteDeckInFourHands boardWithSeed = shuffledBoardDealerWithSeed.dealBoard(Direction.getNorth(), new Complete52CardDeck().getDeck())
+                .hands();
         String expectedString = "E:86.KT2.Q9742.K85 KJT932.97.86.942 54.8653.3.AQJT73 AQ7.AQJ4.AKJT5.6";
 
         String response = PBNUtils.dealTagStringFromBoardAndDirection(boardWithSeed, Direction.getEast());
@@ -48,16 +49,14 @@ public class PBNUtilsTest {
 
         String inputString = "E:86.KT2.K85.Q9742 KJT932.97.942.86 54.8653.AQJT73.3 AQ7.AQJ4.6.AKJT5";
 
-        Board response = PBNUtils.getBoardFromDealTag(inputString);
+        CompleteDeckInFourHands response = PBNUtils.getBoardFromDealTag(inputString);
 
-        assertEquals(response.getDealer(), Direction.getEast());
-
-        Hand east = response.getHandOf(Direction.getEast());
+        Hand east = response.getHandOf(Direction.getEast()).hand();
         assertTrue(east.containsCard(new Card(Suit.getSPADES(), Rank.getEIGHT())));
         assertFalse(east.containsCard(new Card(Suit.getSPADES(), Rank.getACE())));
         assertTrue(east.containsCard(new Card(Suit.getHEARTS(), Rank.getKING())));
 
-        Hand north = response.getHandOf(Direction.getNorth());
+        Hand north = response.getHandOf(Direction.getNorth()).hand();
         assertTrue(north.containsCard(new Card(Suit.getSPADES(), Rank.getQUEEN())));
         assertFalse(north.containsCard(new Card(Suit.getDIAMONDS(), Rank.getACE())));
         assertTrue(north.containsCard(new Card(Suit.getCLUBS(), Rank.getJACK())));
